@@ -1,0 +1,7 @@
+.contenedor{
+    width: 150px;
+    height: 500px;
+    border: 1px solid silver;
+    display:table-cell;
+    vertical-align:middle;
+}
