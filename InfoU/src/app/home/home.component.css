@@ -5,3 +5,41 @@
     display:table-cell;
     vertical-align:middle;
 }
+
+.caption0{
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 6em;
+    width: 100%;
+}
+
+.caption1{
+    position: fixed;
+    left: 2em;
+    top: 5em;
+    width: 100%;
+    z-index: 100;
+    text-align: left;
+    color: #0088f0;
+}
+
+.caption2{
+    position: fixed;
+    left: 2em;
+    bottom: 10em;
+    width: 100%;
+    z-index: 100;
+    text-align: left;
+    color: #ffffff;
+}
+
+.caption3{
+    position: fixed;
+    right: 2em;
+    bottom: 10em;
+    width: 100%;
+    z-index: 100;
+    text-align: right;
+    color: #ffffff;
+}

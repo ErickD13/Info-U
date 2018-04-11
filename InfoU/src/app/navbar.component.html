@@ -1,13 +1,21 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark header text-center">
-  <a class="navbar-brand" href="/"><img src="./assets/images/logo.png"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <a class="navbar-brand" href="/">
+    <img src="./assets/images/logo.png">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
+      <!--Contenido a la izquierda-->
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
       <li class="nav-item active">
-        <a class="nav-link" href="/inicio">Inicio <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/inicio">Inicio
+          <span class="sr-only">(current)</span>
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/oportunidades">Oportunidades</a>
@@ -16,27 +24,47 @@
         <a class="nav-link" href="/historias-de-exito">Historias de Éxito</a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
           Universidades
         </a>
-        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">USAC</a>
-          <a class="dropdown-item" href="#">UMG</a>
-          <a class="dropdown-item" href="#">UFM</a>
-          <a class="dropdown-item" href="#">URL</a>
-          <a class="dropdown-item" href="#">UVG</a>
-          <a class="dropdown-item" href="#">UR</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+        <div class="dropdown-menu text-center bg-dark" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item text-success" href="http://www.udeo.edu.gt/" target="_blank">UDEO</a>
+          <a class="dropdown-item text-success" href="http://udv.edu.gt/" target="_blank">UDV</a>
+          <a class="dropdown-item text-success" href="http://www.ufm.edu/" target="_blank">UFM</a>
+          <a class="dropdown-item text-success" href="http://galileo.edu/" target="_blank">UG</a>
+          <a class="dropdown-item text-success" href="http://www.umes.edu.gt/" target="_blank">UMES</a>
+          <a class="dropdown-item text-success" href="http://www.umg.edu.gt/" target="_blank">UMG</a>
+          <a class="dropdown-item text-success" href="http://www.uni.edu.gt/" target="_blank">UNI</a>
+          <a class="dropdown-item text-success" href="http://www.unis.edu.gt/" target="_blank">UNIS</a>
+          <a class="dropdown-item text-success" href="http://www.upana.edu.gt/" target="_blank">UPANA</a>
+          <a class="dropdown-item text-success" href="http://www.uregional.edu.gt/" target="_blank">UR</a>
+          <a class="dropdown-item text-success" href="http://principal.url.edu.gt/" target="_blank">URL</a>
+          <a class="dropdown-item text-success" href="http://www.urural.edu.gt/" target="_blank">URG</a>
+          <a class="dropdown-item text-success" href="http://www.usac.edu.gt" target="_blank">USAC</a>
+          <a class="dropdown-item text-success" href="http://uspg.edu.gt/" target="_blank">USPG</a>
+          <a class="dropdown-item text-success" href="http://www.uvg.edu.gt/" target="_blank">UVG</a>
         </div>
       </li>
+      <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Nuestra Investigación
+          </a>
+          <div class="dropdown-menu text-center bg-dark" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item text-success" href="/encuesta1" target="_blank">¿Universidad?</a>
+            <a class="dropdown-item text-success" href="/encuesta1" target="_blank">Tendencia Actual</a>
+            <a class="dropdown-item text-success" href="/encuesta1" target="_blank">Nuevos Avances</a>
+            <a class="dropdown-item text-success" href="/encuesta1" target="_blank">Proyecciones</a>
+          </div>
+        </li>
       <li class="nav-item">
-        <a class="nav-link " href="#">Sobre Nosotros</a>
+        <a class="nav-link " href="/sobre-nosotros">Sobre Nosotros</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+    <!--<form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" />
       <button class="form-control btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-    </form>
+    </form>-->
   </div>
 </nav>
