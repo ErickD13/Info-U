@@ -13,15 +13,15 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="nav-item active">
-        <a class="nav-link" href="/inicio">Inicio
+        <a class="nav-link" [routerLink]="'/inicio'">Inicio
           <span class="sr-only">(current)</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/oportunidades">Oportunidades</a>
+        <a class="nav-link" [routerLink]="'/oportunidades'">Oportunidades</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/historias-de-exito">Historias de Éxito</a>
+        <a class="nav-link" [routerLink]="'/historias-de-exito'">Historias de Éxito</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -52,14 +52,14 @@
             Nuestra Investigación
           </a>
           <div class="dropdown-menu text-center bg-dark" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item text-success" href="/encuesta1" target="_blank">¿Universidad?</a>
-            <a class="dropdown-item text-success" href="/encuesta1" target="_blank">Tendencia Actual</a>
-            <a class="dropdown-item text-success" href="/encuesta1" target="_blank">Nuevos Avances</a>
-            <a class="dropdown-item text-success" href="/encuesta1" target="_blank">Proyecciones</a>
+            <a class="dropdown-item text-success" [routerLink]="'/encuesta1'">¿Universidad?</a>
+            <a class="dropdown-item text-success" [routerLink]="'/encuesta1'">Tendencia Actual</a>
+            <a class="dropdown-item text-success" [routerLink]="'/encuesta1'">Nuevos Avances</a>
+            <a class="dropdown-item text-success" [routerLink]="'/encuesta1'">Proyecciones</a>
           </div>
         </li>
       <li class="nav-item">
-        <a class="nav-link " href="/sobre-nosotros">Sobre Nosotros</a>
+        <a class="nav-link " [routerLink]="'/sobre-nosotros'">Sobre Nosotros</a>
       </li>
     </ul>
     <!--<form class="form-inline my-2 my-lg-0">
