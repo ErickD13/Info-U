@@ -27,6 +27,10 @@
     margin-top: 70px; /* Add a top margin to avoid content overlay */
 } 
 
+.eArriba55{
+    margin-top: 55px;
+}
+
 .footer {
 position: fixed;
 left: 0;

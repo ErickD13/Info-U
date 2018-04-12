@@ -29,6 +29,12 @@
     $('li.active').removeClass('active');
     $('a[href="' + location.pathname + '"]').closest('li').addClass('active');
   </script>
+
+  <script>
+    $(document).on('click', '.navbar-collapse.show', function (e) {
+      $(this).collapse('hide');
+    });
+  </script>
 </body>
 
 </html>
