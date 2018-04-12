@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark header text-center">
-  <a class="navbar-brand" href="/">
+  <a class="navbar-brand" [routerLink]="'/'">
     <img src="./assets/images/logo.png">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -13,7 +13,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="'/inicio'">Inicio
+        <a class="nav-link" [routerLink]="'/'">Inicio
           <span class="sr-only">(current)</span>
         </a>
       </li>
