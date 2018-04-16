@@ -7,12 +7,16 @@ import { NuestraInvestigacionComponent } from './nuestra-investigacion/nuestra-i
 import { ModuleWithProviders } from '@angular/compiler/src/core';
 
 const appRoutes: Routes =  [
-  //{ path: '', redirectTo: '/inicio', pathMatch: 'full' },
+  { path: '', redirectTo: '/inicio', pathMatch: 'full' },
+  { path: 'oportunidades', redirectTo: '/oportunidades', pathMatch: 'full' },
+  { path: 'historias-de-exito', redirectTo: '/historias-de-exito', pathMatch: 'full' },
+  { path: 'sobre-nosotros', redirectTo: '/sobre-nosotros', pathMatch: 'full' },
+  { path: 'encuesta1', redirectTo: '/encuesta1', pathMatch: 'full' },
   { path: 'oportunidades', component: OportunidadesComponent },
-  { path: '', component: HomeComponent },
+  { path: 'inicio', component: HomeComponent },
   { path: 'historias-de-exito', component: HistoriasDeExitoComponent },
   { path: 'sobre-nosotros', component: SobreNosotrosComponent },
-  { path: 'encuesta1', component: NuestraInvestigacionComponent }
+  { path: 'encuesta1', component: NuestraInvestigacionComponent },
 ];
 
 export const routes:ModuleWithProviders = RouterModule.forRoot(appRoutes);
