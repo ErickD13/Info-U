@@ -31,8 +31,8 @@
     margin-top: 55px;
 }
 
-.eArriba5{
-    margin-top: 5px;
+.eArriba7{
+    margin-top: 7px;
 }
 
 .eArriba200{
@@ -61,6 +61,13 @@ padding-bottom: 200px;
 
 .eAbajo100 {
 padding-bottom: 100px;
+}
+
+.encuadrar{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .footer {
