@@ -31,8 +31,36 @@
     margin-top: 55px;
 }
 
+.eArriba5{
+    margin-top: 5px;
+}
+
 .eArriba200{
     margin-top: 200px;
+}
+
+.eArriba25 {
+    padding-top: 25px;
+    }
+    
+.eArriba100 {
+    padding-top: 100px;
+    }
+
+.eArriba200 {
+padding-top: 200px;
+}
+
+.eAbajo25 {
+padding-bottom: 25px;
+}
+
+.eAbajo200 {
+padding-bottom: 200px;
+}
+
+.eAbajo100 {
+padding-bottom: 100px;
 }
 
 .footer {
@@ -64,30 +92,6 @@ img {
     height: auto;
 }
 
-.eArriba25 {
-padding-top: 25px;
-}
-
-.eArriba100 {
-    padding-top: 100px;
-    }
-
-.eArriba200 {
-padding-top: 200px;
-}
-
-.eAbajo25 {
-padding-bottom: 25px;
-}
-
-.eAbajo200 {
-padding-bottom: 200px;
-}
-
-.eAbajo100 {
-padding-bottom: 100px;
-}
-
 .right {
 float: right;
 width: 220px;
@@ -102,3 +106,58 @@ width: 200px;
 height: 30px;
 padding-bottom: 20px;
 }
+
+/* Social bar 
+
+.fa {
+    margin-top: 5px;
+    padding: 0px;
+    font-size: 30px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+}
+
+/* Add a hover effect if you want 
+.fa:hover {
+    opacity: 0.7;
+}
+
+/* Set a specific color for each brand
+
+/* Facebook 
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+/* Twitter 
+.fa-twitter {
+    background: #55ACEE;
+    color: white;
+}
+
+.fa-google {
+    background: #dd4b39;
+    color: white;
+  }
+
+.fa-linkedin {
+    background: #007bb5;
+    color: white;
+  }
+  
+  .fa-youtube {
+    background: #bb0000;
+    color: white;
+  }
+  
+  .fa-instagram {
+    background: #125688;
+    color: white;
+  }
+
+  .fa-envelope{
+    color: white;
+  }*/
