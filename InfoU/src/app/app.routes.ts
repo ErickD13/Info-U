@@ -5,6 +5,7 @@ import { HistoriasDeExitoComponent } from './historias-de-exito/historias-de-exi
 import { SobreNosotrosComponent } from './sobre-nosotros/sobre-nosotros.component';
 import { NuestraInvestigacionComponent } from './nuestra-investigacion/nuestra-investigacion.component';
 import { ModuleWithProviders } from '@angular/compiler/src/core';
+import { Resultado1Component } from './resultado1/resultado1.component';
 
 const appRoutes: Routes =  [
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
@@ -18,6 +19,7 @@ const appRoutes: Routes =  [
   { path: 'historias-de-exito', component: HistoriasDeExitoComponent },
   { path: 'sobre-nosotros', component: SobreNosotrosComponent },
   { path: 'encuesta1', component: NuestraInvestigacionComponent },
+  { path: 'resultado1', component: Resultado1Component },
 ];
 
 export const routes:ModuleWithProviders = RouterModule.forRoot(appRoutes, { useHash: true });

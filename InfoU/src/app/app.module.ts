@@ -9,6 +9,7 @@ import { OportunidadesComponent } from './oportunidades/oportunidades.component'
 import { HistoriasDeExitoComponent } from './historias-de-exito/historias-de-exito.component';
 import { SobreNosotrosComponent } from './sobre-nosotros/sobre-nosotros.component';
 import { NuestraInvestigacionComponent } from './nuestra-investigacion/nuestra-investigacion.component';
+import { Resultado1Component } from './resultado1/resultado1.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { NuestraInvestigacionComponent } from './nuestra-investigacion/nuestra-i
     HistoriasDeExitoComponent,
     SobreNosotrosComponent,
     NuestraInvestigacionComponent,
+    Resultado1Component,
   ],
   imports: [
     routes,
