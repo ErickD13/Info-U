@@ -1,0 +1,28 @@
+<div class="bg-blue">
+  <!--{{ carousel$ | async | json }}-->
+  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+    <div ngxSlickItem *ngFor="let slide of carousel$ | async" class="slide">
+      <!--<app-modal-carousel modalTitle="{{slide.title}}" imagePath="{{slide.img}}" description="<p class=&#34;text-center&#34;>{{slide.description}}</p>" linkPath=""></app-modal-carousel>-->
+      <img src="{{slide.img}}">
+      <!--<ngx-image-zoom [thumbImage]=slide.img></ngx-image-zoom>-->
+    </div>
+  </ngx-slick-carousel>
+</div>
+<div class="bg-light">
+  <div id="divHome" class="container eArriba25 text-center">
+    <div class="col-md-12">
+      <!--<div class="jumbotron mt-3">-->
+      <img class="logo"
+        src="https://firebasestorage.googleapis.com/v0/b/info-u-gt.appspot.com/o/general%2Flogo_big.png?alt=media&token=d3c3eeff-9607-4ff9-901b-aaedab6951d7" />
+      <!--<p class="lead"></p>-->
+      <hr class="my-4">
+      <div class="text-normal eArriba25">{{description}}</div>
+      <div class="text-header-2 eArriba25">{{question}}</div>
+      <!--<img style="width: 20%;" class="eArriba25" src="{{down_arrow}}">-->
+      <div style="min-width: 20%; max-width: 50%; margin: auto;">
+        <ng-lottie [options]="options"></ng-lottie>
+      </div>
+    </div>
+  </div>
+  <app-universities></app-universities>
+</div>
