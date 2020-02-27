@@ -1,38 +1,37 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { HistoryI } from 'src/app/shared/models/history.interface';
 import { Observable } from 'rxjs';
-import { ItemI } from 'src/app/shared/models/item.interface';
 import { GetDataService } from 'src/app/shared/services/get-data.service';
-import { UniversityI } from 'src/app/shared/models/university.interface';
 
 @Component({
-  selector: 'app-universities',
-  templateUrl: './universities.component.html',
-  styleUrls: ['./universities.component.css']
+  selector: 'app-histories',
+  templateUrl: './histories.component.html',
+  styleUrls: ['./histories.component.css']
 })
-export class UniversitiesComponent implements OnInit {
+export class HistoriesComponent implements OnInit {
 
   public innerWidth: any;
   slideConfig: any;
-  title = 'Elige tu universidad';
-  description = 'Existen 14 universidades en el país con gran variedad de carreras';
-  universities$: Observable<UniversityI[]>;
+  title = 'Historias de éxito';
+  description = 'En caso de que aún te falte motivación, aprede sobre lo que han logrado muchos guatemaltecos, es realmente increíble';
+  histories$: Observable<HistoryI[]>;
 
   constructor(private dataSvc: GetDataService) { }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
-    this.universities(this.innerWidth);
-    let item: UniversityI;
-    this.universities$ = this.dataSvc.getUniversities();
+    this.histories(this.innerWidth);
+    let item: HistoryI;
+    this.histories$ = this.dataSvc.getHistories();
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.innerWidth = window.innerWidth;
-    this.universities(this.innerWidth);
+    this.histories(this.innerWidth);
   }
 
-  universities(innerWidth: number) {
+  histories(innerWidth: number) {
     if (innerWidth >= 0 && innerWidth <= 600) {
       this.slideConfig = {
         "slidesToShow": 1,

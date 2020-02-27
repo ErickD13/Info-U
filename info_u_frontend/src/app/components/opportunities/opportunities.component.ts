@@ -1,38 +1,37 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ItemI } from 'src/app/shared/models/item.interface';
+import { OpportunityI } from 'src/app/shared/models/opportunity';
 import { GetDataService } from 'src/app/shared/services/get-data.service';
-import { UniversityI } from 'src/app/shared/models/university.interface';
 
 @Component({
-  selector: 'app-universities',
-  templateUrl: './universities.component.html',
-  styleUrls: ['./universities.component.css']
+  selector: 'app-opportunities',
+  templateUrl: './opportunities.component.html',
+  styleUrls: ['./opportunities.component.css']
 })
-export class UniversitiesComponent implements OnInit {
+export class OportunitiesComponent implements OnInit {
 
   public innerWidth: any;
   slideConfig: any;
-  title = 'Elige tu universidad';
-  description = 'Existen 14 universidades en el país con gran variedad de carreras';
-  universities$: Observable<UniversityI[]>;
+  title = 'Busca una opportunidad';
+  description = 'En guatemala tenemos una universidad pública y además hay una gran variedad de becas, incluso ayuda social del gobierno, a continuación puedes apreciar algunas de las más importantes.';
+  opportunities$: Observable<OpportunityI[]>;
 
   constructor(private dataSvc: GetDataService) { }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
-    this.universities(this.innerWidth);
-    let item: UniversityI;
-    this.universities$ = this.dataSvc.getUniversities();
+    this.opportunities(this.innerWidth);
+    let item: OpportunityI;
+    this.opportunities$ = this.dataSvc.getOpportunities();
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.innerWidth = window.innerWidth;
-    this.universities(this.innerWidth);
+    this.opportunities(this.innerWidth);
   }
 
-  universities(innerWidth: number) {
+  opportunities(innerWidth: number) {
     if (innerWidth >= 0 && innerWidth <= 600) {
       this.slideConfig = {
         "slidesToShow": 1,

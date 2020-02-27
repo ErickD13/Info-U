@@ -1,0 +1,22 @@
+<div class="container text-center">
+    <div class="col-md-12">
+        <h1>{{title}}</h1>
+        <!--<p class="lead"></p>-->
+        <hr class="my-4">
+        <div>{{description}}</div>
+        <ngx-slick-carousel class="carousel eArriba25" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem class="slide">
+                <ngbd-modal-basic modalTitle="test" imagePath="https://firebasestorage.googleapis.com/v0/b/info-u-gt.appspot.com/o/general%2Flogo_big.png?alt=media&token=d3c3eeff-9607-4ff9-901b-aaedab6951d7" description="description test" linkPath="">
+                </ngbd-modal-basic>
+            </div>
+            <div ngxSlickItem class="slide">
+                <ngbd-modal-basic modalTitle="test" imagePath="https://firebasestorage.googleapis.com/v0/b/info-u-gt.appspot.com/o/general%2Flogo_big.png?alt=media&token=d3c3eeff-9607-4ff9-901b-aaedab6951d7" description="description test" linkPath="">
+                </ngbd-modal-basic>
+            </div>
+            <div ngxSlickItem class="slide">
+                <ngbd-modal-basic modalTitle="test" imagePath="https://firebasestorage.googleapis.com/v0/b/info-u-gt.appspot.com/o/general%2Flogo_big.png?alt=media&token=d3c3eeff-9607-4ff9-901b-aaedab6951d7" description="description test" linkPath="">
+                </ngbd-modal-basic>
+            </div>
+        </ngx-slick-carousel>
+    </div>
+</div>

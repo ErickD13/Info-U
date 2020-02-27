@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  options: AnimationOptions = {
+  lottie_options: AnimationOptions = {
     path: 'https://assets6.lottiefiles.com/packages/lf20_uzoyW6.json'
   };
 }

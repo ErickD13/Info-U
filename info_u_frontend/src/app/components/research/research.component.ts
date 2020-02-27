@@ -1,38 +1,45 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ItemI } from 'src/app/shared/models/item.interface';
 import { GetDataService } from 'src/app/shared/services/get-data.service';
-import { UniversityI } from 'src/app/shared/models/university.interface';
+import { ItemI } from 'src/app/shared/models/item.interface';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-universities',
-  templateUrl: './universities.component.html',
-  styleUrls: ['./universities.component.css']
+  selector: 'app-research',
+  templateUrl: './research.component.html',
+  styleUrls: ['./research.component.css']
 })
-export class UniversitiesComponent implements OnInit {
+export class ResearchComponent implements OnInit {
 
   public innerWidth: any;
   slideConfig: any;
-  title = 'Elige tu universidad';
-  description = 'Existen 14 universidades en el país con gran variedad de carreras';
-  universities$: Observable<UniversityI[]>;
+  title = 'Nuestra investigación';
+  description = 'En Info U velamos porque todos los jovenes conozcan la importancia de una vida universitaria y las grandes oportunidades que existen para alcanzar sus objetivos';
+  research$: Observable<ItemI[]>;
+  dashboard: any;
+  location: any;
+  surveys: any;
 
   constructor(private dataSvc: GetDataService) { }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
-    this.universities(this.innerWidth);
-    let item: UniversityI;
-    this.universities$ = this.dataSvc.getUniversities();
+    this.research(this.innerWidth);
+    this.research$ = this.dataSvc.getResearch();
+    this.dashboard = this.research$[0];
+    this.location = this.research$[1];
+    this.surveys = this.research$[2];
+    console.log(this.dashboard);
+    console.log(this.location);
+    console.log(this.surveys);
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.innerWidth = window.innerWidth;
-    this.universities(this.innerWidth);
+    this.research(this.innerWidth);
   }
 
-  universities(innerWidth: number) {
+  research(innerWidth: number) {
     if (innerWidth >= 0 && innerWidth <= 600) {
       this.slideConfig = {
         "slidesToShow": 1,
@@ -59,5 +66,4 @@ export class UniversitiesComponent implements OnInit {
       };
     }
   }
-
 }

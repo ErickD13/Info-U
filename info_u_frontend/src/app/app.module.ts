@@ -26,6 +26,11 @@ import { UniversitiesComponent } from './components/universities/universities.co
 //Lottie
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { OportunitiesComponent } from './components/opportunities/opportunities.component';
+import { LocationComponent } from './components/location/location.component';
+import { HistoriesComponent } from './components/histories/histories.component';
+import { ResearchComponent } from './components/research/research.component';
+import { ModalHistoryComponent } from './components/modals/modal-history/modal-history.component';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -42,7 +47,12 @@ export function playerFactory() {
     NgbdModalBasic,
     FooterComponent,
     ModalCarouselComponent,
-    UniversitiesComponent
+    UniversitiesComponent,
+    OportunitiesComponent,
+    LocationComponent,
+    HistoriesComponent,
+    ResearchComponent,
+    ModalHistoryComponent
   ],
   imports: [
     BrowserModule,

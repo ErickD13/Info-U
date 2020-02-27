@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 .eArriba55{
     margin-top: 55px;
 }
@@ -103,24 +104,12 @@ section {
 }
 
 html, body { height: 100%; width: 100%; }
-body { font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 /*Text Style*/
 
-.text-normal{
-    font-size: 2.4vmax;
-    word-wrap: break-word;
-    text-align: justify;
-    text-justify: inter-word;
-}
-
-.text-header-1{
-    font-size: 8.4vmax;
-    word-wrap: break-word;
-    font-style: inherit;
-}
-
-.text-header-2{
-    font-size: 4.8vmax;
-    word-wrap: break-word;
+.custom-text {
+    font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
 }

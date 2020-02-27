@@ -14,6 +14,9 @@ import { PageScrollService } from 'ngx-page-scroll-core';
 export class NavbarComponent implements OnInit {
 
   constructor(private loc: Location, private router: Router, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any) {
+    router.events.subscribe((val) => {
+      this.scrollToElement(val);
+     });
   }
 
   // Text
@@ -22,18 +25,18 @@ export class NavbarComponent implements OnInit {
   public nav_home = "Inicio";
   public nav_universities = "Universidades";
   public nav_opportunities = "Oportunidades";
-  public nav_research = "Nuestra Investigación";
+  public nav_research = "Nuestra investigación";
+  public nav_histories = "Historias de éxito"
 
   public survey_university = "¿Universidad?";
   public survey_career = "¿Tu pasión?";
-  public nav_programs = "Programas";
-  public nav_equipment = "Equipamiento";
 
   // Navbar
   public div_home = "#divHome";
   public div_info = "#divInfo";
   public div_universities = "#divUniversities";
   public div_opportunities = "#divOpportunities";
+  public div_histories = "#divHistories";
   public div_research = "#divResearch";
 
   //current_nav = "";

@@ -1,4 +1,4 @@
-<div class="bg-blue">
+<div class="bg-blue custom-text">
   <!--{{ carousel$ | async | json }}-->
   <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
     <div ngxSlickItem *ngFor="let slide of carousel$ | async" class="slide">
@@ -16,13 +16,20 @@
         src="https://firebasestorage.googleapis.com/v0/b/info-u-gt.appspot.com/o/general%2Flogo_big.png?alt=media&token=d3c3eeff-9607-4ff9-901b-aaedab6951d7" />
       <!--<p class="lead"></p>-->
       <hr class="my-4">
-      <div class="text-normal eArriba25">{{description}}</div>
-      <div class="text-header-2 eArriba25">{{question}}</div>
+      <div class="eArriba25">{{description}}</div>
+      <h2 class="eArriba25">{{question}}</h2>
       <!--<img style="width: 20%;" class="eArriba25" src="{{down_arrow}}">-->
-      <div style="min-width: 20%; max-width: 50%; margin: auto;">
-        <ng-lottie [options]="options"></ng-lottie>
+      <div class="lottie_down">
+        <ng-lottie [options]="lottie_options"></ng-lottie>
       </div>
     </div>
   </div>
+  <div id="divUniversities" class="eAbajoNavBar"></div>
   <app-universities></app-universities>
+  <div id="divOpportunities" class="eAbajoNavBar"></div>
+  <app-opportunities></app-opportunities>
+  <div id="divHistories" class="eAbajoNavBar"></div>
+  <app-histories></app-histories>
+  <div id="divResearch" class="eAbajoNavBar"></div>
+  <app-research></app-research>
 </div>

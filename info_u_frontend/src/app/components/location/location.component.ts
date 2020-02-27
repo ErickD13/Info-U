@@ -1,29 +1,25 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ItemI } from 'src/app/shared/models/item.interface';
 import { GetDataService } from 'src/app/shared/services/get-data.service';
-import { UniversityI } from 'src/app/shared/models/university.interface';
 
 @Component({
-  selector: 'app-universities',
-  templateUrl: './universities.component.html',
-  styleUrls: ['./universities.component.css']
+  selector: 'app-location',
+  templateUrl: './location.component.html',
+  styleUrls: ['./location.component.css']
 })
-export class UniversitiesComponent implements OnInit {
+export class LocationComponent implements OnInit {
 
   public innerWidth: any;
   slideConfig: any;
-  title = 'Elige tu universidad';
-  description = 'Existen 14 universidades en el país con gran variedad de carreras';
-  universities$: Observable<UniversityI[]>;
+  title = '¿Por qué Palín?';
+  description = 'El municipio a destacado nacionalmente en los últimos años. Además el sector industrial lo prefiere por su ubiación';
+  info$;
 
   constructor(private dataSvc: GetDataService) { }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.universities(this.innerWidth);
-    let item: UniversityI;
-    this.universities$ = this.dataSvc.getUniversities();
+    this.info$ = this.dataSvc.getHistories();
   }
 
   @HostListener('window:resize', ['$event'])

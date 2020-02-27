@@ -11,3 +11,9 @@ a:link {
     max-width: 500px;
     height: auto;
 }
+
+.lottie_down {
+    width: 30%;
+    padding: 1vw;
+    margin: auto;
+}

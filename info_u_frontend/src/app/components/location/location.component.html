@@ -1,11 +1,11 @@
-<div class="container text-center eArriba25">
+<div id="divLocation" class="container text-center eArriba55">
     <div class="col-md-12">
         <h1>{{title}}</h1>
         <!--<p class="lead"></p>-->
         <hr class="my-4">
         <div>{{description}}</div>
         <ngx-slick-carousel class="carousel eArriba25" #slickModal="slick-carousel" [config]="slideConfig">
-            <div ngxSlickItem *ngFor="let slide of universities$ | async" class="slide">
+            <div ngxSlickItem *ngFor="let slide of info$ | async" class="slide">
                 <h2>{{slide.title}}</h2>
                 <ngbd-modal-basic modalTitle="{{slide.title}}" imagePath="{{slide.img}}"
                     description="{{slide.description}}" linkPath=""></ngbd-modal-basic>
