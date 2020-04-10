@@ -6,7 +6,6 @@
         <div>{{description}}</div>
         <ngx-slick-carousel class="carousel eArriba25" #slickModal="slick-carousel" [config]="slideConfig">
             <div ngxSlickItem *ngFor="let slide of histories$ | async" class="slide">
-                <h2>{{slide.title}}</h2>
                 <ngbd-modal-history modalTitle="{{slide.title}}" imagePath="{{slide.img}}"
                     description="{{slide.description}}" linkPath="{{slide.web}}" userName="{{slide.username}}"></ngbd-modal-history>
             </div>

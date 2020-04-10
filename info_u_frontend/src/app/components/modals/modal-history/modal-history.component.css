@@ -24,3 +24,13 @@ a:link {
     color: black;
     size: 1rem;
 }
+
+.title_space{
+    height: 5rem;
+}
+
+.title{
+    font-size: 2rem;
+    white-space: pre-wrap;
+    position: relative;
+}

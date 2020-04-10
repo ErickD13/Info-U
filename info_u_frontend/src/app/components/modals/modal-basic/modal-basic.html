@@ -27,6 +27,9 @@
         <h1 *ngIf="description">{{modalTitle}}</h1>
     </div>
     <div *ngIf="imagePath">
+        <div class="title_space">
+            <h2 class="title">{{modalTitle}}</h2>
+        </div>
         <img src="{{imagePath}}" class="preview">
     </div>
 </button>

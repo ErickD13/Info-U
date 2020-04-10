@@ -28,9 +28,10 @@ export class NgbdModalBasic {
     public innerDiv: string;
 
     open(content) {
-        console.log(this.description);
+        //console.log(this.description);
         this.description = this.description.replace("&#34;", "\"");
-        console.log(this.description);
+        //console.log(this.description);
+        console.log(content);
         this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
             //this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
