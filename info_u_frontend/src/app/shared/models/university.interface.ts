@@ -6,7 +6,7 @@ export interface UniversityI {
     img: string,
     careers: Array<string>,
     locations: Array<string>,
-    opportunities: Array<OpportunityI>,
+    opportunities: Array<string>,
     description: string,
     web: string
 }

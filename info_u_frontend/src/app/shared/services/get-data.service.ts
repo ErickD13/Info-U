@@ -98,4 +98,8 @@ export class GetDataService {
     )
   }
 
+  public getOpportunity(id: string): Observable<OpportunityI>{
+    return this.afs.doc<OpportunityI>(`opportunity/${id}`).valueChanges();
+  }
+
 }

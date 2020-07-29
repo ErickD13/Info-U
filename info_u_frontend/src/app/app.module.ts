@@ -31,6 +31,7 @@ import { LocationComponent } from './components/location/location.component';
 import { HistoriesComponent } from './components/histories/histories.component';
 import { ResearchComponent } from './components/research/research.component';
 import { ModalHistoryComponent } from './components/modals/modal-history/modal-history.component';
+import { ModalUniversityComponent } from './components/modals/modal-university/modal-university.component';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -52,7 +53,8 @@ export function playerFactory() {
     LocationComponent,
     HistoriesComponent,
     ResearchComponent,
-    ModalHistoryComponent
+    ModalHistoryComponent,
+    ModalUniversityComponent
   ],
   imports: [
     BrowserModule,

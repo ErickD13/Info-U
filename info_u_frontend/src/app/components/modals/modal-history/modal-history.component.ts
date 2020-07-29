@@ -4,13 +4,13 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'ngbd-modal-history',
-  templateUrl: './modal-history.component.html',
-  styleUrls: ['./modal-history.component.css']
+    selector: 'ngbd-modal-history',
+    templateUrl: './modal-history.component.html',
+    styleUrls: ['./modal-history.component.css']
 })
 export class ModalHistoryComponent {
 
-  closeResult: string;
+    closeResult: string;
 
     constructor(private modalService: NgbModal, private router: Router) {
     }
@@ -52,8 +52,8 @@ export class ModalHistoryComponent {
         }
     }
 
-    goto(): void{
-        if(this.linkPath!=''){
+    goto(): void {
+        if (this.linkPath != '') {
             this.router.navigate([this.linkPath]);
         }
     }

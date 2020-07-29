@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ItemI } from 'src/app/shared/models/item.interface';
 import { GetDataService } from 'src/app/shared/services/get-data.service';
 import { UniversityI } from 'src/app/shared/models/university.interface';
+import { OpportunityI } from 'src/app/shared/models/opportunity';
 
 @Component({
   selector: 'app-universities',
@@ -22,8 +23,10 @@ export class UniversitiesComponent implements OnInit {
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.universities(this.innerWidth);
-    let item: UniversityI;
     this.universities$ = this.dataSvc.getUniversities();
+    this.universities$.subscribe(obsUni => {
+      console.log(obsUni);
+    })
   }
 
   @HostListener('window:resize', ['$event'])
