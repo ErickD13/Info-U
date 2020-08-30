@@ -19,13 +19,15 @@
             </div>
         </div>
     </div>
-    <div *ngIf="imagePath">
+    <div class="container" *ngIf="imagePath">
         <!--<h6 class="text-center" *ngIf="description">{{description}}</h6>-->
-        <div class="container" *ngIf="description" innerHTML="{{description}}"></div>
+        <div *ngIf="description" innerHTML="{{description}}"></div>
         <h2>Carreras</h2>
-        <div *ngFor="let career of careers">
-            <p innerHTML="{{career}}"></p>
-        </div>
+        <table>
+            <tr *ngFor = "let career of careers">
+                {{career}}
+            </tr>
+        </table>
         <h2>Oportunidades</h2>
         <div *ngFor="let opportunity of opportunities$">
             <p innerHTML="{{opportunity.title}}"></p>

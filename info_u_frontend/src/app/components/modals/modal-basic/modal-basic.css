@@ -22,4 +22,18 @@
 
 .card {
     height: 15rem;
+    width: 15rem;
+    position: relative;
+}
+
+.card img {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    height: auto;
+    width: auto;
+    max-height: 15rem;
+    max-width: 15rem;
 }
