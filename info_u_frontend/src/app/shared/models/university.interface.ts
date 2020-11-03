@@ -1,5 +1,3 @@
-import { OpportunityI } from './opportunity';
-
 export interface UniversityI {
     id: string,
     title: string,
@@ -8,5 +6,11 @@ export interface UniversityI {
     locations: Array<string>,
     opportunities: Array<string>,
     description: string,
-    web: string
+    web: string,
+    inscription_image: string,
+    inscription_link: string,
+    careers_image: string,
+    careers_link: string,
+    locations_image: string,
+    locations_link: string
 }

@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { UniversityI } from '../models/university.interface';
 import { OpportunityI } from '../models/opportunity';
 import { HistoryI } from '../models/history.interface';
+import { FacultyI } from '../models/faculty.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,47 @@ export class GetDataService {
         )
     )
   }
+
+  public getFaculties(): Observable<FacultyI[]>{
+    return this.afs.collection('faculty')
+    .snapshotChanges()
+    .pipe(
+      map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as FacultyI;
+            const id = a.payload.doc.id;
+            return { id, ... data };
+          })
+        )
+    )
+  }
+
+  public getFaculties2(): Observable<FacultyI[]>{
+    return this.afs.collection('faculty')
+    .snapshotChanges()
+    .pipe(
+      map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as FacultyI;
+            const id = a.payload.doc.id;
+            return { id, ... data };
+          })
+        )
+    )
+  }
+    
+  /*this.firestoreService.colWithIds$('restaurants').pipe(
+    switchMap((restaurants: any[]) => { 
+      const res = restaurants.map((r: any) => { 
+        return this.firestoreService
+          .col$(`restaurants/${r.id}/ratings`)
+          .pipe(
+            map(ratings => Object.assign(restaurant, {ratings}))
+          ); 
+        }); 
+      return combineLatest(...res); 
+    })
+    ).subscribe(restaurants => console.log(restaurants);*/
 
   public getOpportunities(): Observable<OpportunityI[]>{
     return this.afs.collection('opportunity')

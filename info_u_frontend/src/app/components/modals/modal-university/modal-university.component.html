@@ -1,41 +1,59 @@
-<ng-template #content let-modal>
+<ng-template #content let-modal modal-lg>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">{{modalTitle}}</h4>
+        <h4 class="modal-title title-style" id="modal-basic-title">{{university.title}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <div *ngIf="imagePath">
-            <a [className]="condition ? 'btn btn-light' : ''" (click)="goto(); modal.dismiss('Cross click');"><img src="{{imagePath}}"></a>
-        </div>
-        <div *ngIf="!imagePath">
-            <h1 *ngIf="description" innerHTML="{{description}}"></h1>
-            <div *ngIf="careers | async">
-                <h2>Carreras</h2>
-                <div *ngFor="let career of careers | async">
-                    <h2 innerHTML="{{career}}"></h2>
+        <div *ngIf="university.img" class="container">
+            <a [className]="condition ? 'btn btn-light' : ''" href="{{university.web}}" target="_blank">
+                <img src="{{university.img}}">
+            </a>
+            <div class="description">
+                <p *ngIf="university.description" innerHTML="{{university.description}}"></p>
+            </div>
+            <div class="menu row">
+                <div class="menu_option">
+                    <a href="{{university.inscription_link}}" target="_blank">
+                        <img src="{{university.inscription_image}}" alt="HTML tutorial">
+                        <p>{{inscription}}</p>
+                    </a>
+                </div>
+                <div class="menu_option">
+                    <a href="{{university.careers_link}}" target="_blank">
+                        <img src="{{university.careers_image}}">
+                        <p>{{careers}}</p>
+                    </a>
+                </div>
+                <div class="menu_option">
+                    <a href="{{university.locations_link}}" target="_blank">
+                        <img src="{{university.locations_image}}">
+                        <p>{{locations}}</p>
+                    </a>
                 </div>
             </div>
+            <div class="description">
+                <a href="{{university.web}}" target="_blank" class="text-light"><span class="fas fa-globe">
+                    </span> {{university.web}}</a>
+            </div>
         </div>
-    </div>
-    <div class="container" *ngIf="imagePath">
-        <!--<h6 class="text-center" *ngIf="description">{{description}}</h6>-->
-        <div *ngIf="description" innerHTML="{{description}}"></div>
-        <h2>Carreras</h2>
-        <table>
-            <tr *ngFor = "let career of careers">
-                {{career}}
-            </tr>
-        </table>
-        <h2>Oportunidades</h2>
-        <div *ngFor="let opportunity of opportunities$">
-            <p innerHTML="{{opportunity.title}}"></p>
+        <!--
+        <div class="container" *ngIf="university.img">
+            <h6 class="text-center" *ngIf="university.description">{{university.description}}</h6>
+            <div *ngIf="university.description" innerHTML="{{university.description}}"></div>
+            <h2>Carreras</h2>
+            <table>
+                <tr *ngFor = "let career of university.careers">
+                    {{career}}
+                </tr>
+            </table>
+            <h2>Oportunidades</h2>
+            <div *ngFor="let opportunity of university.opportunities">
+                <p innerHTML="{{opportunity}}"></p>
+            </div>
         </div>
-    </div>
-    <div class="container text-right" *ngIf="linkPath">
-        <br>
-        <a href="{{linkPath}}" class="fas fa-globe" target="_blank"><span class="text-primary linkstyle"> {{linkPath}}</span></a>
+        -->
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">{{close}}</button>
@@ -43,14 +61,14 @@
 </ng-template>
 
 <button class="btn btn-lg btn-light" (click)="open(content)">
-    <div *ngIf="!imagePath">
-        <h1 *ngIf="description">{{modalTitle}}</h1>
+    <div *ngIf="!university.img">
+        <h1 *ngIf="university.description">{{university.title}}</h1>
     </div>
-    <div *ngIf="imagePath">
+    <div *ngIf="university.img">
         <div class="title_space">
-            <h2 class="title">{{modalTitle}}</h2>
+            <h2 class="title">{{university.title}}</h2>
         </div>
-        <img src="{{imagePath}}" class="preview">
+        <img src="{{university.img}}" class="preview">
     </div>
 </button>
 

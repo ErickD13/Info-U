@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { OpportunityI } from 'src/app/shared/models/opportunity';
 import { UniversityI } from 'src/app/shared/models/university.interface';
@@ -15,34 +15,22 @@ export class ModalUniversityComponent {
 
   closeResult: string;
 
-  constructor(private modalService: NgbModal, private router: Router, private dataSvc: GetDataService) {
-  }
-
   public close = 'Cerrar';
-  public title = 'Flexiones';
+  public inscription = 'Inscripción';
+  public careers = 'Carreras';
+  public locations = 'Ubicaciones';
 
   @Input()
-  public imagePath: string;
-  @Input()
-  public modalTitle: string;
-  @Input()
-  public description: string;
-  @Input()
-  public linkPath: string;
-  @Input()
-  public careers: Array<string>;
-  @Input()
-  public locations: Array<string>;
-  @Input()
-  public opportunities: Array<string>;
-  @Input()
-  public innerDiv: string;
+  public university: UniversityI;
 
   opportunities$: Array<OpportunityI>;
 
-  open(content) {
-    //console.log(this.description);
+  constructor(private modalService: NgbModal, private router: Router, private dataSvc: GetDataService) {
+  }
+
+  open(content: any, options?: NgbModalOptions) {
     this.opportunities$ = new Array();
+    /*
     try {
       this.opportunities.forEach(element => {
         let item$ = this.dataSvc.getOpportunity(element);
@@ -53,9 +41,10 @@ export class ModalUniversityComponent {
     } catch (error) {
       console.log(error);
     }
-    this.description = this.description.replace("&#34;", "\"");
-    //console.log(this.linkPath);
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    */
+    this.university.description = this.university.description.replace("&#34;", "\"");
+    console.log(this.university.web);
+    this.modalService.open(content, { size: 'lg', backdrop: 'static', ariaLabelledBy: 'modal-basic-title', windowClass : "myCustomModalClass"}).result.then((result) => {
       //this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -73,8 +62,8 @@ export class ModalUniversityComponent {
   }
 
   goto(): void {
-    if (this.linkPath != '') {
-      this.router.navigate([this.linkPath]);
+    if (this.university.img != '') {
+      //this.router.navigate([this.university.web]);
     }
   }
 

@@ -4,6 +4,7 @@ import { ItemI } from 'src/app/shared/models/item.interface';
 import { GetDataService } from 'src/app/shared/services/get-data.service';
 import { UniversityI } from 'src/app/shared/models/university.interface';
 import { OpportunityI } from 'src/app/shared/models/opportunity';
+import { FacultyI } from 'src/app/shared/models/faculty.interface';
 
 @Component({
   selector: 'app-universities',
@@ -17,6 +18,7 @@ export class UniversitiesComponent implements OnInit {
   title = 'Elige tu universidad';
   description = 'Existen 14 universidades en el país con gran variedad de carreras';
   universities$: Observable<UniversityI[]>;
+  faculties$: Observable<FacultyI[]>;
 
   constructor(private dataSvc: GetDataService) { }
 

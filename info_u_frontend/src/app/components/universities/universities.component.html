@@ -6,8 +6,7 @@
         <div>{{description}}</div>
         <ngx-slick-carousel class="carousel eArriba25" #slickModal="slick-carousel" [config]="slideConfig">
             <div ngxSlickItem *ngFor="let slide of universities$ | async" class="slide">
-                <ngbd-modal-university modalTitle="{{slide.title}}" imagePath="{{slide.img}}"
-                description="{{slide.description}}" linkPath="{{slide.web}}" [careers]="slide.careers" [opportunities]="slide.opportunities"></ngbd-modal-university>
+                <ngbd-modal-university [university]="slide"></ngbd-modal-university>
             </div>
         </ngx-slick-carousel>
     </div>
