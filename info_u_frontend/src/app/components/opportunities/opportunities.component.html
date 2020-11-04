@@ -6,9 +6,7 @@
         <div>{{description}}</div>
         <ngx-slick-carousel class="carousel eArriba25" #slickModal="slick-carousel" [config]="slideConfig">
             <div ngxSlickItem *ngFor="let slide of opportunities$ | async" class="slide">
-                <h2>{{slide.title}}</h2>
-                <ngbd-modal-basic modalTitle="{{slide.title}}" imagePath="{{slide.img}}"
-                    description="{{slide.description}}" linkPath=""></ngbd-modal-basic>
+                <ngbd-modal-basic modalTitle="{{slide.title}}" imagePath="{{slide.img}}" description="{{slide.description}}" linkPath="{{slide.web}}"></ngbd-modal-basic>
             </div>
         </ngx-slick-carousel>
     </div>

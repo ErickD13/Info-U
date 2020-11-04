@@ -7,6 +7,7 @@ import { UniversityI } from '../models/university.interface';
 import { OpportunityI } from '../models/opportunity';
 import { HistoryI } from '../models/history.interface';
 import { FacultyI } from '../models/faculty.interface';
+import { ResearchI } from '../models/research.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -126,13 +127,13 @@ export class GetDataService {
     )
   }
 
-  public getResearch(): Observable<ItemI[]>{
+  public getResearch(): Observable<ResearchI[]>{
     return this.afs.collection('research')
     .snapshotChanges()
     .pipe(
       map(actions =>
           actions.map(a => {
-            const data = a.payload.doc.data() as ItemI;
+            const data = a.payload.doc.data() as ResearchI;
             const id = a.payload.doc.id;
             return { id, ... data };
           })

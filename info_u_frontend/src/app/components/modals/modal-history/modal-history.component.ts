@@ -16,7 +16,7 @@ export class ModalHistoryComponent {
     }
 
     public close = 'Cerrar';
-    public title = 'Flexiones';
+    public title = '';
 
     @Input()
     public imagePath: string;

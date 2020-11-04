@@ -14,7 +14,7 @@ export class NgbdModalBasic {
     }
 
     public close = 'Cerrar';
-    public title = 'Flexiones';
+    public title = '';
 
     @Input()
     public imagePath: string;

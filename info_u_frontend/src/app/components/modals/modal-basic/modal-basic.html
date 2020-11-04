@@ -7,15 +7,16 @@
     </div>
     <div class="modal-body">
         <div *ngIf="imagePath">
-            <a [className]="condition ? 'btn btn-light' : ''" (click)="goto(); modal.dismiss('Cross click');"><img src="{{imagePath}}"></a>
+            <a [className]="condition ? 'btn btn-light' : ''" href="{{linkPath}}"><img src="{{imagePath}}"></a>
         </div>
         <div *ngIf="!imagePath">
             <h1 *ngIf="description" innerHTML="{{description}}"></h1>
         </div>
-    </div>
-    <div *ngIf="imagePath">
-        <!--<h6 class="text-center" *ngIf="description">{{description}}</h6>-->
-        <div class="container" *ngIf="description" innerHTML="{{description}}"></div>
+        <div class="description">
+            <a href="{{linkPath}}" target="_blank" class="text-light"><span class="fas fa-globe">
+                </span> {{linkPath}}</a>
+        </div>
+        <div class="" *ngIf="description" innerHTML="{{description}}"></div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">{{close}}</button>
@@ -26,8 +27,11 @@
     <div *ngIf="!imagePath">
         <h1 *ngIf="description">{{modalTitle}}</h1>
     </div>
-    <div *ngIf="imagePath" class="card">
-        <img class="preview" src="{{imagePath}}">
+    <div *ngIf="imagePath">
+        <div class="title_space">
+            <h2 class="title">{{modalTitle}}</h2>
+        </div>
+        <img src="{{imagePath}}" class="preview">
     </div>
 </button>
 

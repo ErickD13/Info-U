@@ -13,7 +13,7 @@ export class OportunitiesComponent implements OnInit {
   public innerWidth: any;
   slideConfig: any;
   title = 'Busca una opportunidad';
-  description = 'En guatemala tenemos una universidad pública y además hay una gran variedad de becas, incluso ayuda social del gobierno, a continuación puedes apreciar algunas de las más importantes.';
+  description = 'En Guatemala tenemos una universidad pública y además hay una gran variedad de becas, incluso ayuda social del gobierno, a continuación puedes apreciar algunas de las más importantes.';
   opportunities$: Observable<OpportunityI[]>;
 
   constructor(private dataSvc: GetDataService) { }

@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { GetDataService } from 'src/app/shared/services/get-data.service';
-import { ItemI } from 'src/app/shared/models/item.interface';
 import { Observable } from 'rxjs';
+import { ResearchI } from 'src/app/shared/models/research.interface';
 
 @Component({
   selector: 'app-research',
@@ -14,7 +14,7 @@ export class ResearchComponent implements OnInit {
   slideConfig: any;
   title = 'Nuestra investigación';
   description = 'En Info U velamos porque todos los jovenes conozcan la importancia de una vida universitaria y las grandes oportunidades que existen para alcanzar sus objetivos';
-  research$: Observable<ItemI[]>;
+  research$: Observable<ResearchI[]>;
   dashboard: any;
   location: any;
   surveys: any;

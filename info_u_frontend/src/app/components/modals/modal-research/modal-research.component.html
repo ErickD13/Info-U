@@ -1,0 +1,37 @@
+<ng-template #content let-modal modal-lg>
+    <div class="modal-header">
+        <h4 class="modal-title title-style" id="modal-basic-title">{{research.title}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div *ngIf="research.img" class="container">
+            <a [className]="condition ? 'btn btn-light' : ''" href="{{research.web}}" target="_blank">
+                <img src="{{research.img}}">
+            </a>
+            <div class="description">
+                <a href="{{research.web}}" target="_blank" class="text-light"><span class="fas fa-globe">
+                    </span> {{research.web}}</a>
+            </div>
+            <div class="" *ngIf="research.description" innerHTML="{{research.description}}"></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">{{close}}</button>
+    </div>
+</ng-template>
+
+<button class="btn btn-lg btn-light" (click)="open(content)">
+    <div *ngIf="!research.img">
+        <h1 *ngIf="research.description">{{research.title}}</h1>
+    </div>
+    <div *ngIf="research.img">
+        <div class="title_space">
+            <h2 class="title">{{research.title}}</h2>
+        </div>
+        <img src="{{research.img}}" class="preview">
+    </div>
+</button>
+
+<pre>{{closeResult}}</pre>
