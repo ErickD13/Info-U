@@ -8,5 +8,6 @@ export interface OpportunityI {
     map: string,
     phone: string,
     schedule: string,
-    email: string
+    email: string,
+    items: Array<{title: string, web: string}>
 }

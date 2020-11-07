@@ -2,55 +2,53 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>Info U</title>
-  <base href="/">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
-    integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="https://firebasestorage.googleapis.com/v0/b/info-u-gt.appspot.com/o/general%2Flogo.ico?alt=media&token=c731ff30-622d-4a2e-80e7-ac43f7b8bad9">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="styles.a5936d78715dee18ec73.css"></head>
+    <meta charset="utf-8">
+    <title>Info U</title>
+    <base href="/">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="https://firebasestorage.googleapis.com/v0/b/info-u-gt.appspot.com/o/general%2Flogo.ico?alt=media&token=c731ff30-622d-4a2e-80e7-ac43f7b8bad9">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="styles.0b9f5fdf1ed1edccb711.css"></head>
 
 <body id="divHome">
-  <app-root></app-root>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script>
-    $(document).on('click', '.navbar-collapse.show', function (e) {
-      $(this).collapse('hide');
-    });
-  </script>
-  <script>
-    $(document).on('click', '.navbar-brand', function (e) {
-      $(navbarSupportedContent).collapse('hide');
-    });
-  </script>
-  <script>
-    $(function () {
-      $('a[href*="#"]').on('click', function (e) {
-        e.preventDefault()
+    <app-root></app-root>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    <script>
+        $(document).on('click', '.navbar-collapse.show', function(e) {
+            $(this).collapse('hide');
+        });
+    </script>
+    <script>
+        $(document).on('click', '.navbar-brand', function(e) {
+            $(navbarSupportedContent).collapse('hide');
+        });
+    </script>
+    <script>
+        $(function() {
+            $('a[href*="#"]').on('click', function(e) {
+                e.preventDefault()
 
-        $('body, main').animate(
-          {
-            scrollTop: $($(this).attr('href')).offset().top,
-          },
-          500,
-          'linear'
-        )
-        oldObjChild = $('.active > a'); //gets active nav-item child nav-link
-        oldObj = $('.active'); //gets the active nav-item
-        oldObj.removeClass('active'); //remove active from old nav-item
-        oldObjChild.css('background-color', 'transparent'); //clear old active nav-item and nav-link style for bg color
-        $(this).parent().addClass('active'); //set the active class on the nav-item that called the function
-        $(this).css('background-color', 'red'); //set active clas background to red
-      });
-    });
-  </script>
-<script src="runtime.458556a34b891ea32398.js" defer></script><script src="polyfills-es5.67bd3f79a0a1ba0707de.js" nomodule defer></script><script src="polyfills.a490b95028034a8cfded.js" defer></script><script src="scripts.5c61c604ae8bd96c0e4a.js" defer></script><script src="main.a0bf00bec17aaf9c0876.js" defer></script></body>
+                $('body, main').animate({
+                        scrollTop: $($(this).attr('href')).offset().top,
+                    },
+                    500,
+                    'linear'
+                )
+                oldObjChild = $('.active > a'); //gets active nav-item child nav-link
+                oldObj = $('.active'); //gets the active nav-item
+                oldObj.removeClass('active'); //remove active from old nav-item
+                oldObjChild.css('background-color', 'transparent'); //clear old active nav-item and nav-link style for bg color
+                $(this).parent().addClass('active'); //set the active class on the nav-item that called the function
+                $(this).css('background-color', 'red'); //set active clas background to red
+            });
+        });
+    </script>
+<script src="runtime.c45919dffd6cc0dba81a.js" defer></script><script src="polyfills-es5.718d5c10f63e875d9e8d.js" nomodule defer></script><script src="polyfills.d1d38eadc07656213930.js" defer></script><script src="scripts.5c61c604ae8bd96c0e4a.js" defer></script><script src="main.b1c277bb8ffcf9675fdb.js" defer></script></body>
 
 </html>

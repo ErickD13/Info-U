@@ -17,23 +17,31 @@
             <div class="highlighted">
                 {{contact_label}}
             </div>
-            <div class="contact">
+            <div *ngIf="opportunity.phone" class="contact">
                 <img src="{{phone_icon}}"> {{opportunity.phone}}
             </div>
             <div *ngIf="opportunity.mail" class="contact">
                 <img src="{{email_icon}}"> {{opportunity.mail}}
             </div>
-            <div class="contact">
+            <div *ngIf="opportunity.web" class="contact">
                 <a href="{{opportunity.web}}" target="_blank"><span class="fas fa-globe">
                     </span> {{opportunity.web}}</a>
             </div>
             <div *ngIf="opportunity.schedule" class="contact">
                 <img src="{{clock_icon}}"> {{opportunity.schedule}}
             </div>
-            <div *ngIf="opportunity.img" class="contact">
+            <div *ngIf="opportunity.map" class="contact">
                 <a href="{{opportunity.map}}" target="_blank">
                     <img src="{{map_icon}}"> {{opportunity.location}}
                 </a>
+            </div>
+            <div *ngIf="opportunity.items" class="container">
+                <table>
+                    <tr *ngFor="let item of opportunity.items">
+                        <td>{{item.title}}</td>
+                        <td>{{item.web}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
