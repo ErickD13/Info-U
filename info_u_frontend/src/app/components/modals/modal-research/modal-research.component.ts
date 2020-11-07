@@ -29,21 +29,9 @@ export class ModalResearchComponent {
 
   open(content: any, options?: NgbModalOptions) {
     this.opportunities$ = new Array();
-    /*
-    try {
-      this.opportunities.forEach(element => {
-        let item$ = this.dataSvc.getOpportunity(element);
-        item$.subscribe(obsItem => {
-          this.opportunities$.push(obsItem);
-        });
-      });
-    } catch (error) {
-      console.log(error);
-    }
-    */
     this.research.description = this.research.description.replace("&#34;", "\"");
     console.log(this.research.web);
-    this.modalService.open(content, { size: 'lg', backdrop: 'static', ariaLabelledBy: 'modal-basic-title', windowClass : "myCustomModalClass"}).result.then((result) => {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', windowClass: "myCustomModalClass" }).result.then((result) => {
       //this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

@@ -1,0 +1,57 @@
+<ng-template #content let-modal modal-lg>
+    <div class="modal-header">
+        <h4 class="modal-title title-style" id="modal-basic-title">{{opportunity.title}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div *ngIf="opportunity.img" class="container">
+            <a [className]="condition ? 'btn btn-light' : ''" href="{{opportunity.web}}" target="_blank">
+                <img src="{{opportunity.img}}">
+            </a>
+            <div class="highlighted">
+                {{info_label}}
+            </div>
+            <div class="description" *ngIf="opportunity.description" innerHTML="{{opportunity.description}}"></div>
+            <div class="highlighted">
+                {{contact_label}}
+            </div>
+            <div class="contact">
+                <img src="{{phone_icon}}"> {{opportunity.phone}}
+            </div>
+            <div *ngIf="opportunity.mail" class="contact">
+                <img src="{{email_icon}}"> {{opportunity.mail}}
+            </div>
+            <div class="contact">
+                <a href="{{opportunity.web}}" target="_blank"><span class="fas fa-globe">
+                    </span> {{opportunity.web}}</a>
+            </div>
+            <div *ngIf="opportunity.schedule" class="contact">
+                <img src="{{clock_icon}}"> {{opportunity.schedule}}
+            </div>
+            <div *ngIf="opportunity.img" class="contact">
+                <a href="{{opportunity.map}}" target="_blank">
+                    <img src="{{map_icon}}"> {{opportunity.location}}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">{{close}}</button>
+    </div>
+</ng-template>
+
+<button class="btn btn-lg btn-light" (click)="open(content)">
+    <div *ngIf="!opportunity.img">
+        <h1 *ngIf="opportunity.description">{{opportunity.title}}</h1>
+    </div>
+    <div *ngIf="opportunity.img">
+        <div class="title_space">
+            <h2 class="title">{{opportunity.title}}</h2>
+        </div>
+        <img src="{{opportunity.img}}" class="preview">
+    </div>
+</button>
+
+<pre>{{closeResult}}</pre>

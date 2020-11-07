@@ -4,5 +4,9 @@ export interface OpportunityI {
     description: string,
     web: string,
     img: string,
-    requeriments: Array<string>
+    location: string,
+    map: string,
+    phone: string,
+    schedule: string,
+    email: string
 }
