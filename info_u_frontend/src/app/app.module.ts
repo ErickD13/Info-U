@@ -18,7 +18,7 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 //Firebase
 import { AngularFirestoreModule } from "@angular/fire/firestore";
-import { AngularFireStorageModule, StorageBucket } from "@angular/fire/storage";
+import { AngularFireStorage, AngularFireStorageModule, StorageBucket } from "@angular/fire/storage";
 import { AngularFireModule } from "@angular/fire";
 import { environment } from 'src/environments/environment';
 import { UniversitiesComponent } from './components/universities/universities.component';
@@ -34,6 +34,13 @@ import { ModalHistoryComponent } from './components/modals/modal-history/modal-h
 import { ModalUniversityComponent } from './components/modals/modal-university/modal-university.component';
 import { ModalResearchComponent } from './components/modals/modal-research/modal-research.component';
 import { ModalOpportunityComponent } from './components/modals/modal-opportunity/modal-opportunity.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { ProfileComponent } from './components/auth/profile/profile.component';
+import { PolicyComponent } from './components/legal/policy/policy.component';
+import { TermsComponent } from './components/legal/terms/terms.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -58,7 +65,13 @@ export function playerFactory() {
     ModalHistoryComponent,
     ModalUniversityComponent,
     ModalResearchComponent,
-    ModalOpportunityComponent
+    ModalOpportunityComponent,
+    LoginComponent,
+    AdminComponent,
+    RegisterComponent,
+    ProfileComponent,
+    PolicyComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +88,8 @@ export function playerFactory() {
     LottieModule.forRoot({ player: playerFactory })
   ],
   providers: [
+    AngularFireAuth,
+    AngularFireStorage,
     {provide: StorageBucket, useValue: 'gs://info-u.appspot.com'}
   ],
   bootstrap: [AppComponent]

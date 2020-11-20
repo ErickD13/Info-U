@@ -1,7 +1,7 @@
-.form-control.login-user {
-    border: 0 solid #fff !important;
-}
 
+.form-control.login-user {
+    border: 0px solid #fff !important;
+}
 .btn-social{
     position: relative;
     text-align: center;
@@ -15,7 +15,6 @@
 .btn-facebook{
     background: #3b5998;
 }
-
 .btn-google{
     background: #dd4b39;
 }
