@@ -25,6 +25,10 @@ export class ProfileComponent implements OnInit {
         this.user.email = user.email;
         this.user.photoUrl = user.photoURL;
         this.providerId = user.providerData[0].providerId;
+        if (user.updatePassword){
+          user.updatePassword('password2');
+          alert('create password: ' + this.user.password);
+        }
       }
     })
   }

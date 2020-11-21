@@ -1,10 +1,6 @@
-import { Component, OnInit, ElementRef, ViewChild, HostListener, AfterViewInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { Router, Scroll, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { PageScrollInstance, PageScrollService } from 'ngx-page-scroll-core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -14,83 +10,97 @@ import { PageScrollInstance, PageScrollService } from 'ngx-page-scroll-core';
 export class NavbarComponent implements OnInit {
   
   @ViewChild('dialogScrollingContainer', {static: true}) dialogScrollingContainer: any;
+  @ViewChild('navbarToggler', {static: true}) navbarToggler:ElementRef;
+  
+  constructor(private authService: AuthService, private afsAuth: AngularFireAuth) { }
+    
+    // Text
+    public app_name = "Info U";
+    
+    public isLogged = false;
+    
+    public nav_home = "Inicio";
+    public nav_universities = "Universidades";
+    public nav_opportunities = "Oportunidades";
+    public nav_research = "Nuestra investigación";
+    public nav_histories = "Historias de éxito"
+    public nav_login = "Inicia sesión"
+    public nav_register = "Regístrate"
+    public nav_profile = "Perfil"
+    public nav_logout = "Cerrar sesión"
+    
+    public survey_university = "¿Universidad?";
+    public survey_career = "¿Tu pasión?";
+    
+    // Navbar
+    public div_home = "#divHome";
+    public div_info = "#divInfo";
+    public div_universities = "#divUniversities";
+    public div_opportunities = "#divOpportunities";
+    public div_histories = "#divHistories";
+    public div_research = "#divResearch";
+    
+    isMenuVisible = false
+    
+    ngOnInit() {
+      this.getCurrentUser();
+    }
+  
+    toggleControl(){
+      this.isMenuVisible = !this.isMenuVisible;
+      console.log(this.isMenuVisible);
+    }
 
-  constructor(private loc: Location, private router: Router, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any) {
-    router.events.subscribe((val) => {
-      this.scrollToElement(val);
-    });
+    collapseNav() {
+      this.navbarToggler.nativeElement.click();
+      this.isMenuVisible = false;
+    }
+
+    hideNav() {
+      if (this.isMenuVisible) {
+        this.navbarToggler.nativeElement.click();
+        this.isMenuVisible = false;
+      }
+    }
+
+    public myEasing = (t: number, b: number, c: number, d: number): number => {
+      // easeInOutExpo easing
+      if (t === 0) {
+        return b;
+      }
+      if (t === d) {
+        return b + c;
+      }
+      if ((t /= d / 2) < 1) {
+        return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
+      }
+  
+      return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
+    }
+
+    doSmth(reachedTarget: boolean): void {
+        if (reachedTarget) {
+            console.log('Yeah, we reached our destination');
+        } else {
+            console.log('Ohoh, something interrupted us');
+        }
+    }
+    
+    getCurrentUser() {
+      this.authService.isAuth().subscribe(auth => {
+        if (auth) {
+          console.log('user logged');
+          this.isLogged = true;
+        } else {
+          console.log('NOT user logged');
+          this.isLogged = false;
+        }
+      });
+    }
+    
+    onLogout() {
+      this.afsAuth.auth.signOut();
+    }
+    
   }
   
-  // Text
-  public app_name = "Info U";
-  
-  public isLogged = false;
-  
-  public nav_home = "Inicio";
-  public nav_universities = "Universidades";
-  public nav_opportunities = "Oportunidades";
-  public nav_research = "Nuestra investigación";
-  public nav_histories = "Historias de éxito"
-  public nav_login = "Inicia sesión"
-  public nav_register = "Regístrate"
-  public nav_profile = "Perfil"
-  public nav_logout = "Cerrar sesión"
-  
-  public survey_university = "¿Universidad?";
-  public survey_career = "¿Tu pasión?";
-  
-  // Navbar
-  public div_home = "#divHome";
-  public div_info = "#divInfo";
-  public div_universities = "#divUniversities";
-  public div_opportunities = "#divOpportunities";
-  public div_histories = "#divHistories";
-  public div_research = "#divResearch";
-  current_nav = '#divHome';
-  
-  //current_nav = "";
-
-  public scrollingView: ElementRef;
-
-  ngOnInit() {
-  }
-  
-  scrollToElement(element: any): void {
-    this.current_nav = element.id;
-    this.pageScrollService.scroll({
-      document: this.document,
-      scrollTarget: element,
-    });
-    /*let navElement1 = document.getElementById('nav_home');
-    let navElement2 = document.getElementById('nav_info');
-    let navElement3 = document.getElementById('nav_location');
-    let navElement4 = document.getElementById('nav_programs');
-    switch(this.current_nav){
-      case this.div_home:
-      navElement1.className = 'active';
-      navElement2.className = '';
-      navElement3.className = '';
-      navElement4.className = '';
-      break;
-      case this.div_info:
-      navElement1.className = '';
-      navElement2.className = 'active';
-      navElement3.className = '';
-      navElement4.className = '';
-      break;
-      case this.div_location:
-      navElement1.className = '';
-      navElement2.className = '';
-      navElement3.className = 'active';
-      navElement4.className = '';
-      break;
-      case this.div_programs:
-      navElement1.className = '';
-      navElement2.className = '';
-      navElement3.className = '';
-      navElement4.className = 'active';
-      break;
-    }*/
-  }
-  
-}

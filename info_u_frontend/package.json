@@ -35,7 +35,7 @@
     "ngx-image-zoom": "^0.4.2",
     "ngx-lottie": "^5.4.0",
     "ngx-page-scroll": "^7.0.3",
-    "ngx-page-scroll-core": "^7.0.1",
+    "ngx-page-scroll-core": "^7.0.3",
     "ngx-slick-carousel": "^0.4.7",
     "ngx-spinner": "^6.1.2",
     "popper.js": "^1.16.1",

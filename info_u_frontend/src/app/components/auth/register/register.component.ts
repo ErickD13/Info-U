@@ -15,13 +15,11 @@ export class RegisterComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService, private storage: AngularFireStorage) { }
 
-  @ViewChild('imageUser', {read: true, static: true})
+  @ViewChild('imageUser', {static: true})
   inputImageUser: ElementRef;
 
   public email: string = '';
   public password: string = '';
-  public isError = false;
-  public user: UserInterface;
 
   uploadPercent: Observable<number>;
   urlImage: Observable<string>;

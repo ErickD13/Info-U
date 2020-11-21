@@ -11,10 +11,10 @@ import { Page404Component } from './components/page404/page404.component';
 import { NgbdModalBasic } from './components/modals/modal-basic/modal-basic';
 import { ModalCarouselComponent } from './components/modals/modal-carousel/modal-carousel.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 
 //Firebase
 import { AngularFirestoreModule } from "@angular/fire/firestore";
@@ -81,7 +81,7 @@ export function playerFactory() {
     AngularFirestoreModule,
     FormsModule,
     NgbModule,
-    NgxPageScrollCoreModule,
+    NgxPageScrollModule,
     SlickCarouselModule,
     BrowserAnimationsModule,
     NgxImageZoomModule.forRoot(),

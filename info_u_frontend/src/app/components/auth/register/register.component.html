@@ -14,7 +14,7 @@
                                 <div class="form-group">
                                     <input type="email" name="email" class="form-control" placeholder="Email" [(ngModel)]="email" required minlength="8">
                                 </div>
-                                <div class="alert alert-danger" role="alert" *ngIf="email">
+                                <div class="alert alert-danger" role="alert" *ngIf="email.touched && !email.valid">
                                     <div *ngIf="email.errors.required">Email is required</div>
                                     <div *ngIf="email.errors.minlength">Email must be at least 8 characters</div>
                                 </div>
@@ -22,7 +22,7 @@
                                     <input type="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="password" required minlength="5"
                                     maxlength="10">
                                 </div>
-                                <div class="alert alert-danger" role="alert" *ngIf="password">
+                                <div class="alert alert-danger" role="alert" *ngIf="password.touched && !password.valid">
                                     <div *ngIf="password.errors.required">Password is required</div>
                                     <div *ngIf="password.errors.minlength">Password must be at least 5 characters</div>
                                 </div>
@@ -49,11 +49,11 @@
                                     <a routerLink="/user/login" class="form-control login-user">Do you have account?</a>
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn btn-block btn-social btn-facebook" (click)="onSingUpFacebook()">
+                                    <button class="btn btn-block btn-social btn-facebook" (click)="onLoginFacebook()">
                                         <span class="fa fa-facebook"></span>
                                         Facebook
                                     </button>
-                                    <button class="btn btn-block btn-social btn-google" (click)="onSingUpGoogle()">
+                                    <button class="btn btn-block btn-social btn-google" (click)="onLoginGoogle()">
                                         <span class="fa fa-google"></span>
                                         Google
                                     </button>
