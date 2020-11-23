@@ -15,19 +15,19 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="nav-item">
-          <a id="nav_home" class="nav-link font-weight-bold active" routerLink="/"  href="{{div_home}}" pageScroll id="scrollHome" (click)="collapseNav()">{{nav_home}}</a>
+          <a id="nav_home" class="nav-link font-weight-bold active" routerLink="/"  href="{{div_home}}" pageScroll id="scrollHome" [pageScrollInterruptible]="false" (click)="collapseNav()">{{nav_home}}</a>
         </li>
         <li class="nav-item" *ngIf="!isLogged">
-          <a id="nav_universities" class="nav-link font-weight-bold active" routerLink="/"  href="{{div_universities}}" pageScroll id="scrollUniversities" (click)="collapseNav()">{{nav_universities}}</a>
+          <a id="nav_universities" class="nav-link font-weight-bold active" routerLink="/"  href="{{div_universities}}" pageScroll id="scrollUniversities" [pageScrollInterruptible]="false" (click)="collapseNav()">{{nav_universities}}</a>
         </li>
         <li class="nav-item">
-          <a id="nav_opportunities" class="nav-link font-weight-bold active" routerLink="/" href="{{div_opportunities}}" pageScroll id="scrollOpportunities" [pageScrollEasing]="myEasing" (click)="collapseNav()">{{nav_opportunities}}</a>
+          <a id="nav_opportunities" class="nav-link font-weight-bold active" routerLink="/" href="{{div_opportunities}}" pageScroll id="scrollOpportunities" [pageScrollInterruptible]="false" (click)="collapseNav()">{{nav_opportunities}}</a>
         </li>
         <li class="nav-item" *ngIf="!isLogged">
-          <a id="nav_histories" class="nav-link font-weight-bold active" routerLink="/"  href="{{div_histories}}" pageScroll id="scrollHistories" (click)="collapseNav()">{{nav_histories}}</a>
+          <a id="nav_histories" class="nav-link font-weight-bold active" routerLink="/"  href="{{div_histories}}" pageScroll id="scrollHistories" [pageScrollInterruptible]="false" (click)="collapseNav()">{{nav_histories}}</a>
         </li>
         <li class="nav-item" *ngIf="!isLogged">
-          <a id="nav_research" class="nav-link font-weight-bold active" routerLink="/"  href="{{div_research}}" pageScroll id="scrollResearch" (click)="collapseNav()">{{nav_research}}</a>
+          <a id="nav_research" class="nav-link font-weight-bold active" routerLink="/"  href="{{div_research}}" pageScroll id="scrollResearch" [pageScrollInterruptible]="false" (click)="collapseNav()">{{nav_research}}</a>
         </li>
         <li class="nav-item" *ngIf="isLogged">
           <a id="nav_profile" class="nav-link font-weight-bold active" routerLink="/user/profile" (click)="collapseNav()">{{nav_profile}}</a>

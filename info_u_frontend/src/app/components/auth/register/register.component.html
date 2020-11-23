@@ -27,43 +27,60 @@
                                     <div *ngIf="password.errors.minlength">Password must be at least 5 characters</div>
                                 </div>
                                 <hr>
-                                <div class="form-group">
-                                    <h5>Seleccionar image:</h5>
-                                    <input type="file" accept=".png, .jpg" (change)="onUpload($event)">
+                                <div class="container">
+                                    <h5>Imagen de perfil:</h5>
+                                    <div *ngIf="!urlImage" class="row" style="margin-top: 5%;">
+                                        <div class="uploadfilecontainer" multiple (click)="fileInput.click();" appDnd (onFileDropped)="dndFile($event)">
+                                            <input #fileInput type = "file" multiple (change)="selectFile($event)">
+                                        </div>
+                                    </div>
+                                    <div *ngIf="(uploadPercent | async) == 100" class="row" style="margin-top: 5%;">
+                                        <div class="text-center">
+                                            <h5>Crop Image</h5>
+                                            <image-cropper
+                                            [imageChangedEvent] = "imageChangedEvent" 
+                                            [maintainAspectRatio] = "true" 
+                                            [aspectRatio] = "4 / 4"
+                                            [resizeToWidth] = "256" 
+                                            [roundCropper] = "true"
+                                            format = "png" 
+                                            (imageCropped) = "imageCropped($event)" 
+                                            (imageLoaded) = "imageLoaded()"
+                                            (cropperReady) = "cropperReady()" 
+                                            (loadImageFailed) = "loadImageFailed()"></image-cropper>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="progress">
                                     <div [style.visibility]="(uploadPercent == 0) ? 'hidden' : 'visible'" class="progress-bar progress-bar-striped bg-success"
                                     role="progressbar" [style.width]="(uploadPercent | async) +'%'">
-                                    
-                                    <!-- <span class="progressText" *ngIf="urlImage | async">
-                                        Ok!!</span> -->
-                                    </div>
                                 </div>
-                                <br>
-                                <input #imageUser type="hidden" [value]="urlImage | async">
-                                <button *ngIf="urlImage | async; else btnDisabled" type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
-                                <ng-template #btnDisabled>
-                                    <button type="submit" disabled=true class="btn btn-lg btn-secondary btn-block">Register</button>
-                                </ng-template>
-                                <div class="form-group">
-                                    <a routerLink="/user/login" class="form-control login-user">Do you have account?</a>
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-block btn-social btn-facebook" (click)="onLoginFacebook()">
-                                        <span class="fa fa-facebook"></span>
-                                        Facebook
-                                    </button>
-                                    <button class="btn btn-block btn-social btn-google" (click)="onLoginGoogle()">
-                                        <span class="fa fa-google"></span>
-                                        Google
-                                    </button>
-                                </div>
-                            </form>
-                            
-                        </div>
+                            </div>
+                            <br>
+                            <button *ngIf="urlImage | async; else btnDisabled" type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
+                            <ng-template #btnDisabled>
+                                <button type="submit" disabled=true class="btn btn-lg btn-secondary btn-block">Register</button>
+                            </ng-template>
+                            <input #imageUser type="hidden" [value]="urlImage | async">
+                            <div class="form-group">
+                                <a routerLink="/user/login" class="form-control login-user">Do you have account?</a>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-block btn-social btn-facebook" (click)="onSingUpFacebook()">
+                                    <span class="fa fa-facebook"></span>
+                                    Facebook
+                                </button>
+                                <button class="btn btn-block btn-social btn-google" (click)="onSingUpGoogle()">
+                                    <span class="fa fa-google"></span>
+                                    Google
+                                </button>
+                            </div>
+                        </form>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </section>

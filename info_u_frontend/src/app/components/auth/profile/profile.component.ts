@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class ProfileComponent implements OnInit {
   
   constructor(private authService: AuthService) { }
+  
   user: UserInterface = {
     name: '',
     email: '',
@@ -18,6 +19,7 @@ export class ProfileComponent implements OnInit {
   };
   
   public providerId: string = 'null';
+
   ngOnInit() {
     this.authService.isAuth().subscribe(user => {
       if (user) {

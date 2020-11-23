@@ -10,6 +10,8 @@ import { Page404Component } from './components/page404/page404.component';
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: '', component: HomeComponent },
+  { path: 'home', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   { path: 'user/login', redirectTo: '/user/login', pathMatch: 'full' },
   { path: 'user/login', component: LoginComponent },
   { path: 'user/register', redirectTo: '/user/register', pathMatch: 'full' },
