@@ -1,9 +1,14 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Inject, AfterViewChecked, ElementRef, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { ItemI } from 'src/app/shared/models/item.interface';
 import { Observable } from 'rxjs';
 import { GetDataService } from 'src/app/shared/services/get-data.service';
 import { AnimationOptions } from 'ngx-lottie';
 import { AnimationItem } from 'lottie-web';
+import { DOCUMENT } from '@angular/common';
+import { PageScrollService } from 'ngx-page-scroll-core';
+import { NgxSpinnerService } from "ngx-spinner";
+import { finalize } from 'rxjs/operators';
+import { Navigation } from '../../shared/singleton/navigation';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +16,10 @@ import { AnimationItem } from 'lottie-web';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  
+  constructor(private itemSvc: GetDataService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any, private spinner: NgxSpinnerService) { }
+  
+  @ViewChild('divOpportunities', {static: true}) divOpportunities: ElementRef;
   
   slideConfig = {
     "slidesToShow": 1,
@@ -30,29 +39,37 @@ export class HomeComponent implements OnInit {
   
   //images
   public down_arrow = 'https://firebasestorage.googleapis.com/v0/b/info-u-gt.appspot.com/o/general%2Farrow_down.png?alt=media&token=6b39f833-dcb8-4747-a744-2f37972809d1';
-  
-  constructor(private itemSvc: GetDataService) { }
-    
-    ngOnInit() {
-      this.carousel$ = this.itemSvc.getCarousel();
-      if(window.innerWidth <= 500){
-        this.zoomEnabled = true;
-      }else{
-        this.zoomEnabled = false;
-      }
+
+  ngOnInit() {
+    /** spinner starts on init */
+    this.spinner.show();
+    this.carousel$ = this.itemSvc.getCarousel();
+    if(window.innerWidth <= 500){
+      this.zoomEnabled = true;
+    }else{
+      this.zoomEnabled = false;
     }
-    
-    @HostListener('window:resize', ['$event'])
-    onResize(event) {
-      if(window.innerWidth <= 500){
-        this.zoomEnabled = true;
-      }else{
-        this.zoomEnabled = false;
-      }
-    }
-    
-    lottie_options: AnimationOptions = {
-      path: 'https://assets6.lottiefiles.com/packages/lf20_uzoyW6.json'
-    };
+    setTimeout(() => {
+      //spinner ends after 5 seconds
+      console.log('View charged');
+      this.pageScrollService.scroll({
+        document: this.document,
+        scrollTarget: Navigation.current_div
+      });
+      this.spinner.hide();
+    }, 500);    
   }
   
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if(window.innerWidth <= 500){
+      this.zoomEnabled = true;
+    }else{
+      this.zoomEnabled = false;
+    }
+  }
+  
+  lottie_options: AnimationOptions = {
+    path: 'https://assets6.lottiefiles.com/packages/lf20_uzoyW6.json'
+  };
+}

@@ -43,6 +43,7 @@ import { TermsComponent } from './components/legal/terms/terms.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { DndDirective } from './shared/directives/dnd.directive';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -89,7 +90,8 @@ export function playerFactory() {
     BrowserAnimationsModule,
     NgxImageZoomModule.forRoot(),
     LottieModule.forRoot({ player: playerFactory }),
-    ImageCropperModule
+    ImageCropperModule,
+    NgxSpinnerModule
   ],
   providers: [
     AngularFireAuth,

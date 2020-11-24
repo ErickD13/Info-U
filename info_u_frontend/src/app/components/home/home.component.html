@@ -1,3 +1,7 @@
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 1)">
+  template="<img src='https://media.giphy.com/media/o8igknyuKs6aY/giphy.gif' />"
+</ngx-spinner>
 <div class="bg-blue custom-text">
   <!--{{ carousel$ | async | json }}-->
   <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
@@ -26,7 +30,7 @@
   </div>
   <div id="divUniversities" class="eAbajoNavBar"></div>
   <app-universities></app-universities>
-  <div id="divOpportunities" class="eAbajoNavBar"></div>
+  <div #divOpportunities id="divOpportunities" class="eAbajoNavBar"></div>
   <app-opportunities></app-opportunities>
   <div id="divHistories" class="eAbajoNavBar"></div>
   <app-histories></app-histories>

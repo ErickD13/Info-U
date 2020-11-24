@@ -2,31 +2,32 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ItemI } from '../models/item.interface';
-import { map } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 import { UniversityI } from '../models/university.interface';
 import { OpportunityI } from '../models/opportunity';
 import { HistoryI } from '../models/history.interface';
 import { FacultyI } from '../models/faculty.interface';
 import { ResearchI } from '../models/research.interface';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GetDataService {
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(private afs: AngularFirestore, private spinner: NgxSpinnerService) { }
 
   public getCarousel(): Observable<ItemI[]>{
     return this.afs.collection('carousel')
     .snapshotChanges()
     .pipe(
       map(actions =>
-          actions.map(a => {
-            const data = a.payload.doc.data() as ItemI;
-            const id = a.payload.doc.id;
-            return { id, ... data };
-          })
-        )
+        actions.map(a => {
+          const data = a.payload.doc.data() as ItemI;
+          const id = a.payload.doc.id;
+          return { id, ... data };
+        })
+      )
     )
   }
 
