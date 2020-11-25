@@ -17,29 +17,29 @@
         <li class="nav-item">
           <a id="nav_home" class="nav-link font-weight-bold active" href="{{div_home}}" pageScroll id="scrollHome" [pageScrollInterruptible]="false" (click)="collapseNav(div_home)">{{nav_home}}</a>
         </li>
-        <li class="nav-item" *ngIf="!isLogged">
+        <li class="nav-item">
           <a id="nav_universities" class="nav-link font-weight-bold active" href="{{div_universities}}" pageScroll id="scrollUniversities" [pageScrollInterruptible]="false" (click)="collapseNav(div_universities)">{{nav_universities}}</a>
         </li>
         <li class="nav-item">
           <a id="nav_opportunities" class="nav-link font-weight-bold active" href="{{div_opportunities}}" pageScroll id="scrollOpportunities" [pageScrollInterruptible]="false" (click)="collapseNav(div_opportunities)">{{nav_opportunities}}</a>
         </li>
-        <li class="nav-item" *ngIf="!isLogged">
+        <li class="nav-item">
           <a id="nav_histories" class="nav-link font-weight-bold active" href="{{div_histories}}" pageScroll id="scrollHistories" [pageScrollInterruptible]="false" (click)="collapseNav(div_histories)">{{nav_histories}}</a>
         </li>
-        <li class="nav-item" *ngIf="!isLogged">
+        <li class="nav-item">
           <a id="nav_research" class="nav-link font-weight-bold active" href="{{div_research}}" pageScroll id="scrollResearch" [pageScrollInterruptible]="false" (click)="collapseNav(div_research)">{{nav_research}}</a>
         </li>
         <li class="nav-item" *ngIf="isLogged">
           <a id="nav_profile" class="nav-link font-weight-bold active" routerLink="/user/profile" (click)="collapseNav(div_profile)">{{nav_profile}}</a>
-        </li>
-        <li class="nav-item" *ngIf="isLogged">
-          <a id="nav_logout" class="nav-link font-weight-bold active" (click)="onLogout()" (click)="collapseNav(div_home)">{{nav_logout}}</a>
-        </li>
+        </li>        
         <li class="nav-item" *ngIf="!isLogged">
           <a id="nav_login" class="nav-link font-weight-bold active" routerLink="/user/login" (click)="collapseNav(div_login)">{{nav_login}}</a>
         </li>
         <li class="nav-item" *ngIf="!isLogged">
           <a id="nav_register" class="nav-link font-weight-bold active" routerLink="/user/register" (click)="collapseNav(div_register)">{{nav_register}}</a>
+        </li>
+        <li class="nav-item" *ngIf="isLogged">
+          <a id="nav_logout" class="nav-link font-weight-bold active" (click)="onLogout()" (click)="collapseNav(div_home)">{{nav_logout}}</a>
         </li>
         <!--<li class="nav-item dropdown">
           <a id="nav_more" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

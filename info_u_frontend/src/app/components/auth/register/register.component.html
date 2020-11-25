@@ -1,30 +1,31 @@
 <section id="register" class="mb-5 mt-5">
     <div class="container">
         <div class="row">
-            
             <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
                 <div class="card_register">
                     <div class="card">
                         <div class="card-body text-center">
-                            <form #formRegister="ngForm" (ngSubmit)="onAddUser()">
+                            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                                 <h1 class="h3 mb-3 font-weight-normal">Register</h1>
-                                <div class="alert alert-danger" role="alert" *ngIf="isError">
-                                    {{msgError}}
+                                <div class="form-group">
+                                    <input type="text" formControlName="name" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                        <div *ngIf="f.name.errors.required">First Name is required</div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" name="email" class="form-control" placeholder="Email" [(ngModel)]="email" required minlength="8">
-                                </div>
-                                <div class="alert alert-danger" role="alert" *ngIf="email.touched && !email.valid">
-                                    <div *ngIf="email.errors.required">Email is required</div>
-                                    <div *ngIf="email.errors.minlength">Email must be at least 8 characters</div>
+                                    <input type="email" formControlName="email" class="form-control" placeholder="Correo" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                        <div *ngIf="f.email.errors.required">Email is required</div>
+                                        <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="password" required minlength="5"
-                                    maxlength="10">
-                                </div>
-                                <div class="alert alert-danger" role="alert" *ngIf="password.touched && !password.valid">
-                                    <div *ngIf="password.errors.required">Password is required</div>
-                                    <div *ngIf="password.errors.minlength">Password must be at least 5 characters</div>
+                                    <input type="password" formControlName="password" class="form-control" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                        <div *ngIf="f.password.errors.required">Password is required</div>
+                                        <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                                    </div>
                                 </div>
                                 <hr>
                                 <div class="container">
@@ -57,6 +58,9 @@
                                 </div>
                             </div>
                             <br>
+                            <div class="alert alert-danger" role="alert" *ngIf="error">
+                                {{error}}
+                            </div>
                             <button *ngIf="urlImage | async; else btnDisabled" type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
                             <ng-template #btnDisabled>
                                 <button type="submit" disabled=true class="btn btn-lg btn-secondary btn-block">Register</button>
@@ -66,17 +70,16 @@
                                 <a routerLink="/user/login" class="form-control login-user">Do you have account?</a>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-block btn-social btn-facebook" (click)="onSingUpFacebook()">
+                                <button type="button" class="btn btn-block btn-social btn-facebook" (click)="onSingUpFacebook()">
                                     <span class="fa fa-facebook"></span>
                                     Facebook
                                 </button>
-                                <button class="btn btn-block btn-social btn-google" (click)="onSingUpGoogle()">
+                                <button type="button" class="btn btn-block btn-social btn-google" (click)="onSingUpGoogle()">
                                     <span class="fa fa-google"></span>
                                     Google
                                 </button>
                             </div>
                         </form>
-                        
                     </div>
                 </div>
             </div>

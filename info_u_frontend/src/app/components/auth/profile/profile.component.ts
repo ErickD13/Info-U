@@ -18,7 +18,11 @@ export class ProfileComponent implements OnInit {
     roles: {}
   };
   
+  public mush_update_passowrd = false;
   public providerId: string = 'null';
+  public email: string = '';
+  public password: string = '';
+  public error = '';
 
   ngOnInit() {
     this.authService.isAuth().subscribe(user => {
@@ -27,12 +31,23 @@ export class ProfileComponent implements OnInit {
         this.user.email = user.email;
         this.user.photoUrl = user.photoURL;
         this.providerId = user.providerData[0].providerId;
-        if (user.updatePassword){
-          user.updatePassword('password2');
-          alert('create password: ' + this.user.password);
-        }
+        /*if (){
+          console.log('Update password');
+          this.mush_update_passowrd = true;
+        }*/
       }
     })
   }
   
+  on_update_password() {
+    this.authService.isAuth().subscribe(auth => {
+      if (auth) {
+        auth.updatePassword(this.password)
+        alert('Contraseña actualizada');
+      } else {
+        console.log('Not user logged');
+      }
+    });
+  }
+
 }

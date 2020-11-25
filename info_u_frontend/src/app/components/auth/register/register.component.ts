@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { Observable } from 'rxjs';
@@ -13,7 +14,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class RegisterComponent implements OnInit {
   
-  constructor(private router: Router, private authService: AuthService, private storage: AngularFireStorage) { }
+  constructor(private router: Router, private authService: AuthService, private storage: AngularFireStorage, private formBuilder: FormBuilder) { }
   
   @ViewChild('imageUser', {static: true})
   inputImageUser: ElementRef;
@@ -21,19 +22,35 @@ export class RegisterComponent implements OnInit {
   @ViewChild('fileInput', {static: true})
   inputFileInput: ElementRef;
   
-  public email: string = '';
-  public password: string = '';
+  registerForm: FormGroup;
+  submitted = false;
+  error = '';
   
   uploadPercent: Observable<number>;
-  public urlImage: Observable<string>;
+  urlImage: Observable<string>;
   
   filePath: string;
   
   ngOnInit() {
-    console.log('dndFile element 1 ', this.inputImageUser);
-    console.log('dndFile element 2 ', this.inputFileInput.nativeElement.value);
+    this.registerForm = this.formBuilder.group({
+        name: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+    });
   }
   
+  // convenience getter for easy access to form fields
+  get f() { return this.registerForm.controls; }
+
+  onSubmit() {
+      this.submitted = true;
+      // stop here if form is invalid
+      if (this.registerForm.invalid) {
+          return;
+      }
+      this.onAddUser();
+  }
+
   //Drag and drop
   files: any = [];
   
@@ -93,7 +110,7 @@ export class RegisterComponent implements OnInit {
   
   // Firebase
   onAddUser() {
-    this.authService.registerUser(this.email, this.password)
+    this.authService.registerUser(this.registerForm.controls['email'].value, this.registerForm.controls['password'].value)
     .then((res) => {
       this.authService.isAuth().subscribe(user => {
         if (user) {
@@ -104,28 +121,40 @@ export class RegisterComponent implements OnInit {
           this.uploadPercent = task.percentageChanges();
           task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
           user.updateProfile({
-            displayName: '',
+            displayName: this.registerForm.controls['name'].value,
             photoURL: this.inputImageUser.nativeElement.value
           }).then(() => {
             this.router.navigate(['user/profile']);
-          }).catch((error) => console.log('error', error));
+          }).catch(err => {
+            this.error = err.message;
+            console.log(err);
+          });
         }
       });
-    }).catch(err => console.log('err', err.message));
+    }).catch(err => {
+      this.error = err.message;
+      console.log(err);
+    });
   }
   
   onSingUpGoogle(): void {
     this.authService.loginGoogleUser()
     .then((res) => {
       this.onLoginRedirect();
-    }).catch(err => console.log('err', err.message));
+    }).catch(err => {
+      this.error = err.message;
+      console.log(err);
+    });
   }
   
   onSingUpFacebook(): void {
     this.authService.loginFacebookUser()
     .then((res) => {
       this.onLoginRedirect();
-    }).catch(err => console.log('err', err.message));
+    }).catch(err => {
+      this.error = err.message;
+      console.log(err);
+    });
   }
   
   onLoginRedirect(): void {

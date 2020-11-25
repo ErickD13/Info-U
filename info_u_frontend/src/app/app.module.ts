@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Page404Component } from './components/page404/page404.component';
 import { NgbdModalBasic } from './components/modals/modal-basic/modal-basic';
 import { ModalCarouselComponent } from './components/modals/modal-carousel/modal-carousel.component';
@@ -91,7 +91,8 @@ export function playerFactory() {
     NgxImageZoomModule.forRoot(),
     LottieModule.forRoot({ player: playerFactory }),
     ImageCropperModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    ReactiveFormsModule
   ],
   providers: [
     AngularFireAuth,
