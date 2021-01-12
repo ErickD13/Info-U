@@ -5,6 +5,7 @@ import { ProfileComponent } from './components/auth/profile/profile.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { PolicyComponent } from './components/legal/policy/policy.component';
+import { TermsComponent } from './components/legal/terms/terms.component';
 import { Page404Component } from './components/page404/page404.component';
 
 const routes: Routes = [
@@ -21,12 +22,12 @@ const routes: Routes = [
   { path: 'policy', redirectTo: '/policy', pathMatch: 'full' },
   { path: 'policy', component: PolicyComponent },
   { path: 'terms', redirectTo: '/terms', pathMatch: 'full' },
-  { path: 'terms', component: PolicyComponent },
+  { path: 'terms', component: TermsComponent },
   { path: '**', component: Page404Component },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

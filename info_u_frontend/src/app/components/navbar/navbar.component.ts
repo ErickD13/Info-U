@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Navigation } from '../../shared/singleton/navigation';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,7 @@ export class NavbarComponent implements OnInit {
   
   @ViewChild('navbarToggler', {static: true}) navbarToggler:ElementRef;
   
-  constructor(private authService: AuthService, private afsAuth: AngularFireAuth, private router: Router) { }
+  constructor(private authService: AuthService, private afsAuth: AngularFireAuth, private router: Router, private spinner: NgxSpinnerService) { }
   
   // Text
   public app_name = "Info U";
@@ -60,7 +61,9 @@ export class NavbarComponent implements OnInit {
     this.isMenuVisible = false;
     if((Navigation.current_div == this.div_login || Navigation.current_div == this.div_register || Navigation.current_div == this.div_profile) &&
       (div == this.div_home || div == this.div_universities || div == this.div_opportunities || div == this.div_histories || div == this.div_research)){
-      this.router.navigate(['/'])
+      this.router.navigate(['/']);
+    } else if (Navigation.current_div == this.div_profile && div == this.div_profile){
+      this.router.navigate(['/user/profile']);
     }
     Navigation.current_div = div;
   }
@@ -85,9 +88,7 @@ export class NavbarComponent implements OnInit {
   }
   
   onLogout() {
-    this.afsAuth.auth.signOut().then(() => {
-      this.router.navigate(['/'])
-    });
+    this.afsAuth.auth.signOut();
   }
   
 }

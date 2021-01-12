@@ -105,4 +105,8 @@ export class AuthService {
     return this.afs.doc<UserInterface>(`users/${userUid}`).valueChanges();
   }
   
+  getAfs() {
+    return this.afsAuth;
+  }
+
 }
