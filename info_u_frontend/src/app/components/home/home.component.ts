@@ -42,7 +42,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     /** spinner starts on init */
-    this.spinner.show();
+    let div_profile = "#profile";
+    if (Navigation.current_div == div_profile){
+      this.spinner.show();
+    }
     this.carousel$ = this.itemSvc.getCarousel();
     if(window.innerWidth <= 500){
       this.zoomEnabled = true;

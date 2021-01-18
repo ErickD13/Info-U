@@ -57,13 +57,13 @@ export class ProfileComponent implements OnInit {
       return false;
     };
     // put the code from `ngOnInit` here
-    this.spinner.show();
+    //this.spinner.show();
     this.update_form = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
-    setTimeout(() => {
+    //setTimeout(() => {
       this.authService.isAuth().subscribe(user => {
         if (user) {
           this.user.name = user.displayName;
@@ -77,7 +77,7 @@ export class ProfileComponent implements OnInit {
         }
       });
       this.spinner.hide();
-    }, 2000);
+    //}, 2000);
   }
   
   on_update_password() {

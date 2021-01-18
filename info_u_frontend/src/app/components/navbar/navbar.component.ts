@@ -59,12 +59,12 @@ export class NavbarComponent implements OnInit {
   collapseNav(div: string) {
     this.navbarToggler.nativeElement.click();
     this.isMenuVisible = false;
-    if((Navigation.current_div == this.div_login || Navigation.current_div == this.div_register || Navigation.current_div == this.div_profile) &&
+    /*if((Navigation.current_div == this.div_login || Navigation.current_div == this.div_register || Navigation.current_div == this.div_profile) &&
       (div == this.div_home || div == this.div_universities || div == this.div_opportunities || div == this.div_histories || div == this.div_research)){
       this.router.navigate(['/']);
     } else if (Navigation.current_div == this.div_profile && div == this.div_profile){
       this.router.navigate(['/user/profile']);
-    }
+    }*/
     Navigation.current_div = div;
   }
   
