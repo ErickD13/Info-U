@@ -1,4 +1,6 @@
-<div id="profile" class="eAbajoNavBar">
+<div id="profile" class="eAbajoNavBar" [ngClass]="{
+  'container-fluid-overlay':  isMenuVisible === true,
+  'container-fluid':  isMenuVisible === false }">
   <nav class="navbar navbar-expand-md text-center navbar-dark">
     <a class="navbar-brand font-weight-bold" routerLink="/" (click)="hideNav()">
       <!---<img src="./assets/images/logo.png">-->

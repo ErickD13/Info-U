@@ -41,33 +41,33 @@ export class LoginComponent implements OnInit {
   onLogin(): void {
     this.authService.loginEmailUser(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value)
     .then((res) => {
-      console.log(res);
+      console.log('email login then', res);
       this.onLoginRedirect();
     }).catch(err => {
       this.error = err.message;
-      console.log(err);
+      console.log('email login error', err);
     });
   }
   
   onLoginGoogle(): void {
     this.authService.loginGoogleUser()
     .then((res) => {
-      console.log('Login Google then', res);
+      console.log('google login then', res);
       this.onLoginRedirect();
     }).catch(err => {
-      //this.error = err.message;
-      console.log('Login Google error', err);
+      this.error = err.message;
+      console.log('google login error', err);
     });
   }
   
   onLoginFacebook(): void {
     this.authService.loginFacebookUser()
     .then((res) => {
-      console.log(res);
+      console.log('facebook login then', res);
       this.onLoginRedirect();
     }).catch(err => {
       this.error = err.message;
-      console.log(err);
+      console.log('facebook login error', err);
     });
   }
   

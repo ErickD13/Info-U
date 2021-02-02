@@ -39,11 +39,10 @@ export class ModalUniversityComponent {
         });
       });
     } catch (error) {
-      console.log(error);
+      console.log('load opportunities from university error:', error);
     }
     */
     this.university.description = this.university.description.replace("&#34;", "\"");
-    console.log(this.university.web);
     //this.modalService.open(content, { size: 'lg', backdrop: 'static', ariaLabelledBy: 'modal-basic-title', windowClass : "myCustomModalClass"}).result.then((result) => {
     this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title', windowClass : "myCustomModalClass"}).result.then((result) => {
       //this.closeResult = `Closed with: ${result}`;

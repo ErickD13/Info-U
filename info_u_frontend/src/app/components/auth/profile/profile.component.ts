@@ -86,11 +86,11 @@ export class ProfileComponent implements OnInit {
         auth.updatePassword(this.update_form.controls['password'].value)
         .catch(err => {
           this.error = err.message;
-          console.log(err);
+          console.log('update password error:', err);
         });
         alert('Contraseña actualizada');
       } else {
-        console.log('Not user logged');
+        console.log('update passowrd not user logged');
       }
     });
   }
@@ -101,11 +101,11 @@ export class ProfileComponent implements OnInit {
         auth.updateEmail(this.update_form.controls['email'].value)
         .catch(err => {
           this.error = err.message;
-          console.log(err);
+          console.log('update email error:', err);
         });
         alert('Email actualizado');
       } else {
-        console.log('Not user logged');
+        console.log('update email user logged');
       }
     });
   }
@@ -118,11 +118,11 @@ export class ProfileComponent implements OnInit {
           photoURL: this.inputImageUser.nativeElement.value
         }).catch(err => {
           this.error = err.message;
-          console.log(err);
+          console.log('update name and photo error:', err);
         });
         alert('Contraseña actualizada');
       } else {
-        console.log('Not user logged');
+        console.log('update name and photo not user logged');
       }
     });
   }
@@ -144,7 +144,6 @@ export class ProfileComponent implements OnInit {
   
   selectFile(event: any) {    
     for (let index = 0; index < event.target.files.length; index++) {
-      console.log('selectFile ', event);
       this.imageChangedEvent = event;
       const element = event.target.files[index];
       this.files.push(element.name)
@@ -154,7 +153,6 @@ export class ProfileComponent implements OnInit {
   
   dndFile(files: any) {
     for (let index = 0; index < files.length; index++) {
-      console.log('dndFile 0 ', files);
       this.imageChangedEvent = {target: {files: files}}
       const element = files[index];
       this.files.push(element.name)
@@ -201,7 +199,6 @@ export class ProfileComponent implements OnInit {
     this.authService.isAuth().subscribe(auth => {
       if (auth) {
         const ref = this.storage.ref(this.filePath);
-        console.log('base 64 2:', this.croppedImage.replace('data:image/png;base64,', ''));
         const task = ref.putString(this.croppedImage.replace('data:image/png;base64,', ''), 'base64');
         //this.storage.upload(this.filePath, this.croppedImage); // To upload a file
         this.uploadPercent = task.percentageChanges();
@@ -210,7 +207,7 @@ export class ProfileComponent implements OnInit {
         // this.on_update_password();
         this.on_update_profile();
       } else {
-        console.log('Not user logged');
+        console.log('load profile not user logged');
       }
     });
   }

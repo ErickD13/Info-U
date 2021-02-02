@@ -6,11 +6,12 @@
     left: 15px;
     background-size: contain;
 }*/
+
 a:link {
     text-decoration: none;
 }
 
-.encuadrar{
+.encuadrar {
     margin-top: 5px;
     margin-bottom: 5px;
     margin-left: 5px;
@@ -24,9 +25,17 @@ a:link {
     z-index: 30;
     /*height: 130px;*/
     /*background: rgba(0, 0, 0, 0.875);*/
-    background-color:#032380;
+    background-color: #032380;
 }
 
-.nav-item > a:hover{
+.nav-item>a:hover {
     color: gray;
+}
+
+.container-fluid {
+    min-height: 200vh;
+}
+
+.container-fluid-overlay {
+    height: auto;
 }

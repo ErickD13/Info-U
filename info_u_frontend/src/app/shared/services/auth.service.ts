@@ -18,7 +18,7 @@ export class AuthService {
       .then(userData => {
         resolve(userData),
         this.updateUserData(userData.user)
-      }).catch(err => console.log(reject(err)))
+      }).catch(err => console.log('register user error', reject(err)))
     });
   }
   

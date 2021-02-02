@@ -30,7 +30,6 @@ export class ModalResearchComponent {
   open(content: any, options?: NgbModalOptions) {
     this.opportunities$ = new Array();
     this.research.description = this.research.description.replace("&#34;", "\"");
-    console.log(this.research.web);
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', windowClass: "myCustomModalClass" }).result.then((result) => {
       //this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

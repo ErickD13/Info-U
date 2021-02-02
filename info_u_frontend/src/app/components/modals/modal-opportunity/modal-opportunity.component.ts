@@ -32,7 +32,6 @@ export class ModalOpportunityComponent {
   open(content: any, options?: NgbModalOptions) {
     this.opportunities$ = new Array();
     this.opportunity.description = this.opportunity.description.replace("&#34;", "\"");
-    console.log(this.opportunity.web);
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       //this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

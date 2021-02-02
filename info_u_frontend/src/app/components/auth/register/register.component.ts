@@ -56,7 +56,6 @@ export class RegisterComponent implements OnInit {
   
   selectFile(event: any) {    
     for (let index = 0; index < event.target.files.length; index++) {
-      console.log('selectFile ', event);
       this.imageChangedEvent = event;
       const element = event.target.files[index];
       this.files.push(element.name)
@@ -66,7 +65,6 @@ export class RegisterComponent implements OnInit {
   
   dndFile(files: any) {
     for (let index = 0; index < files.length; index++) {
-      console.log('dndFile 0 ', files);
       this.imageChangedEvent = {target: {files: files}}
       const element = files[index];
       this.files.push(element.name)
@@ -115,7 +113,6 @@ export class RegisterComponent implements OnInit {
       this.authService.isAuth().subscribe(user => {
         if (user) {
           const ref = this.storage.ref(this.filePath);
-          console.log('base 64 2:', this.croppedImage.replace('data:image/png;base64,', ''));
           const task = ref.putString(this.croppedImage.replace('data:image/png;base64,', ''), 'base64');
           //this.storage.upload(this.filePath, this.croppedImage); // To upload a file
           this.uploadPercent = task.percentageChanges();
@@ -127,13 +124,13 @@ export class RegisterComponent implements OnInit {
             this.router.navigate(['user/profile']);
           }).catch(err => {
             this.error = err.message;
-            console.log(err);
+            console.log('upload photo error:', err);
           });
         }
       });
     }).catch(err => {
       this.error = err.message;
-      console.log(err);
+      console.log('email signup error:', err);
     });
   }
   
@@ -143,7 +140,7 @@ export class RegisterComponent implements OnInit {
       this.onLoginRedirect();
     }).catch(err => {
       this.error = err.message;
-      console.log(err);
+      console.log('google signup error:', err);
     });
   }
   
@@ -153,7 +150,7 @@ export class RegisterComponent implements OnInit {
       this.onLoginRedirect();
     }).catch(err => {
       this.error = err.message;
-      console.log(err);
+      console.log('facebook signup error:', err);
     });
   }
   

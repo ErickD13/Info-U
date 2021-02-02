@@ -28,13 +28,11 @@ export class DndDirective {
   }
   //Drop listener
   @HostListener('drop', ['$event']) public ondrop(evt) {
-    console.log('directive log ', evt);
     evt.preventDefault();
     evt.stopPropagation();
     this.background = '#f5fcff'
     this.opacity = '1'
     let files = evt.dataTransfer.files;
-    console.log('directive log files ', files);
     if (files.length > 0) {
       this.onFileDropped.emit(files);
     } else {

@@ -29,9 +29,7 @@ export class ModalCarouselComponent {
   public innerDiv: string;
 
   open(content) {
-    console.log(this.description);
     this.description = this.description.replace("&#34;", "\"");
-    console.log(this.description);
     this.modalService.open(content, { ariaLabelledBy: 'modal-carousel-title' }).result.then((result) => {
       //this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

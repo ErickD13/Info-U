@@ -20,7 +20,7 @@
                                     <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores suscipit itaque minima quae.</span>
                                 </div>
                             </div>
-                            <form (ngSubmit)="onSubmit()">
+                            <form [formGroup]="update_form" (ngSubmit)="onSubmit()">
                                 <h1 class="h3 mb-3 font-weight-normal">Actualización de datos</h1>
                                 <div class="form-group">
                                     <input type="text" formControlName="name" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" value="{{user.name}}"/>
@@ -68,7 +68,7 @@
                                     </div>
                                 </div>
                                 <div class="progress">
-                                    <div [style.visibility]="uploadPercent ? 'hidden' : 'visible'" class="progress-bar progress-bar-striped bg-success"
+                                    <div [style.visibility]="((uploadPercent | async) == 0) ? 'hidden' : 'visible'" class="progress-bar progress-bar-striped bg-success"
                                     role="progressbar" [style.width]="(uploadPercent | async) +'%'"></div>
                                 </div>
                                 <br>

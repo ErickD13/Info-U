@@ -28,9 +28,9 @@ export class ResearchComponent implements OnInit {
     this.dashboard = this.research$[0];
     this.location = this.research$[1];
     this.surveys = this.research$[2];
-    console.log(this.dashboard);
-    console.log(this.location);
-    console.log(this.surveys);
+    console.log('dashboard:', this.dashboard);
+    console.log('location:', this.location);
+    console.log('surveys:', this.surveys);
   }
 
   @HostListener('window:resize', ['$event'])
