@@ -1,35 +1,35 @@
 <div class="bg-blue custom-text">
-  <!--{{ carousel$ | async | json }}-->
-  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-    <div ngxSlickItem *ngFor="let slide of carousel$ | async" class="slide">
-      <!--<app-modal-carousel modalTitle="{{slide.title}}" imagePath="{{slide.img}}" description="<p class=&#34;text-center&#34;>{{slide.description}}</p>" linkPath=""></app-modal-carousel>-->
-      <img src="{{slide.img}}">
-      <!--<ngx-image-zoom [thumbImage]=slide.img></ngx-image-zoom>-->
-    </div>
-  </ngx-slick-carousel>
-</div>
-<div class="bg-light">
-  <div id="divHome" class="container eArriba25 text-center">
-    <div class="col-md-12">
-      <!--<div class="jumbotron mt-3">-->
-      <img class="logo"
-        src="https://firebasestorage.googleapis.com/v0/b/info-u-gt.appspot.com/o/general%2Flogo_big.png?alt=media&token=e528cbdd-0b1d-4868-99a3-08f7ad7b2df2" />
-      <!--<p class="lead"></p>-->
-      <hr class="my-4">
-      <div class="eArriba25">{{description}}</div>
-      <h2 class="eArriba25">{{question}}</h2>
-      <!--<img style="width: 20%;" class="eArriba25" src="{{down_arrow}}">-->
-      <div class="lottie_down">
-        <ng-lottie [options]="lottie_options"></ng-lottie>
+    <!--{{ carousel$ | async | json }}-->
+    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+      <div ngxSlickItem *ngFor="let slide of carousel$ | async" class="slide">
+        <!--<app-modal-carousel modalTitle="{{slide.title}}" imagePath="{{slide.img}}" description="<p class=&#34;text-center&#34;>{{slide.description}}</p>" linkPath=""></app-modal-carousel>-->
+        <img src="{{slide.img}}">
+        <!--<ngx-image-zoom [thumbImage]=slide.img></ngx-image-zoom>-->
+      </div>
+    </ngx-slick-carousel>
+  </div>
+  <div class="bg-light">
+    <div id="divHome" class="container eArriba25 text-center">
+      <div class="col-md-12">
+        <!--<div class="jumbotron mt-3">-->
+        <img class="logo"
+          src="https://firebasestorage.googleapis.com/v0/b/info-u-gt.appspot.com/o/general%2Flogo_big.png?alt=media&token=e528cbdd-0b1d-4868-99a3-08f7ad7b2df2" />
+        <!--<p class="lead"></p>-->
+        <hr class="my-4">
+        <div class="eArriba25">{{description}}</div>
+        <h2 class="eArriba25">{{question}}</h2>
+        <!--<img style="width: 20%;" class="eArriba25" src="{{down_arrow}}">-->
+        <div class="lottie_down">
+          <ng-lottie [options]="lottie_options"></ng-lottie>
+        </div>
       </div>
     </div>
+    <div id="divUniversities" class="eAbajoNavBar"></div>
+    <app-universities></app-universities>
+    <div id="divOpportunities" class="eAbajoNavBar"></div>
+    <app-opportunities></app-opportunities>
+    <div id="divHistories" class="eAbajoNavBar"></div>
+    <app-histories></app-histories>
+    <div id="divResearch" class="eAbajoNavBar"></div>
+    <app-research></app-research>
   </div>
-  <div id="divUniversities" class="eAbajoNavBar"></div>
-  <app-universities></app-universities>
-  <div id="divOpportunities" class="eAbajoNavBar"></div>
-  <app-opportunities></app-opportunities>
-  <div id="divHistories" class="eAbajoNavBar"></div>
-  <app-histories></app-histories>
-  <div id="divResearch" class="eAbajoNavBar"></div>
-  <app-research></app-research>
-</div>

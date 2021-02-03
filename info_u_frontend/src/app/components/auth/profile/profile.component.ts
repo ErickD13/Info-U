@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
     //setTimeout(() => {
-      this.authService.isAuth().subscribe(user => {
+      this.authService.getUser().subscribe(user => {
         if (user) {
           this.user.name = user.displayName;
           this.user.email = user.email;
@@ -81,7 +81,7 @@ export class ProfileComponent implements OnInit {
   }
   
   on_update_password() {
-    this.authService.isAuth().subscribe(auth => {
+    this.authService.getUser().subscribe(auth => {
       if (auth) {
         auth.updatePassword(this.update_form.controls['password'].value)
         .catch(err => {
@@ -96,7 +96,7 @@ export class ProfileComponent implements OnInit {
   }
 
   on_update_email() {
-    this.authService.isAuth().subscribe(auth => {
+    this.authService.getUser().subscribe(auth => {
       if (auth) {
         auth.updateEmail(this.update_form.controls['email'].value)
         .catch(err => {
@@ -111,7 +111,7 @@ export class ProfileComponent implements OnInit {
   }
 
   on_update_profile() {
-    this.authService.isAuth().subscribe(auth => {
+    this.authService.getUser().subscribe(auth => {
       if (auth) {
         auth.updateProfile({
           displayName: this.update_form.controls['name'].value,
@@ -196,7 +196,7 @@ export class ProfileComponent implements OnInit {
   
   // Firebase
   onUpdateUser() {
-    this.authService.isAuth().subscribe(auth => {
+    this.authService.getUser().subscribe(auth => {
       if (auth) {
         const ref = this.storage.ref(this.filePath);
         const task = ref.putString(this.croppedImage.replace('data:image/png;base64,', ''), 'base64');

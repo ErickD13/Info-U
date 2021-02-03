@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, AfterContentChecked } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -10,16 +10,14 @@ import { NgxSpinnerService } from 'ngx-spinner';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, AfterContentChecked {
   
   @ViewChild('navbarToggler', {static: true}) navbarToggler:ElementRef;
   
-  constructor(private authService: AuthService, private afsAuth: AngularFireAuth, private router: Router, private spinner: NgxSpinnerService) { }
+  constructor(private afsAuth: AngularFireAuth, private authService: AuthService, private router: Router, private spinner: NgxSpinnerService) { }
   
   // Text
   public app_name = "Info U";
-  
-  public isLogged = false;
   
   public nav_home = "Inicio";
   public nav_universities = "Universidades";
@@ -41,14 +39,21 @@ export class NavbarComponent implements OnInit {
   public div_opportunities = "#divOpportunities";
   public div_histories = "#divHistories";
   public div_research = "#divResearch";
-  public div_login = "#login";
-  public div_register = "#register";
-  public div_profile = "#profile";
+  public div_login = "#divLogin";
+  public div_register = "#divRegister";
+  public div_profile = "#divProfile";
+  public div_navbar = "#divNavbar";
   
-  isMenuVisible = false
+  isMenuVisible = false;
+  
+  ['Navigation'] = Navigation;
   
   ngOnInit() {
     this.getCurrentUser();
+  }
+
+  ngAfterContentChecked() {
+    
   }
   
   toggleControl(){
@@ -58,12 +63,6 @@ export class NavbarComponent implements OnInit {
   collapseNav(div: string) {
     this.hideNav();
     Navigation.current_div = div;
-    /*if((Navigation.current_div == this.div_login || Navigation.current_div == this.div_register || Navigation.current_div == this.div_profile) &&
-      (div == this.div_home || div == this.div_universities || div == this.div_opportunities || div == this.div_histories || div == this.div_research)){
-      this.router.navigate(['/']);
-    } else if (Navigation.current_div == this.div_profile && div == this.div_profile){
-      this.router.navigate(['/user/profile']);
-    }*/
   }
   
   hideNav() {
@@ -73,20 +72,30 @@ export class NavbarComponent implements OnInit {
     }
   }
   
-  getCurrentUser() {
-    this.authService.isAuth().subscribe(auth => {
-      if (auth) {
-        console.log('user logged');
-        this.isLogged = true;
-      } else {
-        console.log('not user logged');
-        this.isLogged = false;
-      }
-    });
+  onLogin() {
+    this.router.navigate(['user/login']);
   }
-  
+
+  onRegister() {
+    this.router.navigate(['user/register']);
+  }
+
+  onProfile() {
+    this.router.navigate(['user/profile']);
+  }
+
+  onHome() {
+    this.router.navigate(['/']);
+  }
+
+  getCurrentUser() {
+    //this.authService.getUser();
+    Navigation.is_user_loggedin = this.authService.is_user_loggedin;
+  }
+
   onLogout() {
     this.afsAuth.auth.signOut();
+    this.onHome();
   }
-  
+
 }

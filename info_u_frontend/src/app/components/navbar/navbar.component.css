@@ -31,11 +31,3 @@ a:link {
 .nav-item>a:hover {
     color: gray;
 }
-
-.container-fluid {
-    min-height: 200vh;
-}
-
-.container-fluid-overlay {
-    height: auto;
-}

@@ -50,14 +50,21 @@ export class LoginComponent implements OnInit {
   }
   
   onLoginGoogle(): void {
-    this.authService.loginGoogleUser()
+    this.authService.google_login()
+    .then((res) => {
+      console.log('google login then', res);
+    }).catch(err => {
+      this.error = err.message;
+      console.log('google login error', err);
+    });
+    /*this.authService.loginGoogleUser()
     .then((res) => {
       console.log('google login then', res);
       this.onLoginRedirect();
     }).catch(err => {
       this.error = err.message;
       console.log('google login error', err);
-    });
+    });*/
   }
   
   onLoginFacebook(): void {

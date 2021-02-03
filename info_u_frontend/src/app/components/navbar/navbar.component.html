@@ -1,9 +1,6 @@
-<div id="profile" class="eAbajoNavBar" [ngClass]="{
-  'container-fluid-overlay':  isMenuVisible === true,
-  'container-fluid':  isMenuVisible === false }">
+<div id="divNavbar" class="eAbajoNavBar">
   <nav class="navbar navbar-expand-md text-center navbar-dark">
     <a class="navbar-brand font-weight-bold" routerLink="/" (click)="hideNav()">
-      <!---<img src="./assets/images/logo.png">-->
       {{app_name}}
     </a>
     <button #navbarToggler class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -17,54 +14,36 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="nav-item">
-          <a id="nav_home" class="nav-link font-weight-bold active" routerLink="/" href="{{div_home}}" pageScroll id="scrollHome" [pageScrollInterruptible]="false" (click)="collapseNav(div_home)">{{nav_home}}</a>
+          <a id="nav_home" class="nav-link font-weight-bold active" href="{{div_home}}" pageScroll id="scrollHome" [pageScrollInterruptible]="false" (click)="collapseNav(div_home)" (click)="onHome()">{{nav_home}}</a>
         </li>
         <li class="nav-item">
-          <a id="nav_universities" class="nav-link font-weight-bold active" routerLink="/" href="{{div_universities}}" pageScroll id="scrollUniversities" [pageScrollInterruptible]="false" (click)="collapseNav(div_universities)">{{nav_universities}}</a>
+          <a id="nav_universities" class="nav-link font-weight-bold active" href="{{div_universities}}" pageScroll id="scrollUniversities" [pageScrollInterruptible]="false" (click)="collapseNav(div_universities)" (click)="onHome()">{{nav_universities}}</a>
         </li>
         <li class="nav-item">
-          <a id="nav_opportunities" class="nav-link font-weight-bold active" routerLink="/" href="{{div_opportunities}}" pageScroll id="scrollOpportunities" [pageScrollInterruptible]="false" (click)="collapseNav(div_opportunities)">{{nav_opportunities}}</a>
+          <a id="nav_opportunities" class="nav-link font-weight-bold active" href="{{div_opportunities}}" pageScroll id="scrollOpportunities" [pageScrollInterruptible]="false" (click)="collapseNav(div_opportunities)" (click)="onHome()">{{nav_opportunities}}</a>
         </li>
         <li class="nav-item">
-          <a id="nav_histories" class="nav-link font-weight-bold active" routerLink="/" href="{{div_histories}}" pageScroll id="scrollHistories" [pageScrollInterruptible]="false" (click)="collapseNav(div_histories)">{{nav_histories}}</a>
+          <a id="nav_histories" class="nav-link font-weight-bold active" href="{{div_histories}}" pageScroll id="scrollHistories" [pageScrollInterruptible]="false" (click)="collapseNav(div_histories)" (click)="onHome()">{{nav_histories}}</a>
         </li>
         <li class="nav-item">
-          <a id="nav_research" class="nav-link font-weight-bold active" routerLink="/" href="{{div_research}}" pageScroll id="scrollResearch" [pageScrollInterruptible]="false" (click)="collapseNav(div_research)">{{nav_research}}</a>
+          <a id="nav_research" class="nav-link font-weight-bold active" href="{{div_research}}" pageScroll id="scrollResearch" [pageScrollInterruptible]="false" (click)="collapseNav(div_research)" (click)="onHome()">{{nav_research}}</a>
         </li>
-        <li class="nav-item" *ngIf="isLogged">
-          <a id="nav_profile" class="nav-link font-weight-bold active" routerLink="/user/profile" href="{{div_profile}}" pageScroll id="scrollProfile" [pageScrollInterruptible]="false" (click)="collapseNav(div_profile)">{{nav_profile}}</a>
+        <li class="nav-item" *ngIf="Navigation.is_user_loggedin">
+          <a id="nav_profile" class="nav-link font-weight-bold active" routerLink="/user/profile" href="{{div_navbar}}" pageScroll id="scrollProfile" [pageScrollInterruptible]="false" (click)="collapseNav(div_profile)">{{nav_profile}}</a>
         </li>        
-        <li class="nav-item" *ngIf="!isLogged">
+        <li class="nav-item" *ngIf="!Navigation.is_user_loggedin">
           <a id="nav_login" class="nav-link font-weight-bold active" routerLink="/user/login" (click)="collapseNav(div_login)">{{nav_login}}</a>
         </li>
-        <li class="nav-item" *ngIf="!isLogged">
+        <li class="nav-item" *ngIf="!Navigation.is_user_loggedin">
           <a id="nav_register" class="nav-link font-weight-bold active" routerLink="/user/register" (click)="collapseNav(div_register)">{{nav_register}}</a>
         </li>
-        <li class="nav-item" *ngIf="isLogged">
-          <a id="nav_logout" class="nav-link font-weight-bold active" routerLink="/" (click)="onLogout()" (click)="collapseNav(div_home)">{{nav_logout}}</a>
+        <li class="nav-item" *ngIf="Navigation.is_user_loggedin">
+          <a id="nav_logout" class="nav-link font-weight-bold active" (click)="collapseNav(div_home)" (click)="onLogout()">{{nav_logout}}</a>
         </li>
-        <!--<li class="nav-item dropdown">
-          <a id="nav_more" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{nav_more}}
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" routerLink="/equipment">{{nav_equipment}}</a>
-            <a id="nav_programs" class="dropdown-item" routerLink="/programs">{{nav_programs}}</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>-->
         <li class="nav-link">
           <a href="https://www.facebook.com/infousocial/" class="fab fa-facebook encuadrar text-light" target="_blank" rel="noopener noreferrer" (click)="collapseNav(div_home)"></a>
-          <!--<a href="https://www.instagram.com/infousocial/" class="fab fa-instagram encuadrar text-light" target="_blank"></a>
-          <a href="mailto:infou.root@gmail.com" class="far fa-envelope encuadrar text-light" target="_blank"></a>-->
         </li>
-  
       </ul>
-      <!--<form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" />
-        <button class="form-control btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-      </form>-->
     </div>
   </nav>
 </div>

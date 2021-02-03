@@ -110,7 +110,7 @@ export class RegisterComponent implements OnInit {
   onAddUser() {
     this.authService.registerUser(this.registerForm.controls['email'].value, this.registerForm.controls['password'].value)
     .then((res) => {
-      this.authService.isAuth().subscribe(user => {
+      this.authService.getUser().subscribe(user => {
         if (user) {
           const ref = this.storage.ref(this.filePath);
           const task = ref.putString(this.croppedImage.replace('data:image/png;base64,', ''), 'base64');
