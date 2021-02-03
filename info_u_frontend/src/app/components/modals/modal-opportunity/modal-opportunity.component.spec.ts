@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ModalOpportunityComponent } from './modal-opportunity.component';
 
@@ -6,7 +6,7 @@ describe('ModalOpportunityComponent', () => {
   let component: ModalOpportunityComponent;
   let fixture: ComponentFixture<ModalOpportunityComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ModalOpportunityComponent ]
     })
