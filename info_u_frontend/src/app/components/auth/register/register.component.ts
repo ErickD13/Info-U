@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -13,48 +13,48 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  
+
   constructor(private router: Router, private authService: AuthService, private storage: AngularFireStorage, private formBuilder: FormBuilder) { }
-  
-  @ViewChild('imageUser', {static: true})
+
+  @ViewChild('imageUser', { static: true })
   inputImageUser: ElementRef;
-  
-  @ViewChild('fileInput', {static: true})
+
+  @ViewChild('fileInput', { static: true })
   inputFileInput: ElementRef;
-  
+
   registerForm: FormGroup;
   submitted = false;
   error = '';
-  
+
   uploadPercent: Observable<number>;
   urlImage: Observable<string>;
-  
+
   filePath: string;
-  
+
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-        name: ['', Validators.required],
-        email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
-  
+
   // convenience getter for easy access to form fields
   get f() { return this.registerForm.controls; }
 
   onSubmit() {
-      this.submitted = true;
-      // stop here if form is invalid
-      if (this.registerForm.invalid) {
-          return;
-      }
-      this.onAddUser();
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    }
+    this.onAddUser();
   }
 
   //Drag and drop
   files: any = [];
-  
-  selectFile(event: any) {    
+
+  selectFile(event: any) {
     for (let index = 0; index < event.target.files.length; index++) {
       this.imageChangedEvent = event;
       const element = event.target.files[index];
@@ -62,16 +62,16 @@ export class RegisterComponent implements OnInit {
       this.uploadFile(element);
     }
   }
-  
+
   dndFile(files: any) {
     for (let index = 0; index < files.length; index++) {
-      this.imageChangedEvent = {target: {files: files}}
+      this.imageChangedEvent = { target: { files: files } }
       const element = files[index];
       this.files.push(element.name)
       this.uploadFile(element);
     }
   }
-  
+
   uploadFile(element: any) {
     const id = Math.random().toString(36).substring(2);
     const file = element;
@@ -81,81 +81,81 @@ export class RegisterComponent implements OnInit {
     this.uploadPercent = task.percentageChanges();
     task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
   }
-  
+
   deleteAttachment(index: any) {
     this.files.splice(index, 1)
   }
-  
+
   // Image cropper
   imageChangedEvent: any = '';
   croppedImage: any = '';
-  
+
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
   }
-  
+
   imageLoaded() {
     // show cropper
   }
-  
+
   cropperReady() {
     // cropper ready
   }
-  
+
   loadImageFailed() {
     // show message
   }
-  
+
   // Firebase
   onAddUser() {
     this.authService.registerUser(this.registerForm.controls['email'].value, this.registerForm.controls['password'].value)
-    .then((res) => {
-      this.authService.getUser().subscribe(user => {
-        if (user) {
-          const ref = this.storage.ref(this.filePath);
-          const task = ref.putString(this.croppedImage.replace('data:image/png;base64,', ''), 'base64');
-          //this.storage.upload(this.filePath, this.croppedImage); // To upload a file
-          this.uploadPercent = task.percentageChanges();
-          task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
-          user.updateProfile({
-            displayName: this.registerForm.controls['name'].value,
-            photoURL: this.inputImageUser.nativeElement.value
-          }).then(() => {
-            this.router.navigate(['user/profile']);
-          }).catch(err => {
-            this.error = err.message;
-            console.log('upload photo error:', err);
-          });
-        }
+      .then((res) => {
+        this.authService.getUser().subscribe(user => {
+          if (user) {
+            const ref = this.storage.ref(this.filePath);
+            const task = ref.putString(this.croppedImage.replace('data:image/png;base64,', ''), 'base64');
+            //this.storage.upload(this.filePath, this.croppedImage); // To upload a file
+            this.uploadPercent = task.percentageChanges();
+            task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
+            user.updateProfile({
+              displayName: this.registerForm.controls['name'].value,
+              photoURL: this.inputImageUser.nativeElement.value
+            }).then(() => {
+              this.router.navigate(['user/profile']);
+            }).catch(err => {
+              this.error = err.message;
+              console.log('upload photo error:', err);
+            });
+          }
+        });
+      }).catch(err => {
+        this.error = err.message;
+        console.log('email signup error:', err);
       });
-    }).catch(err => {
-      this.error = err.message;
-      console.log('email signup error:', err);
-    });
   }
-  
+
   onSingUpGoogle(): void {
     this.authService.loginGoogleUser()
-    .then((res) => {
-      this.onLoginRedirect();
-    }).catch(err => {
-      this.error = err.message;
-      console.log('google signup error:', err);
-    });
+      .then((res) => {
+        this.onLoginRedirect();
+      }).catch(err => {
+        this.error = err.message;
+        console.log('google signup error:', err);
+      });
   }
-  
+
   onSingUpFacebook(): void {
     this.authService.loginFacebookUser()
-    .then((res) => {
-      this.onLoginRedirect();
-    }).catch(err => {
-      this.error = err.message;
-      console.log('facebook signup error:', err);
-    });
+      .then((res) => {
+        this.onLoginRedirect();
+      }).catch(err => {
+        this.error = err.message;
+        console.log('facebook signup error:', err);
+      });
   }
-  
+
   onLoginRedirect(): void {
     this.router.navigate(['user/profile']);
   }
-  
+
 }

@@ -137,16 +137,16 @@ export class AuthService {
   }
 
   isUserLogged() {
-    Navigation.is_user_loggedin = true;
-    /*return this.afsAuth.authState.pipe(map(auth => auth)).subscribe(auth => {
+    //Navigation.is_user_loggedin = true;
+    return this.afAuth.authState.pipe(map(auth => auth)).subscribe(auth => {
       if (auth) {
         console.log('user logged');
-        Navigation.is_loged = true;
+        Navigation.is_user_loggedin = true;
       } else {
         console.log('not user logged');
-        Navigation.is_loged = false;
+        Navigation.is_user_loggedin = false;
       }
-    });*/
+    });
   }
 
   private updateUserData(user: any) {

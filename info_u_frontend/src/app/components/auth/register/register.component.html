@@ -53,7 +53,7 @@
                                     </div>
                                 </div>
                                 <div class="progress">
-                                    <div [style.visibility]="uploadPercent ? 'hidden' : 'visible'" class="progress-bar progress-bar-striped bg-success"
+                                    <div [style.visibility]="((uploadPercent | async) == 0) ? 'hidden' : 'visible'" class="progress-bar progress-bar-striped bg-success"
                                     role="progressbar" [style.width]="(uploadPercent | async) +'%'">
                                 </div>
                             </div>

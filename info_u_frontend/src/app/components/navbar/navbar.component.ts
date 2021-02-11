@@ -90,10 +90,11 @@ export class NavbarComponent implements OnInit, AfterContentChecked {
 
   getCurrentUser() {
     //this.authService.getUser();
-    Navigation.is_user_loggedin = this.authService.is_user_loggedin;
+    this.authService.is_user_loggedin;
   }
 
   onLogout() {
+    //this.authService.logout();
     this.afsAuth.auth.signOut();
     this.onHome();
   }

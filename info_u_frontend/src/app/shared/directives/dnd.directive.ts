@@ -16,6 +16,7 @@ export class DndDirective {
   @HostListener('dragover', ['$event']) onDragOver(evt) {
     evt.preventDefault();
     evt.stopPropagation();
+    console.log('dragover directive event:', evt);
     this.background = '#9ecbec';
     this.opacity = '0.8'
   }
@@ -33,6 +34,8 @@ export class DndDirective {
     this.background = '#f5fcff'
     this.opacity = '1'
     let files = evt.dataTransfer.files;
+    console.log('drop directive event:', evt);
+    console.log('drop directive files:', files);
     if (files.length > 0) {
       this.onFileDropped.emit(files);
     } else {
