@@ -156,6 +156,10 @@ body {
     opacity: 0.8;
 }
 
+.uploadfilecontent {
+    height: 100%;
+}
+
 .files-list {
     display: flex;
     justify-content: space-between;

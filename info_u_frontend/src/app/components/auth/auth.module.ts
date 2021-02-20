@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';import { ProfileComponent } from './profile/profile.component';
+import { NgxFileDropModule } from 'ngx-file-drop';
 ;
 
 @NgModule({
@@ -25,7 +26,8 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';imp
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    ImageCropperModule
+    ImageCropperModule,
+    NgxFileDropModule
   ]
 })
 export class AuthModule { }

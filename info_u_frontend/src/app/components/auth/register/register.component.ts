@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, OnInit, ViewChild } from '@angular
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { Observable } from 'rxjs';
 import { finalize, take } from 'rxjs/operators';
@@ -52,24 +53,60 @@ export class RegisterComponent implements OnInit {
   }
 
   //Drag and drop
-  files: any = [];
+  files: NgxFileDropEntry[] = [];
 
-  selectFile(event: any) {
-    for (let index = 0; index < event.target.files.length; index++) {
-      this.imageChangedEvent = event;
-      const element = event.target.files[index];
-      this.files.push(element.name)
-      this.uploadFile(element);
+  dropped(files: any) {
+    //this.imageChangedEvent = {target: {files: files}};
+    console.log('finding event', this.imageChangedEvent);
+    this.files = files;
+    for (const droppedFile of files) {
+
+      // Is it a file?
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {          
+          // Here you can access the real file
+          this.imageChangedEvent = { target: { files: [file] } }
+          console.log(droppedFile.relativePath, file);
+          
+          this.uploadFile(file);
+          /**
+          // You could upload it like this:
+          const formData = new FormData()
+          formData.append('logo', file, relativePath)
+
+          // Headers
+          const headers = new HttpHeaders({
+            'security-token': 'mytoken'
+          })
+
+          this.http.post('https://mybackend.com/api/upload/sanitize-and-save-logo', formData, { headers: headers, responseType: 'blob' })
+          .subscribe(data => {
+            // Sanitized logo returned from backend
+          })
+          **/
+
+        });
+      } else {
+        // It was a directory (empty directories are added, otherwise only files)
+        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+        console.log(droppedFile.relativePath, fileEntry);
+        alert("Elige una imagen.");
+      }
     }
   }
 
-  dndFile(files: any) {
-    for (let index = 0; index < files.length; index++) {
-      this.imageChangedEvent = { target: { files: files } }
-      const element = files[index];
-      this.files.push(element.name)
-      this.uploadFile(element);
-    }
+  public fileOver(event: any){
+    console.log('file over', event);
+  }
+
+  public fileLeave(event: any){
+    console.log('file leave', event);
+  }
+
+  public setEvent(event: any){
+    this.imageChangedEvent = event;
+    console.log('set Event', event);
   }
 
   uploadFile(element: any) {
@@ -92,6 +129,7 @@ export class RegisterComponent implements OnInit {
 
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
+    console.log(this.croppedImage);
   }
 
   imageLoaded() {
@@ -112,11 +150,11 @@ export class RegisterComponent implements OnInit {
       .then((res) => {
         this.authService.getUser().subscribe(user => {
           if (user) {
-            const ref = this.storage.ref(this.filePath);
-            const task = ref.putString(this.croppedImage.replace('data:image/png;base64,', ''), 'base64');
+            //const ref = this.storage.ref(this.filePath);
+            //const task = ref.putString(this.croppedImage.replace('data:image/png;base64,', ''), 'base64');
             //this.storage.upload(this.filePath, this.croppedImage); // To upload a file
-            this.uploadPercent = task.percentageChanges();
-            task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
+            //this.uploadPercent = task.percentageChanges();
+            //task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
             user.updateProfile({
               displayName: this.registerForm.controls['name'].value,
               photoURL: this.inputImageUser.nativeElement.value
