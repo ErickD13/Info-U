@@ -32,6 +32,7 @@ import { PolicyComponent } from './components/legal/policy/policy.component';
 import { TermsComponent } from './components/legal/terms/terms.component';
 import { DndDirective } from './shared/directives/dnd.directive';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { AuthService } from './shared/services/auth.service';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -71,6 +72,7 @@ export function playerFactory() {
   providers: [
     AngularFireAuth,
     AngularFireStorage,
+    AuthService,
     {provide: StorageBucket, useValue: 'gs://info-u-gt.appspot.com'}
   ],
   bootstrap: [AppComponent]

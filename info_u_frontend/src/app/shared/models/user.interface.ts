@@ -8,6 +8,7 @@ export interface UserInterface {
     name?: string;
     email?: string;
     password?: string;
-    photoUrl?: string;
-    roles: Roles;
+    photoURL?: string;
+    emailVerified?: boolean;
+    roles?: Roles;
 }

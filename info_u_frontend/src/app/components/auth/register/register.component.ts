@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private router: Router, private authService: AuthService, private storage: AngularFireStorage, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, public authService: AuthService, private storage: AngularFireStorage, private formBuilder: FormBuilder) { }
 
   @ViewChild('imageUser', { static: true })
   inputImageUser: ElementRef;
@@ -68,24 +68,7 @@ export class RegisterComponent implements OnInit {
           // Here you can access the real file
           this.imageChangedEvent = { target: { files: [file] } }
           console.log(droppedFile.relativePath, file);
-          
           this.uploadFile(file);
-          /**
-          // You could upload it like this:
-          const formData = new FormData()
-          formData.append('logo', file, relativePath)
-
-          // Headers
-          const headers = new HttpHeaders({
-            'security-token': 'mytoken'
-          })
-
-          this.http.post('https://mybackend.com/api/upload/sanitize-and-save-logo', formData, { headers: headers, responseType: 'blob' })
-          .subscribe(data => {
-            // Sanitized logo returned from backend
-          })
-          **/
-
         });
       } else {
         // It was a directory (empty directories are added, otherwise only files)
@@ -107,16 +90,6 @@ export class RegisterComponent implements OnInit {
   public setEvent(event: any){
     this.imageChangedEvent = event;
     console.log('set Event', event);
-  }
-
-  uploadFile(element: any) {
-    const id = Math.random().toString(36).substring(2);
-    const file = element;
-    this.filePath = `uploads/profile_${id}`;
-    const ref = this.storage.ref(this.filePath);
-    const task = this.storage.upload(this.filePath, file);
-    this.uploadPercent = task.percentageChanges();
-    task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
   }
 
   deleteAttachment(index: any) {
@@ -145,16 +118,21 @@ export class RegisterComponent implements OnInit {
   }
 
   // Firebase
+  uploadFile(element: any) {
+    const id = Math.random().toString(36).substring(2);
+    const file = element;
+    this.filePath = `uploads/profile_${id}`;
+    const ref = this.storage.ref(this.filePath);
+    const task = this.storage.upload(this.filePath, file);
+    this.uploadPercent = task.percentageChanges();
+    task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
+  }
+
   onAddUser() {
-    this.authService.registerUser(this.registerForm.controls['email'].value, this.registerForm.controls['password'].value)
+    this.authService.SignUp(this.registerForm.controls['email'].value, this.registerForm.controls['password'].value)
       .then((res) => {
-        this.authService.getUser().subscribe(user => {
+        this.authService.userData.subscribe(user => {
           if (user) {
-            //const ref = this.storage.ref(this.filePath);
-            //const task = ref.putString(this.croppedImage.replace('data:image/png;base64,', ''), 'base64');
-            //this.storage.upload(this.filePath, this.croppedImage); // To upload a file
-            //this.uploadPercent = task.percentageChanges();
-            //task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
             user.updateProfile({
               displayName: this.registerForm.controls['name'].value,
               photoURL: this.inputImageUser.nativeElement.value
@@ -173,23 +151,11 @@ export class RegisterComponent implements OnInit {
   }
 
   onSingUpGoogle(): void {
-    this.authService.loginGoogleUser()
-      .then((res) => {
-        this.onLoginRedirect();
-      }).catch(err => {
-        this.error = err.message;
-        console.log('google signup error:', err);
-      });
+    this.authService.GoogleAuth();
   }
 
   onSingUpFacebook(): void {
-    this.authService.loginFacebookUser()
-      .then((res) => {
-        this.onLoginRedirect();
-      }).catch(err => {
-        this.error = err.message;
-        console.log('facebook signup error:', err);
-      });
+    this.authService.FacebookAuth();
   }
 
   onLoginRedirect(): void {

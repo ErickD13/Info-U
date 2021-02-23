@@ -9,6 +9,7 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
 import { NgZone } from '@angular/core';
+import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 
 @Component({
   selector: 'app-profile',
@@ -16,8 +17,8 @@ import { NgZone } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  
-  constructor(private authService: AuthService, private storage: AngularFireStorage, private formBuilder: FormBuilder, private spinner: NgxSpinnerService, private router: Router) {
+
+  constructor(public authService: AuthService, private storage: AngularFireStorage, private formBuilder: FormBuilder, private spinner: NgxSpinnerService, private router: Router) {
     // override the route reuse strategy
     //this.router.routeReuseStrategy.shouldReuseRoute = function() {
     //  return false;
@@ -25,35 +26,35 @@ export class ProfileComponent implements OnInit {
     //this.router.onSameUrlNavigation = 'reload';
     //this.router.navigate(['user/profile']);
   }
-  
-  @ViewChild('imageUser', {static: true})
+
+  @ViewChild('imageUser', { static: true })
   inputImageUser: ElementRef;
-  
-  @ViewChild('fileInput', {static: true})
+
+  @ViewChild('fileInput', { static: true })
   inputFileInput: ElementRef;
-  
+
   mush_update_passowrd = true;
   providerId: string = 'null';
   update_form: FormGroup;
   submitted = false;
   error = '';
-  
+
   uploadPercent: Observable<number>;
   urlImage: Observable<string>;
-  
+
   filePath: string;
-  
+
   user: UserInterface = {
     name: '',
     email: '',
-    photoUrl: '',
+    photoURL: '',
     password: '',
     roles: {}
   };
-  
+
   ngOnInit() {
     // Allows for ngOnInit to be called on routing to the same routing Component since we will never reuse a route
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
     // put the code from `ngOnInit` here
@@ -64,30 +65,30 @@ export class ProfileComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
     //setTimeout(() => {
-      this.authService.getUser().subscribe(user => {
-        if (user) {
-          this.user.name = user.displayName;
-          this.user.email = user.email;
-          this.user.photoUrl = user.photoURL;
-          this.providerId = user.providerData[0].providerId;
-          // if (){
-          //   console.log('Update password');
-          //   this.mush_update_passowrd = true;
-          // }
-        }
-      });
-      this.spinner.hide();
+    this.authService.userData.subscribe(user => {
+      if (user) {
+        this.user.name = user.displayName;
+        this.user.email = user.email;
+        this.user.photoURL = user.photoURL;
+        this.providerId = user.providerData[0].providerId;
+        // if (){
+        //   console.log('Update password');
+        //   this.mush_update_passowrd = true;
+        // }
+      }
+    });
+    this.spinner.hide();
     //}, 2000);
   }
-  
+
   on_update_password() {
-    this.authService.getUser().subscribe(auth => {
+    this.authService.userData.subscribe(auth => {
       if (auth) {
         auth.updatePassword(this.update_form.controls['password'].value)
-        .catch(err => {
-          this.error = err.message;
-          console.log('update password error:', err);
-        });
+          .catch(err => {
+            this.error = err.message;
+            console.log('update password error:', err);
+          });
         alert('Contraseña actualizada');
       } else {
         console.log('update passowrd not user logged');
@@ -96,13 +97,13 @@ export class ProfileComponent implements OnInit {
   }
 
   on_update_email() {
-    this.authService.getUser().subscribe(auth => {
+    this.authService.userData.subscribe(auth => {
       if (auth) {
         auth.updateEmail(this.update_form.controls['email'].value)
-        .catch(err => {
-          this.error = err.message;
-          console.log('update email error:', err);
-        });
+          .catch(err => {
+            this.error = err.message;
+            console.log('update email error:', err);
+          });
         alert('Email actualizado');
       } else {
         console.log('update email user logged');
@@ -111,7 +112,7 @@ export class ProfileComponent implements OnInit {
   }
 
   on_update_profile() {
-    this.authService.getUser().subscribe(auth => {
+    this.authService.userData.subscribe(auth => {
       if (auth) {
         auth.updateProfile({
           displayName: this.update_form.controls['name'].value,
@@ -126,10 +127,10 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
-  
+
   // convenience getter for easy access to form fields
   get f() { return this.update_form.controls; }
-  
+
   onSubmit() {
     this.submitted = true;
     // stop here if form is invalid
@@ -138,28 +139,73 @@ export class ProfileComponent implements OnInit {
     }
     this.onUpdateUser();
   }
-  
+
   //Drag and drop
-  files: any = [];
-  
-  selectFile(event: any) {    
-    for (let index = 0; index < event.target.files.length; index++) {
-      this.imageChangedEvent = event;
-      const element = event.target.files[index];
-      this.files.push(element.name)
-      this.uploadFile(element);
+  files: NgxFileDropEntry[] = [];
+
+  dropped(files: any) {
+    //this.imageChangedEvent = {target: {files: files}};
+    console.log('finding event', this.imageChangedEvent);
+    this.files = files;
+    for (const droppedFile of files) {
+
+      // Is it a file?
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
+          // Here you can access the real file
+          this.imageChangedEvent = { target: { files: [file] } }
+          console.log(droppedFile.relativePath, file);
+          this.uploadFile(file);
+        });
+      } else {
+        // It was a directory (empty directories are added, otherwise only files)
+        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+        console.log(droppedFile.relativePath, fileEntry);
+        alert("Elige una imagen.");
+      }
     }
   }
-  
-  dndFile(files: any) {
-    for (let index = 0; index < files.length; index++) {
-      this.imageChangedEvent = {target: {files: files}}
-      const element = files[index];
-      this.files.push(element.name)
-      this.uploadFile(element);
-    }
+
+  public fileOver(event: any) {
+    console.log('file over', event);
   }
-  
+
+  public fileLeave(event: any) {
+    console.log('file leave', event);
+  }
+
+  public setEvent(event: any) {
+    this.imageChangedEvent = event;
+    console.log('set Event', event);
+  }
+
+  deleteAttachment(index: any) {
+    this.files.splice(index, 1)
+  }
+
+  // Image cropper
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+    console.log(this.croppedImage);
+  }
+
+  imageLoaded() {
+    // show cropper
+  }
+
+  cropperReady() {
+    // cropper ready
+  }
+
+  loadImageFailed() {
+    // show message
+  }
+
+  // Firebase
   uploadFile(element: any) {
     const id = Math.random().toString(36).substring(2);
     const file = element;
@@ -169,34 +215,9 @@ export class ProfileComponent implements OnInit {
     this.uploadPercent = task.percentageChanges();
     task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
   }
-  
-  deleteAttachment(index: any) {
-    this.files.splice(index, 1)
-  }
-  
-  // Image cropper
-  imageChangedEvent: any = '';
-  croppedImage: any = '';
-  
-  imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = event.base64;
-  }
-  
-  imageLoaded() {
-    // show cropper
-  }
-  
-  cropperReady() {
-    // cropper ready
-  }
-  
-  loadImageFailed() {
-    // show message
-  }
-  
-  // Firebase
+
   onUpdateUser() {
-    this.authService.getUser().subscribe(auth => {
+    this.authService.userData.subscribe(auth => {
       if (auth) {
         const ref = this.storage.ref(this.filePath);
         const task = ref.putString(this.croppedImage.replace('data:image/png;base64,', ''), 'base64');

@@ -1,9 +1,9 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, AfterContentChecked } from '@angular/core';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Navigation } from '../../shared/singleton/navigation';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit, AfterContentChecked {
   
   @ViewChild('navbarToggler', {static: true}) navbarToggler:ElementRef;
   
-  constructor(private afsAuth: AngularFireAuth, private authService: AuthService, private router: Router, private spinner: NgxSpinnerService) { }
+  constructor(private afsAuth: AngularFireAuth, public authService: AuthService, private router: Router, private spinner: NgxSpinnerService) { }
   
   // Text
   public app_name = "Info U";
@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit, AfterContentChecked {
   ['Navigation'] = Navigation;
   
   ngOnInit() {
-    this.getCurrentUser();
+    
   }
 
   ngAfterContentChecked() {
@@ -88,15 +88,9 @@ export class NavbarComponent implements OnInit, AfterContentChecked {
     this.router.navigate(['/']);
   }
 
-  getCurrentUser() {
-    //this.authService.getUser();
-    this.authService.is_user_loggedin;
-  }
-
   onLogout() {
     //this.authService.logout();
-    this.afsAuth.auth.signOut();
-    this.onHome();
+    this.authService.SignOut();
   }
 
 }

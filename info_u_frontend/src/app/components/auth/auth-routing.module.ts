@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from 'src/app/shared/guards/auth.guard';
 
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
@@ -13,10 +14,15 @@ const routes: Routes = [{
   component: AuthComponent,
   children: [
     // [...]
+    { path: 'login', redirectTo: '/user/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
+    { path: 'register', redirectTo: '/user/register', pathMatch: 'full' },
     { path: 'register', component: RegisterComponent },
+    { path: 'verify', redirectTo: '/user/verify', pathMatch: 'full' },
     { path: 'verify', component: VerifyEmailComponent },
+    { path: 'recovery', redirectTo: '/user/recovery', pathMatch: 'full' },
     { path: 'recovery', component: RecoveryPasswordComponent },
+    { path: 'profile', redirectTo: '/user/profile', pathMatch: 'full' },
     { path: 'profile', component: ProfileComponent }
   ]
 }];

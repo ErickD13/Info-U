@@ -28,17 +28,17 @@
         <li class="nav-item">
           <a id="nav_research" class="nav-link font-weight-bold active" href="{{div_research}}" pageScroll id="scrollResearch" [pageScrollInterruptible]="false" (click)="collapseNav(div_research)" (click)="onHome()">{{nav_research}}</a>
         </li>
-        <li class="nav-item" *ngIf="Navigation.is_user_loggedin">
+        <li class="nav-item" *ngIf="this.authService.isLoggedIn">
           <a id="nav_profile" class="nav-link font-weight-bold active" routerLink="/user/profile" href="{{div_navbar}}" pageScroll id="scrollProfile" [pageScrollInterruptible]="false" (click)="collapseNav(div_profile)">{{nav_profile}}</a>
         </li>        
-        <li class="nav-item" *ngIf="!Navigation.is_user_loggedin">
-          <a id="nav_login" class="nav-link font-weight-bold active" routerLink="/user/login" (click)="collapseNav(div_login)">{{nav_login}}</a>
+        <li class="nav-item" *ngIf="!this.authService.isLoggedIn">
+          <a id="nav_login" class="nav-link font-weight-bold active" routerLink="/user/login" href="{{div_navbar}}" pageScroll id="scrollProfile" [pageScrollInterruptible]="false" (click)="collapseNav(div_login)">{{nav_login}}</a>
         </li>
-        <li class="nav-item" *ngIf="!Navigation.is_user_loggedin">
-          <a id="nav_register" class="nav-link font-weight-bold active" routerLink="/user/register" (click)="collapseNav(div_register)">{{nav_register}}</a>
+        <li class="nav-item" *ngIf="!this.authService.isLoggedIn">
+          <a id="nav_register" class="nav-link font-weight-bold active" routerLink="/user/register" href="{{div_navbar}}" pageScroll id="scrollProfile" [pageScrollInterruptible]="false" (click)="collapseNav(div_register)">{{nav_register}}</a>
         </li>
-        <li class="nav-item" *ngIf="Navigation.is_user_loggedin">
-          <a id="nav_logout" class="nav-link font-weight-bold active" (click)="collapseNav(div_home)" (click)="onLogout()">{{nav_logout}}</a>
+        <li class="nav-item" *ngIf="this.authService.isLoggedIn">
+          <a id="nav_logout" class="nav-link font-weight-bold active" (click)="collapseNav(div_home)" href="{{div_navbar}}" pageScroll id="scrollProfile" [pageScrollInterruptible]="false" (click)="onLogout()">{{nav_logout}}</a>
         </li>
         <li class="nav-link">
           <a href="https://www.facebook.com/infousocial/" class="fab fa-facebook encuadrar text-light" target="_blank" rel="noopener noreferrer" (click)="collapseNav(div_home)"></a>

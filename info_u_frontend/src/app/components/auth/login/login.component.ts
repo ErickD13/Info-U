@@ -12,7 +12,7 @@ import { UserInterface } from 'src/app/shared/models/user.interface';
 })
 export class LoginComponent implements OnInit {
   
-  constructor(public afAuth: AngularFireAuth, private router: Router, private authService: AuthService, private formBuilder: FormBuilder) { }
+  constructor(public afAuth: AngularFireAuth, private router: Router, public authService: AuthService, private formBuilder: FormBuilder) { }
   
   loginForm: FormGroup;
   submitted = false;
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
   }
   
   onLogin(): void {
-    this.authService.loginEmailUser(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value)
+    this.authService.SignIn(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value)
     .then((res) => {
       console.log('email login then', res);
       this.onLoginRedirect();
@@ -50,36 +50,15 @@ export class LoginComponent implements OnInit {
   }
   
   onLoginGoogle(): void {
-    /*this.authService.google_login()
-    .then((res) => {
-      console.log('google login then', res);
-    }).catch(err => {
-      this.error = err.message;
-      console.log('google login error', err);
-    });*/
-    this.authService.loginGoogleUser()
-    .then((res) => {
-      console.log('google login then', res);
-      this.onLoginRedirect();
-    }).catch(err => {
-      this.error = err.message;
-      console.log('google login error', err);
-    });
+    this.authService.GoogleAuth();
   }
   
   onLoginFacebook(): void {
-    this.authService.loginFacebookUser()
-    .then((res) => {
-      console.log('facebook login then', res);
-      this.onLoginRedirect();
-    }).catch(err => {
-      this.error = err.message;
-      console.log('facebook login error', err);
-    });
+    this.authService.FacebookAuth();
   }
   
   onLogout() {
-    this.authService.logoutUser();
+    this.authService.SignOut();
   }
   
   onLoginRedirect(): void {
