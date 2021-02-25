@@ -44,41 +44,24 @@ export class ProfileComponent implements OnInit {
 
   filePath: string;
 
-  user: UserInterface = {
-    name: '',
-    email: '',
-    photoURL: '',
-    password: '',
-    roles: {}
-  };
+  user: UserInterface = {};
 
   ngOnInit() {
-    // Allows for ngOnInit to be called on routing to the same routing Component since we will never reuse a route
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
     // put the code from `ngOnInit` here
-    //this.spinner.show();
+    this.spinner.show();
     this.update_form = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
-    //setTimeout(() => {
-    this.authService.userData.subscribe(user => {
-      if (user) {
-        this.user.name = user.displayName;
-        this.user.email = user.email;
-        this.user.photoURL = user.photoURL;
-        this.providerId = user.providerData[0].providerId;
-        // if (){
-        //   console.log('Update password');
-        //   this.mush_update_passowrd = true;
-        // }
-      }
-    });
+    setTimeout(() => {
+    this.user.id = this.authService.userData.uid;
+    this.user.email = this.authService.userData.email;
+    this.user.name = this.authService.userData.displayName;
+    this.user.photoURL = this.authService.userData.photoURL;
+    this.user.emailVerified = this.authService.userData.emailVerified;
     this.spinner.hide();
-    //}, 2000);
+    }, 1000);
   }
 
   on_update_password() {
