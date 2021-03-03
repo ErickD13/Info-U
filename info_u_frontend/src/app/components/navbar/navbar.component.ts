@@ -2,7 +2,6 @@ import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, AfterContentCh
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Navigation } from '../../shared/singleton/navigation';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -14,7 +13,7 @@ export class NavbarComponent implements OnInit, AfterContentChecked {
   
   @ViewChild('navbarToggler', {static: true}) navbarToggler:ElementRef;
   
-  constructor(private afsAuth: AngularFireAuth, public authService: AuthService, private router: Router, private spinner: NgxSpinnerService) { }
+  constructor(private afsAuth: AngularFireAuth, public authService: AuthService, private router: Router) { }
   
   // Text
   public app_name = "Info U";

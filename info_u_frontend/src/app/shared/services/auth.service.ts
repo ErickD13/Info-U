@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { auth, User } from 'firebase';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { UserInterface } from '../models/user.interface';
 
 @Injectable({
@@ -16,7 +17,8 @@ export class AuthService {
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone, // NgZone service to remove outside scope warning
+    private spinner: NgxSpinnerService
   ) {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
@@ -34,12 +36,16 @@ export class AuthService {
 
   // Sign in with email/password
   SignIn(email, password) {
+    this.spinner.show();
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['user/profile']);
-        });
-        this.SetUserData(result.user);
+          this.SetUserData(result.user).then(() => {
+            this.router.navigate(['user/profile']).then(() => {
+              this.spinner.hide();
+            });
+          });
+        })
       }).catch((error) => {
         window.alert(error.message)
       })
@@ -47,12 +53,16 @@ export class AuthService {
 
   // Sign up with email/password
   SignUp(email, password) {
+    this.spinner.show();
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
-        this.SendVerificationMail();
-        this.SetUserData(result.user);
+        this.SendVerificationMail().then(() => {
+          this.SetUserData(result.user).then(() => {
+            this.spinner.hide();
+          });
+        });
       }).catch((error) => {
         window.alert(error.message)
       })
@@ -65,7 +75,7 @@ export class AuthService {
         this.router.navigate(['user/verify']);
       })
   }
-
+  //show sppiner
   // Reset Forggot password
   ForgotPassword(passwordResetEmail) {
     return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
@@ -93,12 +103,16 @@ export class AuthService {
 
   // Auth logic to run auth providers
   AuthLogin(provider) {
+    this.spinner.show();
     return this.afAuth.auth.signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['user/profile']);
+          this.SetUserData(result.user).then(() => {
+            this.router.navigate(['user/profile']).then(() => {
+              this.spinner.hide();
+            });
+          });
         })
-        this.SetUserData(result.user);
       }).catch((error) => {
         window.alert(error)
       })
@@ -115,10 +129,10 @@ export class AuthService {
       name: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified
-    }
+    };
     return userRef.set(userData, {
       merge: true
-    })
+    });
   }
 
   // Sign out 

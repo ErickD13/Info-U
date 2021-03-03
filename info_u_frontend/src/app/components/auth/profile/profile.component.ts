@@ -19,12 +19,6 @@ import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 
 export class ProfileComponent implements OnInit {
 
   constructor(public authService: AuthService, private storage: AngularFireStorage, private formBuilder: FormBuilder, private spinner: NgxSpinnerService, private router: Router) {
-    // override the route reuse strategy
-    //this.router.routeReuseStrategy.shouldReuseRoute = function() {
-    //  return false;
-    //};
-    //this.router.onSameUrlNavigation = 'reload';
-    //this.router.navigate(['user/profile']);
   }
 
   @ViewChild('imageUser', { static: true })
@@ -47,21 +41,16 @@ export class ProfileComponent implements OnInit {
   user: UserInterface = {};
 
   ngOnInit() {
-    // put the code from `ngOnInit` here
-    this.spinner.show();
     this.update_form = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
-    setTimeout(() => {
     this.user.id = this.authService.userData.uid;
     this.user.email = this.authService.userData.email;
     this.user.name = this.authService.userData.displayName;
     this.user.photoURL = this.authService.userData.photoURL;
     this.user.emailVerified = this.authService.userData.emailVerified;
-    this.spinner.hide();
-    }, 1000);
   }
 
   on_update_password() {

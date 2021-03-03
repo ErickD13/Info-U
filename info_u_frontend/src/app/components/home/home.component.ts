@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { HostListener, Inject } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, HostListener, Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { PageScrollService } from 'ngx-page-scroll-core';
@@ -14,9 +14,9 @@ import { Navigation } from 'src/app/shared/singleton/navigation';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewChecked {
 
-  constructor(private itemSvc: GetDataService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any, private spinner: NgxSpinnerService) { }
+  constructor(private itemSvc: GetDataService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any, private spinner: NgxSpinnerService) {}
   
   slideConfig = {
     "slidesToShow": 1,
@@ -43,22 +43,18 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.carousel$ = this.itemSvc.getCarousel();
-    /** spinner starts on init */
-    this.spinner.show();
     if(window.innerWidth <= 500){
       this.zoomEnabled = true;
     }else{
       this.zoomEnabled = false;
     }
-    setTimeout(() => {
-      //spinner ends after 5 seconds
-      console.log('View charged');
-      this.pageScrollService.scroll({
-        document: this.document,
-        scrollTarget: Navigation.current_div
-      });
-      this.spinner.hide();
-    }, 1000);    
+  }
+
+  ngAfterViewChecked() {
+    this.pageScrollService.scroll({
+      document: this.document,
+      scrollTarget: Navigation.current_div
+    });
   }
 
   @HostListener('window:resize', ['$event'])

@@ -181,3 +181,10 @@ body {
 .files-list .delete-file img{
     width:30px;
 }
+
+/* Scrool */
+
+.prevent-scroll {
+    overflow: hidden;
+    height: 100%;
+}
