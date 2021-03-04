@@ -14,7 +14,7 @@ import { Navigation } from 'src/app/shared/singleton/navigation';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, AfterViewChecked {
+export class HomeComponent implements OnInit {
 
   constructor(private itemSvc: GetDataService, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any, private spinner: NgxSpinnerService) {}
   
@@ -48,13 +48,12 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     }else{
       this.zoomEnabled = false;
     }
-  }
-
-  ngAfterViewChecked() {
-    this.pageScrollService.scroll({
-      document: this.document,
-      scrollTarget: Navigation.current_div
-    });
+    setTimeout(() => {
+      this.pageScrollService.scroll({
+        document: this.document,
+        scrollTarget: Navigation.current_div
+      });
+    }, 500);
   }
 
   @HostListener('window:resize', ['$event'])

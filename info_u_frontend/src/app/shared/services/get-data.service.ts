@@ -1,17 +1,14 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ItemI } from '../models/item.interface';
-import { finalize, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { UniversityI } from '../models/university.interface';
 import { OpportunityI } from '../models/opportunity';
 import { HistoryI } from '../models/history.interface';
 import { FacultyI } from '../models/faculty.interface';
 import { ResearchI } from '../models/research.interface';
 import { NgxSpinnerService } from "ngx-spinner";
-import { PageScrollService } from 'ngx-page-scroll-core';
-import { DOCUMENT } from '@angular/common';
-import { Navigation } from '../singleton/navigation';
 
 @Injectable({
   providedIn: 'root'

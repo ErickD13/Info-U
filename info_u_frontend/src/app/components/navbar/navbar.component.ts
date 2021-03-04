@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit, AfterContentChecked {
+export class NavbarComponent implements OnInit {
   
   @ViewChild('navbarToggler', {static: true}) navbarToggler:ElementRef;
   
@@ -48,10 +48,6 @@ export class NavbarComponent implements OnInit, AfterContentChecked {
   ['Navigation'] = Navigation;
   
   ngOnInit() {
-    
-  }
-
-  ngAfterContentChecked() {
     
   }
   
