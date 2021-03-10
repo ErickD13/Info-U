@@ -2,6 +2,8 @@
 
 # environments
 /src/environments
+server.key
+server.crt
 
 # compiled output
 #/dist
