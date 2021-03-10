@@ -70,7 +70,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "infou:build"
+            "browserTarget": "infou:build",
+            "sslKey": "server.key",
+            "sslCert": "server.crt"
           },
           "configurations": {
             "production": {

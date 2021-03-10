@@ -68,6 +68,15 @@ export class AuthService {
       })
   }
 
+  deleteUser() {
+    var user = this.afAuth.auth.currentUser;
+    user.delete().then(function () {
+      // User deleted.
+    }).catch(function (error) {
+      // An error happened.
+    });
+  }
+
   // Send email verfificaiton when new user sign up
   SendVerificationMail() {
     return this.afAuth.auth.currentUser.sendEmailVerification()
@@ -113,9 +122,27 @@ export class AuthService {
             });
           });
         })
-      }).catch((error) => {
-        window.alert(error)
-      })
+      }).catch((error1) => {
+        if(error1.code == 'auth/account-exists-with-different-credential') {
+          return this.afAuth.auth.currentUser.linkWithPopup(provider)
+          .then((result) => {
+            this.ngZone.run(() => {
+              this.SetUserData(result.user).then(() => {
+                this.router.navigate(['user/profile']).then(() => {
+                  this.spinner.hide();
+                });
+              });
+            })
+          }).catch((error2) => {
+            this.spinner.hide();
+            console.log(error2);
+            window.alert('error2 ' + error2);
+          });
+        }
+        this.spinner.hide();
+        console.log(error1);
+        window.alert('error1 ' + error1);
+      });
   }
 
   /* Setting up user data when sign in with username/password, 
@@ -132,6 +159,16 @@ export class AuthService {
     };
     return userRef.set(userData, {
       merge: true
+    });
+  }
+
+  updatePassword(password){
+    return this.afAuth.auth.currentUser.updatePassword(password).then(() => {
+      window.alert('Contraseña actualizada');
+    })
+    .catch((error) => {
+      this.spinner.hide();
+      window.alert(error)
     });
   }
 

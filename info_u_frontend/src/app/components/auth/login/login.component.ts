@@ -39,14 +39,7 @@ export class LoginComponent implements OnInit {
   }
   
   onLogin(): void {
-    this.authService.SignIn(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value)
-    .then((res) => {
-      console.log('email login then', res);
-      this.onLoginRedirect();
-    }).catch(err => {
-      this.error = err.message;
-      console.log('email login error', err);
-    });
+    this.authService.SignIn(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value);
   }
   
   onLoginGoogle(): void {

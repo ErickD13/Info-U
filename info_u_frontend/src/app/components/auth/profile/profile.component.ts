@@ -54,18 +54,7 @@ export class ProfileComponent implements OnInit {
   }
 
   on_update_password() {
-    this.authService.userData.subscribe(auth => {
-      if (auth) {
-        auth.updatePassword(this.update_form.controls['password'].value)
-          .catch(err => {
-            this.error = err.message;
-            console.log('update password error:', err);
-          });
-        alert('Contraseña actualizada');
-      } else {
-        console.log('update passowrd not user logged');
-      }
-    });
+    this.authService.updatePassword(this.update_form.controls['password'].value);
   }
 
   on_update_email() {
@@ -189,7 +178,9 @@ export class ProfileComponent implements OnInit {
   }
 
   onUpdateUser() {
-    this.authService.userData.subscribe(auth => {
+    this.on_update_password();
+
+    /*this.authService.userData.subscribe(auth => {
       if (auth) {
         const ref = this.storage.ref(this.filePath);
         const task = ref.putString(this.croppedImage.replace('data:image/png;base64,', ''), 'base64');
@@ -202,7 +193,7 @@ export class ProfileComponent implements OnInit {
       } else {
         console.log('load profile not user logged');
       }
-    });
+    });*/
   }
 
 }
