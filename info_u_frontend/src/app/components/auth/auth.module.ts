@@ -8,8 +8,11 @@ import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
-import { VerifyEmailComponent } from './verify-email/verify-email.component';import { ProfileComponent } from './profile/profile.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
+import { SideBarComponent } from './profile/side-bar/side-bar.component';
+import { UpdateComponent } from './profile/update/update.component';
+import { SurveysComponent } from './profile/surveys/surveys.component';
 ;
 
 @NgModule({
@@ -19,7 +22,9 @@ import { NgxFileDropModule } from 'ngx-file-drop';
     RegisterComponent,
     VerifyEmailComponent,
     RecoveryPasswordComponent,
-    ProfileComponent
+    SideBarComponent,
+    UpdateComponent,
+    SurveysComponent
   ],
   imports: [
     CommonModule,

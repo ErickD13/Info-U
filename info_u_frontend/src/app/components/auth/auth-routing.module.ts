@@ -4,7 +4,8 @@ import { AuthGuard } from 'src/app/shared/guards/auth.guard';
 
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
-import { ProfileComponent } from './profile/profile.component';
+import { SurveysComponent } from './profile/surveys/surveys.component';
+import { UpdateComponent } from './profile/update/update.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 import { RegisterComponent } from './register/register.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
@@ -22,8 +23,10 @@ const routes: Routes = [{
     { path: 'verify', component: VerifyEmailComponent },
     { path: 'recovery', redirectTo: '/user/recovery', pathMatch: 'full' },
     { path: 'recovery', component: RecoveryPasswordComponent },
-    { path: 'profile', redirectTo: '/user/profile', pathMatch: 'full' },
-    { path: 'profile', component: ProfileComponent }
+    { path: 'profile/update', redirectTo: '/user/profile/update', pathMatch: 'full' },
+    { path: 'profile/update', component: UpdateComponent },
+    { path: 'profile/surveys', redirectTo: '/user/profile/surveys', pathMatch: 'full' },
+    { path: 'profile/surveys', component:  SurveysComponent}
   ]
 }];
 

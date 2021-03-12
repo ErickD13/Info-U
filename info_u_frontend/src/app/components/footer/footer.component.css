@@ -1,14 +1,8 @@
-/*.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    color: white;
-    text-align: center;
-}*/
 .footer{
     /*background: rgba(0, 0, 0, 0.875);*/
+    position: relative;
     background-color:#032380;
+    z-index: 30;
 }
 
 a:link {

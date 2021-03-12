@@ -1,22 +1,21 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { UserInterface } from 'src/app/shared/models/user.interface';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { NgxSpinnerService } from "ngx-spinner";
-import { Router } from '@angular/router';
-import { NgZone } from '@angular/core';
-import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
+import { UserInterface } from 'src/app/shared/models/user.interface';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-update',
+  templateUrl: './update.component.html',
+  styleUrls: ['./update.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class UpdateComponent implements OnInit {
 
   constructor(public authService: AuthService, private storage: AngularFireStorage, private formBuilder: FormBuilder, private spinner: NgxSpinnerService, private router: Router) {
   }
@@ -46,11 +45,12 @@ export class ProfileComponent implements OnInit {
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
-    this.user.id = this.authService.userData.uid;
-    this.user.email = this.authService.userData.email;
-    this.user.name = this.authService.userData.displayName;
-    this.user.photoURL = this.authService.userData.photoURL;
-    this.user.emailVerified = this.authService.userData.emailVerified;
+    let userData = JSON.parse(localStorage.getItem('user'));
+    this.user.id = userData.uid;
+    this.user.email = userData.email;
+    this.user.name = userData.displayName;
+    this.user.photoURL = userData.photoURL;
+    this.user.emailVerified = userData.emailVerified;
   }
 
   on_update_password() {

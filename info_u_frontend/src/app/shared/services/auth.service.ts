@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { auth, User } from 'firebase';
+import { auth } from 'firebase';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserInterface } from '../models/user.interface';
 
@@ -22,6 +22,7 @@ export class AuthService {
   ) {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
+    this.spinner.show();
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userData = user;
@@ -31,6 +32,7 @@ export class AuthService {
         localStorage.setItem('user', null);
         JSON.parse(localStorage.getItem('user'));
       }
+      this.spinner.hide();
     })
   }
 
@@ -40,7 +42,7 @@ export class AuthService {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.SetUserData(result.user).then(() => {
+          this.setUserData(result.user).then(() => {
             this.router.navigate(['user/profile']).then(() => {
               this.spinner.hide();
             });
@@ -59,7 +61,7 @@ export class AuthService {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
         this.SendVerificationMail().then(() => {
-          this.SetUserData(result.user).then(() => {
+          this.setUserData(result.user).then(() => {
             this.spinner.hide();
           });
         });
@@ -116,7 +118,7 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
-          this.SetUserData(result.user).then(() => {
+          this.setUserData(result.user).then(() => {
             this.router.navigate(['user/profile']).then(() => {
               this.spinner.hide();
             });
@@ -127,7 +129,7 @@ export class AuthService {
           return this.afAuth.auth.currentUser.linkWithPopup(provider)
           .then((result) => {
             this.ngZone.run(() => {
-              this.SetUserData(result.user).then(() => {
+              this.setUserData(result.user).then(() => {
                 this.router.navigate(['user/profile']).then(() => {
                   this.spinner.hide();
                 });
@@ -148,7 +150,7 @@ export class AuthService {
   /* Setting up user data when sign in with username/password, 
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  SetUserData(user) {
+  setUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const userData: UserInterface = {
       id: user.uid,
