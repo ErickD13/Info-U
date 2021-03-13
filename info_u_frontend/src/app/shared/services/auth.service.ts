@@ -43,7 +43,7 @@ export class AuthService {
       .then((result) => {
         this.ngZone.run(() => {
           this.setUserData(result.user).then(() => {
-            this.router.navigate(['user/profile']).then(() => {
+            this.router.navigate(['user/profile/update']).then(() => {
               this.spinner.hide();
             });
           });
@@ -119,7 +119,7 @@ export class AuthService {
       .then((result) => {
         this.ngZone.run(() => {
           this.setUserData(result.user).then(() => {
-            this.router.navigate(['user/profile']).then(() => {
+            this.router.navigate(['user/profile/update']).then(() => {
               this.spinner.hide();
             });
           });
@@ -130,7 +130,7 @@ export class AuthService {
           .then((result) => {
             this.ngZone.run(() => {
               this.setUserData(result.user).then(() => {
-                this.router.navigate(['user/profile']).then(() => {
+                this.router.navigate(['user/profile/update']).then(() => {
                   this.spinner.hide();
                 });
               });
