@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideBarComponent implements OnInit {
 
+  surveys = "Dashboard";
+  profile = "Perfil";
+
   constructor() { }
 
   ngOnInit(): void {
