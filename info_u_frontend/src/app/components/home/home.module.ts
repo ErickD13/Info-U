@@ -12,11 +12,11 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 import { LottieModule } from 'ngx-lottie';
 import { playerFactory } from 'src/app/app.module';
-import { ModalCarouselComponent } from '../modals/modal-carousel/modal-carousel.component';
-import { ModalHistoryComponent } from '../modals/modal-history/modal-history.component';
-import { ModalOpportunityComponent } from '../modals/modal-opportunity/modal-opportunity.component';
-import { ModalResearchComponent } from '../modals/modal-research/modal-research.component';
-import { ModalUniversityComponent } from '../modals/modal-university/modal-university.component';
+import { ModalCarouselComponent } from './modals/modal-carousel/modal-carousel.component';
+import { ModalHistoryComponent } from './modals/modal-history/modal-history.component';
+import { ModalOpportunityComponent } from './modals/modal-opportunity/modal-opportunity.component';
+import { ModalResearchComponent } from './modals/modal-research/modal-research.component';
+import { ModalUniversityComponent } from './modals/modal-university/modal-university.component';
 
 @NgModule({
   declarations: [

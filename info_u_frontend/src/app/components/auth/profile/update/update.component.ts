@@ -17,7 +17,12 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class UpdateComponent implements OnInit {
 
-  constructor(public authService: AuthService, private storage: AngularFireStorage, private formBuilder: FormBuilder, private spinner: NgxSpinnerService, private router: Router) {
+  constructor(
+    public authService: AuthService,
+    private storage: AngularFireStorage,
+    private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService,
+    private router: Router) {
   }
 
   @ViewChild('imageUser', { static: true })
