@@ -38,22 +38,6 @@
                     </span> {{university.web}}</a>
             </div>
         </div>
-        <!--
-        <div class="container" *ngIf="university.img">
-            <h6 class="text-center" *ngIf="university.description">{{university.description}}</h6>
-            <div *ngIf="university.description" innerHTML="{{university.description}}"></div>
-            <h2>Carreras</h2>
-            <table>
-                <tr *ngFor = "let career of university.careers">
-                    {{career}}
-                </tr>
-            </table>
-            <h2>Oportunidades</h2>
-            <div *ngFor="let opportunity of university.opportunities">
-                <p innerHTML="{{opportunity}}"></p>
-            </div>
-        </div>
-        -->
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">{{close}}</button>
