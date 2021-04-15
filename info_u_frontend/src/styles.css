@@ -69,6 +69,24 @@
     width: 40%;
 }
 
+centeryl {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    -ms-transform: translate(0%, -50%);
+    transform: translate(0%, -50%);
+}
+
+centeryr {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    -ms-transform: translate(0%, -50%);
+    transform: translate(0%, -50%);
+}
+
 .centerxy {
     margin: 0;
     position: absolute;

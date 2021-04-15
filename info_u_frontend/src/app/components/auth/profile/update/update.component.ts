@@ -22,8 +22,8 @@ export class UpdateComponent implements OnInit {
     private storage: AngularFireStorage,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
-    private router: Router) {
-  }
+    private router: Router
+  ) { }
 
   @ViewChild('imageUser', { static: true })
   inputImageUser: ElementRef;
@@ -31,7 +31,7 @@ export class UpdateComponent implements OnInit {
   @ViewChild('fileInput', { static: true })
   inputFileInput: ElementRef;
 
-  mush_update_passowrd = true;
+  must_update_passowrd = true;
   providerId: string = 'null';
   update_form: FormGroup;
   submitted = false;

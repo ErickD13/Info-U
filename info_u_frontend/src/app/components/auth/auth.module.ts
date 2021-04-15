@@ -13,6 +13,10 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { SideBarComponent } from './profile/side-bar/side-bar.component';
 import { UpdateComponent } from './profile/update/update.component';
 import { SurveysComponent } from './profile/surveys/surveys.component';
+import { ModalUpdateAvatarComponent } from './modals/modal-update-avatar/modal-update-avatar.component';
+import { ModalUpdateUserComponent } from './modals/modal-update-user/modal-update-user.component';
+import { ModalUpdateMailComponent } from './modals/modal-update-mail/modal-update-mail.component';
+import { ModalUpdatePasswordComponent } from './modals/modal-update-password/modal-update-password.component';
 ;
 
 @NgModule({
@@ -24,7 +28,11 @@ import { SurveysComponent } from './profile/surveys/surveys.component';
     RecoveryPasswordComponent,
     SideBarComponent,
     UpdateComponent,
-    SurveysComponent
+    SurveysComponent,
+    ModalUpdateAvatarComponent,
+    ModalUpdateUserComponent,
+    ModalUpdateMailComponent,
+    ModalUpdatePasswordComponent
   ],
   imports: [
     CommonModule,
