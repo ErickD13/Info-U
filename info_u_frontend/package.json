@@ -30,6 +30,7 @@
     "core-js": "^2.6.11",
     "firebase": "^7.14.2",
     "jquery": "^3.5.0",
+    "localized-strings": "^0.2.4",
     "lottie-web": "^5.6.8",
     "ngx-carousel-3d": "^1.0.1",
     "ngx-file-drop": "^11.0.0",

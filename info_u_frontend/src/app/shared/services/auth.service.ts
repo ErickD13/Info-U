@@ -37,37 +37,37 @@ export class AuthService {
   }
 
   // Sign in with email/password
-  SignIn(email, password) {
+  async SignIn(email, password) {
     this.spinner.show();
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.ngZone.run(() => {
-          this.setUserData(result.user).then(() => {
-            this.router.navigate(['user/profile/update']).then(() => {
-              this.spinner.hide();
-            });
-          });
-        })
-      }).catch((error) => {
-        window.alert(error.message)
-      })
-  }
-
-  // Sign up with email/password
-  SignUp(email, password) {
-    this.spinner.show();
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign 
-        up and returns promise */
-        this.SendVerificationMail().then(() => {
-          this.setUserData(result.user).then(() => {
+    try {
+      const result_1 = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+      this.ngZone.run(() => {
+        this.setUserData(result_1.user).then(() => {
+          this.router.navigate(['user/profile/update']).then(() => {
             this.spinner.hide();
           });
         });
-      }).catch((error) => {
-        window.alert(error.message)
-      })
+      });
+    } catch (error) {
+      window.alert(error.message);
+    }
+  }
+
+  // Sign up with email/password
+  async SignUp(email, password) {
+    this.spinner.show();
+    try {
+      const result_1 = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+      /* Call the SendVerificaitonMail() function when new user sign
+      up and returns promise */
+      this.SendVerificationMail().then(() => {
+        this.setUserData(result_1.user).then(() => {
+          this.spinner.hide();
+        });
+      });
+    } catch (error) {
+      window.alert(error.message);
+    }
   }
 
   deleteUser() {
@@ -80,21 +80,19 @@ export class AuthService {
   }
 
   // Send email verfificaiton when new user sign up
-  SendVerificationMail() {
-    return this.afAuth.auth.currentUser.sendEmailVerification()
-      .then(() => {
-        this.router.navigate(['user/verify']);
-      })
+  async SendVerificationMail() {
+    await this.afAuth.auth.currentUser.sendEmailVerification();
+    this.router.navigate(['user/verify']);
   }
   //show sppiner
   // Reset Forggot password
-  ForgotPassword(passwordResetEmail) {
-    return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
-      .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
-      }).catch((error) => {
-        window.alert(error)
-      })
+  async ForgotPassword(passwordResetEmail) {
+    try {
+      await this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail);
+      window.alert('Password reset email sent, check your inbox.');
+    } catch (error) {
+      window.alert(error);
+    }
   }
 
   // Returns true when user is looged in and email is verified
@@ -113,38 +111,38 @@ export class AuthService {
   }
 
   // Auth logic to run auth providers
-  AuthLogin(provider) {
+  async AuthLogin(provider) {
     this.spinner.show();
-    return this.afAuth.auth.signInWithPopup(provider)
-      .then((result) => {
-        this.ngZone.run(() => {
-          this.setUserData(result.user).then(() => {
-            this.router.navigate(['user/profile/update']).then(() => {
-              this.spinner.hide();
-            });
+    try {
+      const result_1 = await this.afAuth.auth.signInWithPopup(provider);
+      this.ngZone.run(() => {
+        this.setUserData(result_1.user).then(() => {
+          this.router.navigate(['user/profile/update']).then(() => {
+            this.spinner.hide();
           });
-        })
-      }).catch((error1) => {
-        if(error1.code == 'auth/account-exists-with-different-credential') {
-          return this.afAuth.auth.currentUser.linkWithPopup(provider)
-          .then((result) => {
+        });
+      });
+    } catch (error1) {
+      if (error1.code == 'auth/account-exists-with-different-credential') {
+        return this.afAuth.auth.currentUser.linkWithPopup(provider)
+          .then((result_3) => {
             this.ngZone.run(() => {
-              this.setUserData(result.user).then(() => {
+              this.setUserData(result_3.user).then(() => {
                 this.router.navigate(['user/profile/update']).then(() => {
                   this.spinner.hide();
                 });
               });
-            })
+            });
           }).catch((error2) => {
             this.spinner.hide();
             console.log(error2);
             window.alert('error2 ' + error2);
           });
-        }
-        this.spinner.hide();
-        console.log(error1);
-        window.alert('error1 ' + error1);
-      });
+      }
+      this.spinner.hide();
+      console.log(error1);
+      window.alert('error1 ' + error1);
+    }
   }
 
   /* Setting up user data when sign in with username/password, 
@@ -164,22 +162,31 @@ export class AuthService {
     });
   }
 
-  updatePassword(password){
-    return this.afAuth.auth.currentUser.updatePassword(password).then(() => {
+  async updatePassword(password){
+    try {
+      await this.afAuth.auth.currentUser.updatePassword(password);
       window.alert('Contraseña actualizada');
-    })
-    .catch((error) => {
+    } catch (error) {
       this.spinner.hide();
-      window.alert(error)
-    });
+      window.alert(error);
+    }
+  }
+
+  async updateEmail(email){
+    try {
+      await this.afAuth.auth.currentUser.updateEmail(email);
+      window.alert('Correo actualizado');
+    } catch (error) {
+      this.spinner.hide();
+      window.alert(error);
+    }
   }
 
   // Sign out 
-  SignOut() {
-    return this.afAuth.auth.signOut().then(() => {
-      localStorage.removeItem('user');
-      this.router.navigate(['/']);
-    })
+  async SignOut() {
+    await this.afAuth.auth.signOut();
+    localStorage.removeItem('user');
+    this.router.navigate(['/']);
   }
 
 }

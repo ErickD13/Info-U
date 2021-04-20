@@ -69,22 +69,12 @@
     width: 40%;
 }
 
-centeryl {
+.centery {
     margin: 0;
     position: absolute;
     top: 50%;
-    left: 0%;
-    -ms-transform: translate(0%, -50%);
-    transform: translate(0%, -50%);
-}
-
-centeryr {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    right: 0%;
-    -ms-transform: translate(0%, -50%);
-    transform: translate(0%, -50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 .centerxy {

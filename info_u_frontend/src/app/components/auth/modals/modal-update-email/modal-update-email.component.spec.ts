@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalUpdateMailComponent } from './modal-update-mail.component';
+import { ModalUpdateEmailComponent } from './modal-update-email.component';
 
-describe('ModalUpdateMailComponent', () => {
-  let component: ModalUpdateMailComponent;
-  let fixture: ComponentFixture<ModalUpdateMailComponent>;
+describe('ModalUpdateEmailComponent', () => {
+  let component: ModalUpdateEmailComponent;
+  let fixture: ComponentFixture<ModalUpdateEmailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModalUpdateMailComponent ]
+      declarations: [ ModalUpdateEmailComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalUpdateMailComponent);
+    fixture = TestBed.createComponent(ModalUpdateEmailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

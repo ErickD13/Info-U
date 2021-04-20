@@ -15,7 +15,19 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private router: Router, public authService: AuthService, private storage: AngularFireStorage, private formBuilder: FormBuilder) { }
+  // Strings
+  register = "Registro";
+  name_required = "El nombre es requerido";
+  email_required = "El correo es requerido";
+  password_required = "La contraseña es requerida";
+  email_invalid = "El formato de correo es incorrecto";
+  password_invalid_1 = "La contraseña requiere almenos 6 carácteres";
+  password_invalid_2 = "La contraseña requiere una mayúscula";
+  password_invalid_3 = "La contraseña requiere 1 número";
+  password_invalid_4 = "La contraseña requiere 1 caracter especial";
+  user_registered = "¿Ya posees una cuenta?";
+  facebook = "Facebook";
+  google = "Google";
 
   @ViewChild('imageUser', { static: true })
   inputImageUser: ElementRef;
@@ -32,11 +44,14 @@ export class RegisterComponent implements OnInit {
 
   filePath: string;
 
+  constructor(private router: Router, public authService: AuthService, private storage: AngularFireStorage, private formBuilder: FormBuilder) { }
+
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(6)],],
+      password_required: ['', [Validators.required, Validators.minLength(6)],]
     });
   }
 

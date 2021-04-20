@@ -1,28 +1,24 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalOptions, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UserInterface } from 'src/app/shared/models/user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
-  selector: 'app-modal-update-password',
-  templateUrl: './modal-update-password.component.html',
-  styleUrls: ['./modal-update-password.component.css']
+  selector: 'app-modal-update-email',
+  templateUrl: './modal-update-email.component.html',
+  styleUrls: ['./modal-update-email.component.css']
 })
-export class ModalUpdatePasswordComponent {
+export class ModalUpdateEmailComponent {
 
   // Strings
   close = 'Cerrar';
-  inscription = 'Inscripción';
-  public careers = 'Carreras';
-  public locations = 'Ubicaciones';
-  title = "Actualización de contraseña";
+  title = "Actualización de correo";
   editIcon = 'https://firebasestorage.googleapis.com/v0/b/info-u-gt.appspot.com/o/general%2Fedit.png?alt=media&token=140e8a7d-f3ba-4890-b159-b756c3b65d30';
   update = "Actualizar";
-  field_required = "La contraseña es requerida";
-  field_invalid_1 = "La contraseña requiere almenos 6 carácteres";
-  field_invalid_2 = "La contraseña requiere una mayúscula";
+  field_required = "El correo es requerida";
+  field_invalid = "El formato de correo es incorrecto";
   // Flags
   closeResult: string;
 
@@ -41,8 +37,7 @@ export class ModalUpdatePasswordComponent {
     private formBuilder: FormBuilder
   ) {
     this.update_form = this.formBuilder.group({
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      password_required: ['', [Validators.required, Validators.minLength(6)],]
+      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]]
     });
   }
 
@@ -76,7 +71,7 @@ export class ModalUpdatePasswordComponent {
 
   // Business logic
   on_update_field() {
-    this.authService.updatePassword(this.update_form.controls['password'].value);
+    this.authService.updateEmail(this.update_form.controls['email'].value);
   }
 
   onSubmit() {
