@@ -1,0 +1,20 @@
+/* Modal Content (image) */
+
+.modal-body {
+    max-height: 800px;
+    position: relative;
+}
+
+.title-style {
+    color: #4078ad;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+.preview {
+    white-space: pre-wrap;
+    height: 4rem;
+    padding: 4px;
+}

@@ -1,1 +1,45 @@
-<p>modal-update-user works!</p>
+<ng-template #content let-modal modal-lg>
+    <div class="modal-header">
+        <h4 class="modal-title title-style" id="modal-basic-title">{{title}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="update_form" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-group">
+                <input type="text" formControlName="current_user" class="form-control" placeholder="Usuario"
+                    [ngClass]="{ 'is-invalid': submitted && f.current_user.errors }">
+                <div *ngIf="submitted && f.current_user.errors" class="invalid-feedback">
+                    <div *ngIf="f.current_user.errors.required">{{field_required}}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" formControlName="user" class="form-control" placeholder="Confirmar usuario"
+                    [ngClass]="{ 'is-invalid': submitted && f.user.errors }">
+                <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
+                    <div *ngIf="f.user.errors.required">{{field_required}}</div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-lg btn-primary btn-block">{{update}}</button>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">{{close}}</button>
+        </div>
+    </form>
+</ng-template>
+
+<button class="btn btn-lg btn-light btn-block" (click)="open(content)">
+    <div class="row no-gutters preview">
+        <div class="col">
+            <p class="centery">{{title}}</p>
+        </div>
+        <div class="col-auto">
+            <div class="centerxy">
+                <em class="fas fa-edit"></em>
+            </div>
+        </div>
+    </div>
+</button>
+
+<pre>{{closeResult}}</pre>

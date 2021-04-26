@@ -14,10 +14,7 @@ export class ModalUpdatePasswordComponent {
 
   // Strings
   close = 'Cerrar';
-  inscription = 'Inscripción';
-  public careers = 'Carreras';
-  public locations = 'Ubicaciones';
-  title = "Actualización de contraseña";
+  title = "Actualizar contraseña";
   editIcon = 'https://firebasestorage.googleapis.com/v0/b/info-u-gt.appspot.com/o/general%2Fedit.png?alt=media&token=140e8a7d-f3ba-4890-b159-b756c3b65d30';
   update = "Actualizar";
   field_required = "La contraseña es requerida";
@@ -41,8 +38,9 @@ export class ModalUpdatePasswordComponent {
     private formBuilder: FormBuilder
   ) {
     this.update_form = this.formBuilder.group({
+      current_password: ['', [Validators.required, Validators.minLength(6)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      password_required: ['', [Validators.required, Validators.minLength(6)],]
+      password_confirmed: ['', [Validators.required, Validators.minLength(6)],]
     });
   }
 
@@ -62,12 +60,6 @@ export class ModalUpdatePasswordComponent {
       return 'by clicking on a backdrop';
     } else {
       return `with: ${reason}`;
-    }
-  }
-
-  goto(): void {
-    if (this.data.photoURL != '') {
-      //this.router.navigate([this.university.web]);
     }
   }
 

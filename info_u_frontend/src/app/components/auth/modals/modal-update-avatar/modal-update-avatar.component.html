@@ -1,58 +1,68 @@
 <ng-template #content let-modal modal-lg>
     <div class="modal-header">
-        <h4 class="modal-title title-style" id="modal-basic-title">{{data.title}}</h4>
+        <h4 class="modal-title title-style" id="modal-basic-title">{{title}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
-        <div *ngIf="data.img" class="container">
-            <a [className]="condition ? 'btn btn-light' : ''" href="{{data.web}}" target="_blank">
-                <img src="{{data.img}}">
-            </a>
-            <div class="description">
-                <p *ngIf="data.description" innerHTML="{{data.description}}"></p>
-            </div>
-            <div class="menu row">
-                <div class="menu_option">
-                    <a href="{{data.inscription_link}}" target="_blank">
-                        <img src="{{data.inscription_image}}" alt="HTML tutorial">
-                        <p>{{inscription}}</p>
-                    </a>
+    <form [formGroup]="update_form" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="container">
+                <h5>Imagen de perfil:</h5>
+                <div *ngIf="!urlImage" class="row" style="margin-top: 5%;">
+                    <div class="text-center" style="width: 100%; height: 100%;">
+                        <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
+                            (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)"
+                            dropZoneClassName="uploadfilecontainer" contentClassName="uploadfilecontent">
+                            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                                <button type="button" class="hide-button" (click)="openFileSelector()">
+                                </button>
+                            </ng-template>
+                        </ngx-file-drop>
+                    </div>
                 </div>
-                <div class="menu_option">
-                    <a href="{{data.careers_link}}" target="_blank">
-                        <img src="{{data.careers_image}}">
-                        <p>{{careers}}</p>
-                    </a>
-                </div>
-                <div class="menu_option">
-                    <a href="{{data.locations_link}}" target="_blank">
-                        <img src="{{data.locations_image}}">
-                        <p>{{locations}}</p>
-                    </a>
+                <div *ngIf="(uploadPercent | async) == 100" class="row" style="margin-top: 5%;">
+                    <div class="text-center">
+                        <h5>Crop Image</h5>
+                        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                            [aspectRatio]="4 / 4" [resizeToWidth]="256" [roundCropper]="true" format="png"
+                            (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+                    </div>
                 </div>
             </div>
-            <div class="description">
-                <a href="{{data.web}}" target="_blank" class="text-light"><span class="fas fa-globe">
-                    </span> {{data.web}}</a>
+            <div class="progress">
+                <div [style.visibility]="((uploadPercent | async) == 0) ? 'hidden' : 'visible'"
+                    class="progress-bar progress-bar-striped bg-success" role="progressbar"
+                    [style.width]="(uploadPercent | async) +'%'"></div>
             </div>
+            <br>
+            <div class="alert alert-danger" role="alert" *ngIf="error">
+                {{error}}
+            </div>
+            <button *ngIf="urlImage | async; else btnDisabled" type="submit"
+                class="btn btn-lg btn-primary btn-block">Actualizar</button>
+            <ng-template #btnDisabled>
+                <button type="submit" disabled=true class="btn btn-lg btn-secondary btn-block">Actualizar</button>
+            </ng-template>
+            <input #imageUser type="hidden" [value]="urlImage | async">
         </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">{{close}}</button>
-    </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">{{close}}</button>
+        </div>
+    </form>
 </ng-template>
 
-<button class="btn btn-lg btn-light" (click)="open(content)">
-    <div *ngIf="!data.photoURL">
-        <h1 *ngIf="data.description">{{data.title}}</h1>
-    </div>
-    <div *ngIf="data.photoURL">
-        <div class="title_space">
-            <h2 class="title">{{data.title}}</h2>
+<button class="btn btn-lg btn-light btn-block" (click)="open(content)">
+    <div class="row no-gutters preview">
+        <div class="col">
+            <p class="centery">{{title}}</p>
         </div>
-        <img src="{{data.photoURL}}" class="preview">
+        <div class="col-auto">
+            <div class="centerxy">
+                <em class="fas fa-edit"></em>
+            </div>
+        </div>
     </div>
 </button>
 

@@ -162,6 +162,33 @@ export class AuthService {
     });
   }
 
+  async updateAvatar(image){
+    try {
+      await this.afAuth.auth.currentUser.updateProfile({
+        displayName: this.afAuth.auth.currentUser.displayName,
+        photoURL: image
+      });
+      window.alert('Imagen actualizada');
+    } catch (error) {
+      this.spinner.hide();
+      window.alert(error);
+    }
+  }
+
+  async updateUser(user){
+    try {
+      await this.afAuth.auth.currentUser.updateProfile({
+        displayName: user,
+        photoURL: this.afAuth.auth.currentUser.photoURL
+      });
+      this.setUserData(this.afAuth.auth.currentUser);
+      window.alert('Usuario actualizado');
+    } catch (error) {
+      this.spinner.hide();
+      window.alert(error);
+    }
+  }
+
   async updatePassword(password){
     try {
       await this.afAuth.auth.currentUser.updatePassword(password);

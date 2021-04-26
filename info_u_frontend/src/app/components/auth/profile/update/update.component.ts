@@ -87,7 +87,7 @@ export class UpdateComponent implements OnInit {
           this.error = err.message;
           console.log('update name and photo error:', err);
         });
-        alert('Contraseña actualizada');
+        alert('Usuario actualizado');
       } else {
         console.log('update name and photo not user logged');
       }

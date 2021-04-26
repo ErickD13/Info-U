@@ -15,5 +15,6 @@ a:link {
 
 .preview {
     white-space: pre-wrap;
-    max-height: 4rem;
+    height: 4rem;
+    padding: 4px;
 }

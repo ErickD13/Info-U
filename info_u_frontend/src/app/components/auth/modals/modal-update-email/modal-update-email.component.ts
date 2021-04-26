@@ -14,7 +14,7 @@ export class ModalUpdateEmailComponent {
 
   // Strings
   close = 'Cerrar';
-  title = "Actualización de correo";
+  title = "Actualizar correo";
   editIcon = 'https://firebasestorage.googleapis.com/v0/b/info-u-gt.appspot.com/o/general%2Fedit.png?alt=media&token=140e8a7d-f3ba-4890-b159-b756c3b65d30';
   update = "Actualizar";
   field_required = "El correo es requerida";
@@ -57,12 +57,6 @@ export class ModalUpdateEmailComponent {
       return 'by clicking on a backdrop';
     } else {
       return `with: ${reason}`;
-    }
-  }
-
-  goto(): void {
-    if (this.data.photoURL != '') {
-      //this.router.navigate([this.university.web]);
     }
   }
 

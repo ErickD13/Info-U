@@ -17,7 +17,10 @@ import { ModalUpdateAvatarComponent } from './modals/modal-update-avatar/modal-u
 import { ModalUpdateUserComponent } from './modals/modal-update-user/modal-update-user.component';
 import { ModalUpdateEmailComponent } from './modals/modal-update-email/modal-update-email.component';
 import { ModalUpdatePasswordComponent } from './modals/modal-update-password/modal-update-password.component';
-;
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,11 @@ import { ModalUpdatePasswordComponent } from './modals/modal-update-password/mod
     FormsModule,
     ReactiveFormsModule,
     ImageCropperModule,
-    NgxFileDropModule
+    NgxFileDropModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule
   ]
 })
 export class AuthModule { }
