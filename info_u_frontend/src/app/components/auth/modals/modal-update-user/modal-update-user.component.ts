@@ -1,6 +1,6 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NgbModal, NgbModalOptions, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UserInterface } from 'src/app/shared/models/user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   templateUrl: './modal-update-user.component.html',
   styleUrls: ['./modal-update-user.component.css']
 })
-export class ModalUpdateUserComponent implements OnDestroy {
+export class ModalUpdateUserComponent {
 
   // Strings
   close = 'Cerrar';
@@ -25,7 +25,6 @@ export class ModalUpdateUserComponent implements OnDestroy {
   update_form: FormGroup;
   submitted = false;
   error = '';
-  navigationSubscription;
 
   @Input()
   public data: UserInterface;
@@ -40,26 +39,7 @@ export class ModalUpdateUserComponent implements OnDestroy {
       current_user: ['', [Validators.required]],
       user: ['', [Validators.required]]
     });
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
-      if (e instanceof NavigationEnd) {
-        this.initialiseInvites();
-      }
-    });
-  }
-
-  initialiseInvites() {
-    let userData = JSON.parse(localStorage.getItem('user'));
-     userData.displayName = this.data.name;
-  }
-
-  ngOnDestroy() {
-    // avoid memory leaks here by cleaning up after ourselves. If we  
-    // don't then we will continue to run our initialiseInvites()   
-    // method on every navigationEnd event.
-    if (this.navigationSubscription) {
-      this.navigationSubscription.unsubscribe();
-    }
+    //this.title = `${this.title} ${this.data.name}`;
   }
 
   // Modal
@@ -88,10 +68,8 @@ export class ModalUpdateUserComponent implements OnDestroy {
   on_update_field() {
     this.authService.updateUser(this.update_form.controls['user'].value)
       .then(() => {
+        this.data.name = this.update_form.controls['user'].value;
         this.modalService.dismissAll();
-      })
-      .then(() => {
-        window.location.reload();
       });
   }
 

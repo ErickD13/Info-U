@@ -128,7 +128,8 @@ export class AuthService {
           .then((result_3) => {
             this.ngZone.run(() => {
               this.setUserData(result_3.user).then(() => {
-                this.router.navigate(['user/profile/update']).then(() => {
+                this.router.navigate(['user/profile/update'])
+                .then(() => {
                   this.spinner.hide();
                 });
               });
@@ -162,7 +163,7 @@ export class AuthService {
     });
   }
 
-  async updateAvatar(image){
+  async updateAvatar(image) {
     try {
       await this.afAuth.auth.currentUser.updateProfile({
         displayName: this.afAuth.auth.currentUser.displayName,
@@ -175,21 +176,28 @@ export class AuthService {
     }
   }
 
-  async updateUser(user){
+  async updateUser(username) {
+    this.spinner.show();
     try {
       await this.afAuth.auth.currentUser.updateProfile({
-        displayName: user,
+        displayName: username,
         photoURL: this.afAuth.auth.currentUser.photoURL
+      }).then(() => {
+        localStorage.setItem('user', JSON.stringify(this.userData));
+        JSON.parse(localStorage.getItem('user'));
+        this.spinner.hide();
+      }).then(() => {
+        window.alert('Usuario actualizado');
+      }).then (() => {
+        this.router.navigate(['user/profile/update']);
       });
-      this.setUserData(this.afAuth.auth.currentUser);
-      window.alert('Usuario actualizado');
     } catch (error) {
       this.spinner.hide();
       window.alert(error);
     }
   }
 
-  async updatePassword(password){
+  async updatePassword(password) {
     try {
       await this.afAuth.auth.currentUser.updatePassword(password);
       window.alert('Contraseña actualizada');
@@ -199,7 +207,7 @@ export class AuthService {
     }
   }
 
-  async updateEmail(email){
+  async updateEmail(email) {
     try {
       await this.afAuth.auth.currentUser.updateEmail(email);
       window.alert('Correo actualizado');
