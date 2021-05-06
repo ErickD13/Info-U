@@ -37,3 +37,9 @@ input[type="file"] {
     overflow: hidden;
     outline: none;
 }
+
+.edit_position {
+    position: relative;
+    top: -60px;
+    right: -30px;
+}

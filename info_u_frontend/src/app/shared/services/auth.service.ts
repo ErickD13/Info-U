@@ -37,24 +37,26 @@ export class AuthService {
   }
 
   // Sign in with email/password
-  async SignIn(email, password) {
+  async signIn(email, password) {
     this.spinner.show();
     try {
       const result_1 = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
       this.ngZone.run(() => {
-        this.setUserData(result_1.user).then(() => {
+        this.updateUserData(result_1.user).then(() => {
           this.router.navigate(['user/profile/update']).then(() => {
             this.spinner.hide();
           });
         });
       });
+      this.spinner.hide();
     } catch (error) {
+      this.spinner.hide();
       window.alert(error.message);
     }
   }
 
   // Sign up with email/password
-  async SignUp(email, password) {
+  async signUp(email, password) {
     this.spinner.show();
     try {
       const result_1 = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
@@ -66,6 +68,23 @@ export class AuthService {
         });
       });
     } catch (error) {
+      this.spinner.hide();
+      window.alert(error.message);
+    }
+  }
+
+  async register(email, password) {
+    this.spinner.show();
+    try {
+      const result_1 = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+      this.SendVerificationMail().then(() => {
+        this.setUserData(result_1.user).then(() => {
+          this.spinner.hide();
+          return result_1.user;
+        });
+      });
+    } catch (error) {
+      this.spinner.hide();
       window.alert(error.message);
     }
   }
@@ -127,11 +146,11 @@ export class AuthService {
         return this.afAuth.auth.currentUser.linkWithPopup(provider)
           .then((result_3) => {
             this.ngZone.run(() => {
-              this.setUserData(result_3.user).then(() => {
+              this.updateUserData(result_3.user).then(() => {
                 this.router.navigate(['user/profile/update'])
-                .then(() => {
-                  this.spinner.hide();
-                });
+                  .then(() => {
+                    this.spinner.hide();
+                  });
               });
             });
           }).catch((error2) => {
@@ -163,13 +182,61 @@ export class AuthService {
     });
   }
 
+  updateUserData(user) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    let currentUser = this.afAuth.auth.currentUser;
+    var id = currentUser.uid;
+    var email = currentUser.email;
+    var displayName = currentUser.displayName;
+    var photoURL = currentUser.photoURL;
+    var emailVerified = currentUser.emailVerified;
+    if (currentUser.uid != user.uid) id = user.uid;
+    if (currentUser.email != user.uid) email = user.email;
+    if (currentUser.displayName != user.displayName) displayName = user.displayName;
+    if (currentUser.photoURL != user.photoURL) photoURL = user.photoURL;
+    if (currentUser.emailVerified != user.emailVerified) emailVerified = user.emailVerified;
+    const userData: UserInterface = {
+      id: id,
+      email: email,
+      name: displayName,
+      photoURL: photoURL,
+      emailVerified: emailVerified
+    };
+    return userRef.set(userData, {
+      merge: true
+    });
+  }
+
+  async updateProfile(user, image) {
+    try {
+      await this.afAuth.auth.currentUser.updateProfile({
+        displayName: user,
+        photoURL: image
+      })
+        .then(() => {
+          localStorage.setItem('user', JSON.stringify(this.userData));
+          JSON.parse(localStorage.getItem('user'));
+        });
+    } catch (error) {
+      this.spinner.hide();
+      window.alert(error);
+    }
+  }
+
   async updateAvatar(image) {
     try {
       await this.afAuth.auth.currentUser.updateProfile({
         displayName: this.afAuth.auth.currentUser.displayName,
         photoURL: image
-      });
-      window.alert('Imagen actualizada');
+      })
+        .then(() => {
+          localStorage.setItem('user', JSON.stringify(this.userData));
+          JSON.parse(localStorage.getItem('user'));
+        }).then(() => {
+          window.alert('Imagen actualizada');
+        }).then(() => {
+          this.router.navigate(['user/profile/update']);
+        });
     } catch (error) {
       this.spinner.hide();
       window.alert(error);
@@ -182,15 +249,16 @@ export class AuthService {
       await this.afAuth.auth.currentUser.updateProfile({
         displayName: username,
         photoURL: this.afAuth.auth.currentUser.photoURL
-      }).then(() => {
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user'));
-        this.spinner.hide();
-      }).then(() => {
-        window.alert('Usuario actualizado');
-      }).then (() => {
-        this.router.navigate(['user/profile/update']);
-      });
+      })
+        .then(() => {
+          localStorage.setItem('user', JSON.stringify(this.userData));
+          JSON.parse(localStorage.getItem('user'));
+          this.spinner.hide();
+        }).then(() => {
+          window.alert('Usuario actualizado');
+        }).then(() => {
+          this.router.navigate(['user/profile/update']);
+        });
     } catch (error) {
       this.spinner.hide();
       window.alert(error);
@@ -199,8 +267,15 @@ export class AuthService {
 
   async updatePassword(password) {
     try {
-      await this.afAuth.auth.currentUser.updatePassword(password);
-      window.alert('Contraseña actualizada');
+      await this.afAuth.auth.currentUser.updatePassword(password)
+        .then(() => {
+          localStorage.setItem('user', JSON.stringify(this.userData));
+          JSON.parse(localStorage.getItem('user'));
+        }).then(() => {
+          window.alert('Contraseña actualizada');
+        }).then(() => {
+          this.router.navigate(['user/profile/update']);
+        });
     } catch (error) {
       this.spinner.hide();
       window.alert(error);
@@ -209,8 +284,15 @@ export class AuthService {
 
   async updateEmail(email) {
     try {
-      await this.afAuth.auth.currentUser.updateEmail(email);
-      window.alert('Correo actualizado');
+      await this.afAuth.auth.currentUser.updateEmail(email)
+        .then(() => {
+          localStorage.setItem('user', JSON.stringify(this.userData));
+          JSON.parse(localStorage.getItem('user'));
+        }).then(() => {
+          window.alert('Correo actualizado');
+        }).then(() => {
+          this.router.navigate(['user/profile/update']);
+        });
     } catch (error) {
       this.spinner.hide();
       window.alert(error);

@@ -53,17 +53,23 @@
     </form>
 </ng-template>
 
-<button class="btn btn-lg btn-light btn-block" (click)="open(content)">
+<button class="btn btn-light btn-circle" (click)="open(content)">
+    <em class="fas fa-edit rounded-circle"></em>
+</button>
+
+<!--
+    <button class="btn btn-primary btn-block btn-lg" (click)="open(content)">
     <div class="row no-gutters preview">
         <div class="col">
-            <p class="centery">{{title}}</p>
+            <img src="{{data.photoURL}}" class="centerxy rounded-circle img-thumbnail" alt="profile">
         </div>
         <div class="col-auto">
             <div class="centerxy">
-                <em class="fas fa-edit"></em>
+                <em class="fas fa-edit rounded-circle"></em>
             </div>
         </div>
     </div>
 </button>
+-->
 
 <pre>{{closeResult}}</pre>

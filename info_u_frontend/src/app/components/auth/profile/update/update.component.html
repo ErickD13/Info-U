@@ -9,20 +9,10 @@
                                 <img src="{{user.photoURL}}" class="centerxy rounded-circle img-thumbnail"
                                     alt="profile">
                             </div>
-                            <div class="row user-details">
-                                <div class="col-12">
-                                    <h5 *ngIf="providerId != 'password'">
-                                        {{user.name}}
-                                    </h5>
-                                    <p>
-                                        {{user.email}}
-                                    </p>
-                                </div>
-                            </div>
+                            <app-modal-update-avatar class="edit_position" [data]="user"></app-modal-update-avatar>
                             <app-modal-update-user [data]="user"></app-modal-update-user>
                             <app-modal-update-email [data]="user"></app-modal-update-email>
                             <app-modal-update-password [data]="user"></app-modal-update-password>
-                            <app-modal-update-avatar [data]="user"></app-modal-update-avatar>
                         </div>
                     </div>
                 </div>

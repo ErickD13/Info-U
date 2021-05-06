@@ -68,7 +68,11 @@ export class ModalUpdatePasswordComponent {
 
   // Business logic
   on_update_field() {
-    this.authService.updatePassword(this.update_form.controls['password'].value);
+    this.authService.updatePassword(this.update_form.controls['password'].value)
+      .then(() => {
+        this.data.password = this.update_form.controls['password'].value;
+        this.modalService.dismissAll();
+      });
   }
 
   onSubmit() {

@@ -79,7 +79,7 @@ export class RegisterComponent implements OnInit {
       // Is it a file?
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {          
+        fileEntry.file((file: File) => {
           // Here you can access the real file
           this.imageChangedEvent = { target: { files: [file] } }
           console.log(droppedFile.relativePath, file);
@@ -94,15 +94,15 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  public fileOver(event: any){
+  public fileOver(event: any) {
     console.log('file over', event);
   }
 
-  public fileLeave(event: any){
+  public fileLeave(event: any) {
     console.log('file leave', event);
   }
 
-  public setEvent(event: any){
+  public setEvent(event: any) {
     this.imageChangedEvent = event;
     console.log('set Event', event);
   }
@@ -144,24 +144,16 @@ export class RegisterComponent implements OnInit {
   }
 
   onAddUser() {
-    this.authService.SignUp(this.registerForm.controls['email'].value, this.registerForm.controls['password'].value)
-      .then((res) => {
-        this.authService.userData.subscribe(user => {
-          if (user) {
-            user.updateProfile({
-              displayName: this.registerForm.controls['name'].value,
-              photoURL: this.inputImageUser.nativeElement.value
-            }).then(() => {
-              this.router.navigate(['user/profile']);
-            }).catch(err => {
-              this.error = err.message;
-              console.log('upload photo error:', err);
-            });
-          }
-        });
-      }).catch(err => {
-        this.error = err.message;
-        console.log('email signup error:', err);
+    let user = this.authService.register(this.registerForm.controls['email'].value, this.registerForm.controls['password'].value)
+      .then(() => {
+        if (user) {
+          const ref = this.storage.ref(this.filePath);
+          const task = ref.putString(this.croppedImage.replace('data:image/png;base64,', ''), 'base64');
+          //this.storage.upload(this.filePath, this.croppedImage); // To upload a file
+          this.uploadPercent = task.percentageChanges();
+          task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
+          this.authService.updateProfile(this.registerForm.controls['name'].value, this.inputImageUser.nativeElement.value)
+        }
       });
   }
 

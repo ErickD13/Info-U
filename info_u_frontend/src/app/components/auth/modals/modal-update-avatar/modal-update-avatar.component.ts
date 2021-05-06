@@ -57,7 +57,7 @@ export class ModalUpdateAvatarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
   // Modal
@@ -85,7 +85,11 @@ export class ModalUpdateAvatarComponent implements OnInit {
   // Business logic
   on_update_field() {
     this.urlImage.subscribe(url => {
-      this.authService.updateAvatar(url);
+      this.authService.updateAvatar(url)
+        .then(() => {
+          this.data.photoURL = url;
+          this.modalService.dismissAll();
+        });
     });
   }
 

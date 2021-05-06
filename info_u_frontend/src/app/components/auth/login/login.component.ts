@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
   }
   
   onLogin(): void {
-    this.authService.SignIn(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value);
+    this.authService.signIn(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value);
   }
   
   onLoginGoogle(): void {

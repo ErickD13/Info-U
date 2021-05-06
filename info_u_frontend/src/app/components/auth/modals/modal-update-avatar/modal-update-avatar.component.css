@@ -15,8 +15,13 @@ a:link {
 
 .preview {
     white-space: pre-wrap;
-    height: 4rem;
+    height: 10rem;
     padding: 4px;
+}
+
+.preview .col > img {
+    height: 100px;
+    width: 100px;
 }
 
 input[type="file"] {
@@ -32,4 +37,14 @@ input[type="file"] {
     cursor: pointer;
     overflow: hidden;
     outline: none;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
 }

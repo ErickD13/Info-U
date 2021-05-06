@@ -65,7 +65,11 @@ export class ModalUpdateEmailComponent {
 
   // Business logic
   on_update_field() {
-    this.authService.updateEmail(this.update_form.controls['email'].value);
+    this.authService.updateEmail(this.update_form.controls['email'].value)
+      .then(() => {
+        this.data.email = this.update_form.controls['email'].value;
+        this.modalService.dismissAll();
+      });
   }
 
   onSubmit() {
