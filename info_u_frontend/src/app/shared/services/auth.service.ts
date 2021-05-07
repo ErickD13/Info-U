@@ -190,11 +190,11 @@ export class AuthService {
     var displayName = currentUser.displayName;
     var photoURL = currentUser.photoURL;
     var emailVerified = currentUser.emailVerified;
-    if (currentUser.uid != user.uid) id = user.uid;
-    if (currentUser.email != user.uid) email = user.email;
-    if (currentUser.displayName != user.displayName) displayName = user.displayName;
-    if (currentUser.photoURL != user.photoURL) photoURL = user.photoURL;
-    if (currentUser.emailVerified != user.emailVerified) emailVerified = user.emailVerified;
+    if (!currentUser.uid) id = user.uid;
+    if (!currentUser.email) email = user.email;
+    if (!currentUser.displayName) displayName = user.displayName;
+    if (!currentUser.photoURL) photoURL = user.photoURL;
+    if (!currentUser.emailVerified) emailVerified = user.emailVerified;
     const userData: UserInterface = {
       id: id,
       email: email,
