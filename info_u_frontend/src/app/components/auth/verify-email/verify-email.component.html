@@ -1,2 +1,22 @@
-<p>Revisa tu correo</p>
-<button onclick="reload">Recargar</button>
+<section id="verify" class="mb-5 mt-5 eAbajo200">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-6 mx-auto">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h2 class="text-center">{{welcome}}</h2>
+                        <img class="center50" src="{{email_image}}">
+                        <h4 class="text-center">{{description1}}</h4>
+                        <h5 class="text-center">{{description2}}</h5>
+                        <button type="button" class="btn btn-lg btn-outline-dark" (click)="reload()"><em
+                                class="fas fa-check-circle"></em> {{verify}}</button>
+                        <h5 class="text-center">{{description3}}</h5>
+                        <button type="button" class="btn btn-lg btn-primary" (click)="gotoLogin()"><em
+                                class="fas fa-sign-in-alt"></em>
+                            {{signin}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

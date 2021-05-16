@@ -46,7 +46,6 @@ export class ModalUpdateAvatarComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private router: Router,
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private storage: AngularFireStorage
@@ -57,7 +56,12 @@ export class ModalUpdateAvatarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.submitted = false;
+    this.error = '';
+    this.uploadPercent = null;
+    this.urlImage = null;
+    this.filePath = null;
+    this.files = [];
   }
 
   // Modal

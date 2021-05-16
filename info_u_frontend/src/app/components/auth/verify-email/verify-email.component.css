@@ -1,0 +1,12 @@
+img {
+    height: auto;
+    width: 10rem;
+}
+
+.btn-verify{
+    background: #3b5998;
+}
+
+.btn-login{
+    background: #0042d1;
+}

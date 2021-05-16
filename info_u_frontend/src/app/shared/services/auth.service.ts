@@ -100,8 +100,17 @@ export class AuthService {
 
   // Send email verfificaiton when new user sign up
   async SendVerificationMail() {
-    await this.afAuth.auth.currentUser.sendEmailVerification();
-    this.router.navigate(['user/verify']);
+    try {
+      this.spinner.show();
+      await this.afAuth.auth.currentUser.sendEmailVerification();
+      this.ngZone.run(() => {
+        this.router.navigate(['user/verify']);
+        this.spinner.hide();
+      });
+    } catch (error) {
+      this.spinner.hide();
+      window.alert(error);
+    }
   }
   //show sppiner
   // Reset Forggot password
