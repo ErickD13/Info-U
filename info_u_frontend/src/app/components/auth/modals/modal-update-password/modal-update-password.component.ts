@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalOptions, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { MustMatch } from 'src/app/helpers/must-match.validator';
 import { UserInterface } from 'src/app/shared/models/user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -20,6 +21,7 @@ export class ModalUpdatePasswordComponent {
   field_required = "La contraseña es requerida";
   field_invalid_1 = "La contraseña requiere almenos 6 carácteres";
   field_invalid_2 = "La contraseña requiere una mayúscula";
+  field_must_match = "Las contraseñas no coinciden"
   // Flags
   closeResult: string;
 
@@ -41,7 +43,7 @@ export class ModalUpdatePasswordComponent {
       current_password: ['', [Validators.required, Validators.minLength(6)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       password_confirmed: ['', [Validators.required, Validators.minLength(6)],]
-    });
+    }, { validators: MustMatch('password', 'password_confirmed') });
   }
 
   // Modal

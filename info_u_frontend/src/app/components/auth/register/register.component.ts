@@ -6,6 +6,7 @@ import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { Observable } from 'rxjs';
 import { finalize, take } from 'rxjs/operators';
+import { MustMatch } from 'src/app/helpers/must-match.validator';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -25,6 +26,7 @@ export class RegisterComponent implements OnInit {
   password_invalid_2 = "La contraseña requiere una mayúscula";
   password_invalid_3 = "La contraseña requiere 1 número";
   password_invalid_4 = "La contraseña requiere 1 caracter especial";
+  password_must_match = "Las contraseñas no coinciden"
   user_registered = "¿Ya posees una cuenta?";
   facebook = "Facebook";
   google = "Google";
@@ -50,9 +52,9 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      password: ['', [Validators.required, Validators.minLength(6)],],
-      password_required: ['', [Validators.required, Validators.minLength(6)],]
-    });
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      password_confirmed: ['', [Validators.required, Validators.minLength(6)]]
+    } , { validators: MustMatch('password', 'password_confirmed') });
   }
 
   // convenience getter for easy access to form fields
@@ -61,9 +63,12 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     // stop here if form is invalid
+    console.log("1");
     if (this.registerForm.invalid) {
+      console.log("No debe pasar por aquí");
       return;
     }
+    console.log("2");
     this.onAddUser();
   }
 

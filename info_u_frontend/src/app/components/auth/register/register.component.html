@@ -19,7 +19,7 @@
                                         placeholder="Correo" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
                                     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                                         <div *ngIf="f.email.errors.required">{{email_required}}</div>
-                                        <div *ngIf="f.email.errors.email">{{email_invalid}}</div>
+                                        <div *ngIf="f.email.errors.pattern">{{email_invalid}}</div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -32,12 +32,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" formControlName="password_required" class="form-control"
+                                    <input type="password" formControlName="password_confirmed" class="form-control"
                                         placeholder="Confirmar contraseña"
-                                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-                                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                                        <div *ngIf="f.password_required.errors.required">{{password_required}}</div>
-                                        <div *ngIf="f.password_required.errors.minlength">{{password_invalid_1}}</div>
+                                        [ngClass]="{ 'is-invalid': submitted && f.password_confirmed.errors }">
+                                    <div *ngIf="submitted && f.password_confirmed.errors" class="invalid-feedback">
+                                        <div *ngIf="f.password_confirmed.errors.required">{{password_required}}</div>
+                                        <div *ngIf="f.password_confirmed.errors.minlength">{{password_invalid_1}}</div>
+                                        <div *ngIf="f.password_confirmed.errors.mustMatch">{{password_must_match}}</div>
                                     </div>
                                 </div>
                                 <hr>
@@ -62,8 +63,7 @@
                                     <div *ngIf="(uploadPercent | async) == 100" class="row" style="margin-top: 5%;">
                                         <div class="text-center" style="width: 100%; height: 100%;">
                                             <h5>Crop Image</h5>
-                                            <image-cropper [imageChangedEvent]="imageChangedEvent"
-                                            imageDropEvent
+                                            <image-cropper [imageChangedEvent]="imageChangedEvent" imageDropEvent
                                                 [maintainAspectRatio]="true" [aspectRatio]="4 / 4" [resizeToWidth]="256"
                                                 [roundCropper]="true" format="png" (imageCropped)="imageCropped($event)"
                                                 (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
@@ -90,7 +90,8 @@
                                 </ng-template>
                                 <input #imageUser type="hidden" [value]="urlImage | async">
                                 <div class="form-group">
-                                    <a routerLink="/user/login" class="form-control register-user">{{user_registered}}</a>
+                                    <a routerLink="/user/login"
+                                        class="form-control register-user">{{user_registered}}</a>
                                 </div>
                                 <div class="form-group">
                                     <button type="button" class="btn btn-block btn-social btn-facebook"
