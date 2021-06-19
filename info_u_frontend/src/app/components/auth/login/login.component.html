@@ -28,8 +28,8 @@
                                 </div>
                                 <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
                                 <div class="form-group">
-                                    <a routerLink="/user/register" class="form-control login-user">Are you new ?</a>
-                                </div>                                
+                                    <a routerLink="/user/recovery" class="form-control login-user">{{password_recovery}}</a>
+                                </div>
                                 <div class="form-group">
                                     <button type="button" class="btn btn-block btn-social btn-facebook" (click)="onLoginFacebook()">
                                         <em class="fab fa-facebook-f"></em>
@@ -39,6 +39,9 @@
                                         <em class="fab fa-google"></em>
                                         Google
                                     </button>
+                                </div>
+                                <div class="form-group">
+                                    <a routerLink="/user/register" class="form-control login-user">{{existing_user}}</a>
                                 </div>
                             </form>
                         </div>

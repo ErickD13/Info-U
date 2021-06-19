@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   error = '';
+  existing_user = '¿Eres nuevo?';
+  password_recovery = '¿Olvidaste tu contraseña?';
   
   ngOnInit() {
     this.error = ''

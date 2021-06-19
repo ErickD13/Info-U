@@ -117,7 +117,7 @@ export class AuthService {
   async ForgotPassword(passwordResetEmail) {
     try {
       await this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail);
-      window.alert('Password reset email sent, check your inbox.');
+      window.alert('Se ha enviado a tu correo un enlace para reestablecer la contraseña.');
     } catch (error) {
       window.alert(error);
     }
