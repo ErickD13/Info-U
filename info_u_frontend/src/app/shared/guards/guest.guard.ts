@@ -7,8 +7,8 @@ import { AuthService } from '../services/auth.service';
   providedIn: 'root'
 })
 
-export class AuthGuard implements CanActivate {
-
+export class GuestGuard implements CanActivate {
+  
   constructor(
     public authService: AuthService,
     public router: Router
@@ -17,10 +17,10 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.authService.isLoggedIn) {
-      this.router.navigate(['user/login'])
+    if (!this.authService.isLoggedIn) {
+      this.router.navigate(['/'])
     }
     return true;
   }
-
+  
 }

@@ -26,11 +26,6 @@ export class UniversitiesComponent implements OnInit {
     this.innerWidth = window.innerWidth;
     this.universities(this.innerWidth);
     this.universities$ = this.dataSvc.getUniversities();
-    // Print observable
-    /*console.log('showing universities');
-    this.universities$.subscribe(obsUni => {
-      console.log(obsUni);
-    })*/
   }
 
   @HostListener('window:resize', ['$event'])

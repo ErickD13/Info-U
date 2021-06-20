@@ -1,11 +1,11 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalOptions, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { UserInterface } from 'src/app/shared/models/user.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   templateUrl: './modal-update-avatar.component.html',
   styleUrls: ['./modal-update-avatar.component.css']
 })
-export class ModalUpdateAvatarComponent implements OnInit {
+export class ModalUpdateAvatarComponent implements OnInit, OnDestroy {
 
   // Strings
   close = 'Cerrar';
@@ -44,6 +44,8 @@ export class ModalUpdateAvatarComponent implements OnInit {
   @ViewChild('fileInput', { static: true })
   inputFileInput: ElementRef;
 
+  subscription: Subscription
+
   constructor(
     private modalService: NgbModal,
     private authService: AuthService,
@@ -62,6 +64,10 @@ export class ModalUpdateAvatarComponent implements OnInit {
     this.urlImage = null;
     this.filePath = null;
     this.files = [];
+  }
+
+  ngOnDestroy(): void {
+    //this.subscription.unsubscribe();
   }
 
   // Modal
@@ -98,17 +104,11 @@ export class ModalUpdateAvatarComponent implements OnInit {
   }
 
   onSubmit() {
-    /*this.submitted = true;
-    // stop here if form is invalid
-    if (this.update_form.invalid) {
-      return;
-    }*/
     this.on_update_field();
   }
 
   //Drag and drop
   dropped(files: any) {
-    //this.imageChangedEvent = {target: {files: files}};
     console.log('finding event', this.imageChangedEvent);
     this.files = files;
     for (const droppedFile of files) {
@@ -176,7 +176,9 @@ export class ModalUpdateAvatarComponent implements OnInit {
     const ref = this.storage.ref(this.filePath);
     const task = this.storage.upload(this.filePath, file);
     this.uploadPercent = task.percentageChanges();
-    task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
+    this.subscription.add(
+      task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe()
+    );
   }
 
 }

@@ -1,10 +1,10 @@
-import { Component, ElementRef, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { finalize, take } from 'rxjs/operators';
 import { MustMatch } from 'src/app/helpers/must-match.validator';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -14,7 +14,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   // Strings
   register = "Registro";
@@ -46,15 +46,23 @@ export class RegisterComponent implements OnInit {
 
   filePath: string;
 
+  subscription: Subscription
+
   constructor(private router: Router, public authService: AuthService, private storage: AngularFireStorage, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.registerForm = this.formBuilder.group({
+    this.registerForm = this.formBuilder.group ({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       password_confirmed: ['', [Validators.required, Validators.minLength(6)]]
-    } , { validators: MustMatch('password', 'password_confirmed') });
+    }, {
+      validators: MustMatch('password', 'password_confirmed')
+    });
+  }
+
+  ngOnDestroy(): void {
+    //this.subscription.unsubscribe();
   }
 
   // convenience getter for easy access to form fields
@@ -156,7 +164,9 @@ export class RegisterComponent implements OnInit {
           const task = ref.putString(this.croppedImage.replace('data:image/png;base64,', ''), 'base64');
           //this.storage.upload(this.filePath, this.croppedImage); // To upload a file
           this.uploadPercent = task.percentageChanges();
-          task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
+          this.subscription.add(
+            task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe()
+          );
           this.authService.updateProfile(this.registerForm.controls['name'].value, this.inputImageUser.nativeElement.value)
         }
       });

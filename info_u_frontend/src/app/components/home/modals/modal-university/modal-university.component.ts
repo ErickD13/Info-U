@@ -30,24 +30,9 @@ export class ModalUniversityComponent {
 
   open(content: any, options?: NgbModalOptions) {
     this.opportunities$ = new Array();
-    /*
-    try {
-      this.opportunities.forEach(element => {
-        let item$ = this.dataSvc.getOpportunity(element);
-        item$.subscribe(obsItem => {
-          this.opportunities$.push(obsItem);
-        });
-      });
-    } catch (error) {
-      console.log('load opportunities from university error:', error);
-    }
-    */
     this.university.description = this.university.description.replace("&#34;", "\"");
-    //this.modalService.open(content, { size: 'lg', backdrop: 'static', ariaLabelledBy: 'modal-basic-title', windowClass : "myCustomModalClass"}).result.then((result) => {
     this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title', windowClass : "myCustomModalClass"}).result.then((result) => {
-      //this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
-      //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 

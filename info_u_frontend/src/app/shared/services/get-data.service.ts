@@ -36,7 +36,6 @@ export class GetDataService {
   }
 
   public getDescription(): Observable<ItemI[]> {
-    //this.spinner.show();
     return this.afs.collection('feature')
       .snapshotChanges()
       .pipe(
@@ -45,7 +44,6 @@ export class GetDataService {
             const data = a.payload.doc.data() as ItemI;
             const id = a.payload.doc.id;
             let result = { id, ...data };
-            //this.spinner.hide();
             return result;
           })
         )
@@ -53,7 +51,6 @@ export class GetDataService {
   }
 
   public getUniversities(): Observable<UniversityI[]> {
-    //this.spinner.show();
     return this.afs.collection('university')
       .snapshotChanges()
       .pipe(
@@ -62,7 +59,6 @@ export class GetDataService {
             const data = a.payload.doc.data() as UniversityI;
             const id = a.payload.doc.id;
             let result = { id, ...data };
-            //this.spinner.hide();
             return result;
           })
         )
@@ -70,7 +66,6 @@ export class GetDataService {
   }
 
   public getFaculties(): Observable<FacultyI[]> {
-    //this.spinner.show();
     return this.afs.collection('faculty')
       .snapshotChanges()
       .pipe(
@@ -79,7 +74,6 @@ export class GetDataService {
             const data = a.payload.doc.data() as FacultyI;
             const id = a.payload.doc.id;
             let result = { id, ...data };
-            //this.spinner.hide();
             return result;
           })
         )
@@ -87,7 +81,6 @@ export class GetDataService {
   }
 
   public getFaculties2(): Observable<FacultyI[]> {
-    //this.spinner.show();
     return this.afs.collection('faculty')
       .snapshotChanges()
       .pipe(
@@ -96,28 +89,13 @@ export class GetDataService {
             const data = a.payload.doc.data() as FacultyI;
             const id = a.payload.doc.id;
             let result = { id, ...data };
-            //this.spinner.hide();
             return result;
           })
         )
       )
   }
 
-  /*this.firestoreService.colWithIds$('restaurants').pipe(
-    switchMap((restaurants: any[]) => { 
-      const res = restaurants.map((r: any) => { 
-        return this.firestoreService
-          .col$(`restaurants/${r.id}/ratings`)
-          .pipe(
-            map(ratings => Object.assign(restaurant, {ratings}))
-          ); 
-        }); 
-      return combineLatest(...res); 
-    })
-    ).subscribe(restaurants => console.log(restaurants);*/
-
   public getOpportunities(): Observable<OpportunityI[]> {
-    //this.spinner.show();
     return this.afs.collection('opportunity')
       .snapshotChanges()
       .pipe(
@@ -126,7 +104,6 @@ export class GetDataService {
             const data = a.payload.doc.data() as OpportunityI;
             const id = a.payload.doc.id;
             let result = { id, ...data };
-            //this.spinner.hide();
             return result;
           })
         )
@@ -134,7 +111,6 @@ export class GetDataService {
   }
 
   public getHistories(): Observable<HistoryI[]> {
-    //this.spinner.show();
     return this.afs.collection('history')
       .snapshotChanges()
       .pipe(
@@ -143,7 +119,6 @@ export class GetDataService {
             const data = a.payload.doc.data() as HistoryI;
             const id = a.payload.doc.id;
             let result = { id, ...data };
-            //this.spinner.hide();
             return result;
           })
         )
@@ -151,7 +126,6 @@ export class GetDataService {
   }
 
   public getResearch(): Observable<ResearchI[]> {
-    //this.spinner.show();
     return this.afs.collection('research')
       .snapshotChanges()
       .pipe(
@@ -160,7 +134,6 @@ export class GetDataService {
             const data = a.payload.doc.data() as ResearchI;
             const id = a.payload.doc.id;
             let result = { id, ...data };
-            //this.spinner.hide();
             return result;
           })
         )
