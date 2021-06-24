@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/shared/guards/auth.guard';
-import { GuestGuard } from 'src/app/shared/guards/guest.guard';
-
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
 import { SurveysComponent } from './profile/surveys/surveys.component';
@@ -25,9 +23,9 @@ const routes: Routes = [{
     { path: 'recovery', redirectTo: '/user/recovery', pathMatch: 'full' },
     { path: 'recovery', component: RecoveryPasswordComponent, canActivate: [AuthGuard] },
     { path: 'profile/update', redirectTo: '/user/profile/update', pathMatch: 'full' },
-    { path: 'profile/update', component: UpdateComponent, canActivate: [GuestGuard] },
+    { path: 'profile/update', component: UpdateComponent, canActivate: [AuthGuard] },
     { path: 'profile/surveys', redirectTo: '/user/profile/surveys', pathMatch: 'full' },
-    { path: 'profile/surveys', component:  SurveysComponent, canActivate: [GuestGuard] }
+    { path: 'profile/surveys', component:  SurveysComponent, canActivate: [AuthGuard] }
   ]
 }];
 
