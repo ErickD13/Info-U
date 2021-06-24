@@ -80,8 +80,8 @@ export class AuthService {
     this.spinner.show();
     try {
       const result_1 = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
-      this.SendVerificationMail().then(() => {
-        this.setUserData(result_1.user).then(() => {
+      this.setUserData(result_1.user).then(() => {
+        this.SendVerificationMail().then(() => {
           this.spinner.hide();
           return result_1.user;
         });
