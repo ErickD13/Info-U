@@ -13,6 +13,18 @@
                             <app-modal-update-user [data]="user"></app-modal-update-user>
                             <app-modal-update-email [data]="user"></app-modal-update-email>
                             <app-modal-update-password [data]="user"></app-modal-update-password>
+                            <button class="btn btn-lg btn-light btn-block" (click)="onDelete()">
+                                <div class="row no-gutters preview">
+                                    <div class="col">
+                                        <p class="centery">{{deleteAccount}}</p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="centerxy">
+                                            <em class="fas fa-times"></em>
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
                         </div>
                     </div>
                 </div>

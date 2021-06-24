@@ -176,9 +176,9 @@ export class ModalUpdateAvatarComponent implements OnInit, OnDestroy {
     const ref = this.storage.ref(this.filePath);
     const task = this.storage.upload(this.filePath, file);
     this.uploadPercent = task.percentageChanges();
-    this.subscription.add(
-      task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe()
-    );
+    //this.subscription.add(
+      task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
+    //);
   }
 
 }

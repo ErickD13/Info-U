@@ -13,6 +13,12 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class UpdateComponent implements OnInit {
 
+  providerId: string = 'null';
+  update_form: FormGroup;
+  user: UserInterface = {};
+  deleteAccount = 'Eliminar cuenta';
+  confirmationMessage = '¿Estás seguro? Al eliminar tu cuenta no podrás recuperar tus datos.';
+
   constructor(
     public authService: AuthService,
     private storage: AngularFireStorage,
@@ -20,10 +26,6 @@ export class UpdateComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private router: Router
   ) { }
-  
-  providerId: string = 'null';
-  update_form: FormGroup;
-  user: UserInterface = {};
 
   ngOnInit() {
     this.update_form = this.formBuilder.group({
@@ -37,6 +39,12 @@ export class UpdateComponent implements OnInit {
     this.user.name = userData.displayName;
     this.user.photoURL = userData.photoURL;
     this.user.emailVerified = userData.emailVerified;
+  }
+
+  onDelete() {
+    if(confirm(this.confirmationMessage)) {
+      this.authService.deleteUser();
+    }
   }
 
 }

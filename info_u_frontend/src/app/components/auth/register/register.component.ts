@@ -164,9 +164,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
           const task = ref.putString(this.croppedImage.replace('data:image/png;base64,', ''), 'base64');
           //this.storage.upload(this.filePath, this.croppedImage); // To upload a file
           this.uploadPercent = task.percentageChanges();
-          this.subscription.add(
-            task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe()
-          );
+          //this.subscription.add(
+            task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
+          //);
           this.authService.updateProfile(this.registerForm.controls['name'].value, this.inputImageUser.nativeElement.value)
         }
       });

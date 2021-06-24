@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { setupTestingRouter } from '@angular/router/testing';
 import { auth } from 'firebase';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { windowCount } from 'rxjs/operators';
 import { UserInterface } from '../models/user.interface';
 
 @Injectable({
@@ -12,6 +14,7 @@ import { UserInterface } from '../models/user.interface';
 })
 export class AuthService {
   userData: any; // Save logged in user data
+  accountDeleted = 'Cuenta eliminada.'
 
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
@@ -92,9 +95,13 @@ export class AuthService {
   deleteUser() {
     var user = this.afAuth.auth.currentUser;
     user.delete().then(function () {
-      // User deleted.
+      if (confirm(this.accountDeleted)) {
+        this.signOut();
+      }
     }).catch(function (error) {
-      // An error happened.
+      if (confirm(error)) {
+        this.signOut();
+      }
     });
   }
 
@@ -143,41 +150,84 @@ export class AuthService {
     this.spinner.show();
     try {
       const result_1 = await this.afAuth.auth.signInWithPopup(provider);
+      console.log("result_1", result_1);
       this.ngZone.run(() => {
         this.setUserData(result_1.user).then(() => {
-          this.router.navigate(['user/profile/update']).then(() => {
-            this.spinner.hide();
-          });
+          if (result_1.user.emailVerified) {
+            this.router.navigate(['user/profile/update'])
+              .then(() => {
+                this.spinner.hide();
+                return result_1.user;
+              });
+          } else {
+            this.SendVerificationMail()
+          }
         });
       });
     } catch (error1) {
-      if (error1.code == 'auth/account-exists-with-different-credential') {
-        return this.afAuth.auth.currentUser.linkWithPopup(provider)
-          .then((result_3) => {
-            this.ngZone.run(() => {
-              this.updateUserData(result_3.user).then(() => {
-                this.router.navigate(['user/profile/update'])
+      console.log('error1', error1);
+      if (error1.email && error1.credential && error1.code === 'auth/account-exists-with-different-credential') {
+        const providers = await auth().fetchSignInMethodsForEmail(error1.email)
+        const firstPopupProviderMethod = providers.find(p => this.supportedPopupSignInMethods.includes(p));
+
+        // Test: Could this happen with email link then trying social provider?
+        if (!firstPopupProviderMethod) {
+          throw new window.alert(`El proveedor no es soportado`);
+        }
+        try {
+          const linkedProvider = this.getProvider(firstPopupProviderMethod);
+          linkedProvider.setCustomParameters({ login_hint: error1.email });
+
+          const result2 = await auth().signInWithPopup(linkedProvider);
+          result2.user.linkWithCredential(error1.credential)
+            .then(() => {
+              this.ngZone.run(() => {
+                this.updateUserData(result2.user)
                   .then(() => {
-                    this.spinner.hide();
+                    this.router.navigate(['user/profile/update'])
+                      .then(() => {
+                        this.spinner.hide();
+                        return result2.user;
+                      });
                   });
               });
             });
-          }).catch((error2) => {
-            this.spinner.hide();
-            console.log(error2);
-            window.alert('error2 ' + error2);
-          });
+        } catch (error2) {
+          this.spinner.hide();
+          console.log('error2', error2);
+          window.alert('error2 ' + error2);
+        }
+      } else {
+        this.spinner.hide();
+        window.alert('error1 ' + error1);
       }
-      this.spinner.hide();
-      console.log(error1);
-      window.alert('error1 ' + error1);
     }
   }
+
+  getProvider(providerId) {
+    switch (providerId) {
+      case auth.GoogleAuthProvider.PROVIDER_ID:
+        return new auth.GoogleAuthProvider();
+      case auth.FacebookAuthProvider.PROVIDER_ID:
+        return new auth.FacebookAuthProvider();
+      case auth.GithubAuthProvider.PROVIDER_ID:
+        return new auth.GithubAuthProvider();
+      default:
+        throw new Error(`No provider implemented for ${providerId}`);
+    }
+  }
+
+  supportedPopupSignInMethods = [
+    auth.GoogleAuthProvider.PROVIDER_ID,
+    auth.FacebookAuthProvider.PROVIDER_ID,
+    auth.GithubAuthProvider.PROVIDER_ID,
+  ];
 
   /* Setting up user data when sign in with username/password, 
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   setUserData(user) {
+    console.log("userinfo", user);
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const userData: UserInterface = {
       id: user.uid,
@@ -192,6 +242,7 @@ export class AuthService {
   }
 
   updateUserData(user) {
+    console.log("userinfo", user);
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     let currentUser = this.afAuth.auth.currentUser;
     var id = currentUser.uid;
@@ -309,7 +360,7 @@ export class AuthService {
   }
 
   // Sign out 
-  async SignOut() {
+  async signOut() {
     await this.afAuth.auth.signOut();
     localStorage.removeItem('user');
     this.router.navigate(['/']);

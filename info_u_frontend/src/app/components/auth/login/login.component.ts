@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
   }
   
   onLogout() {
-    this.authService.SignOut();
+    this.authService.signOut();
   }
   
   onLoginRedirect(): void {
