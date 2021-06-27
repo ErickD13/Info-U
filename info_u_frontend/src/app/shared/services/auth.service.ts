@@ -3,10 +3,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { setupTestingRouter } from '@angular/router/testing';
 import { auth } from 'firebase';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { windowCount } from 'rxjs/operators';
 import { UserInterface } from '../models/user.interface';
 
 @Injectable({
@@ -68,21 +66,6 @@ export class AuthService {
       this.SendVerificationMail().then(() => {
         this.setUserData(result_1.user).then(() => {
           this.spinner.hide();
-        });
-      });
-    } catch (error) {
-      this.spinner.hide();
-      window.alert(error.message);
-    }
-  }
-
-  async register(email, password) {
-    this.spinner.show();
-    try {
-      const result_1 = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
-      this.setUserData(result_1.user).then(() => {
-        this.SendVerificationMail().then(() => {
-          this.spinner.hide();
           return result_1.user;
         });
       });
@@ -94,15 +77,19 @@ export class AuthService {
 
   deleteUser() {
     var user = this.afAuth.auth.currentUser;
-    user.delete().then(function () {
-      if (confirm(this.accountDeleted)) {
-        this.signOut();
-      }
-    }).catch(function (error) {
-      if (confirm(error)) {
-        this.signOut();
-      }
-    });
+    let accountDeleted = 'Cuenta eliminada';
+    let localRouter = this.router;
+    user.delete()
+      .then(function () {
+        if (confirm(accountDeleted)) {
+          localRouter.navigate(['/']);
+        }
+      }).catch(function (error) {
+        console.log("error", error);
+        if (confirm(error)) {
+          localRouter.navigate(['/']);
+        }
+      });
   }
 
   // Send email verfificaiton when new user sign up
@@ -133,7 +120,10 @@ export class AuthService {
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null && user.emailVerified !== false) ? true : false;
+    if (user !== null && (user.emailVerified !== false || this.userData.emailVerified !== false)) {
+      return true
+    }
+    return false;
   }
 
   // Sign in with Google
@@ -149,21 +139,26 @@ export class AuthService {
   async AuthLogin(provider) {
     this.spinner.show();
     try {
-      const result_1 = await this.afAuth.auth.signInWithPopup(provider);
-      console.log("result_1", result_1);
-      this.ngZone.run(() => {
-        this.setUserData(result_1.user).then(() => {
+      await this.afAuth.auth.signInWithPopup(provider)
+        .then((result_1) => {
+          console.log("result_1", result_1);
           if (result_1.user.emailVerified) {
-            this.router.navigate(['user/profile/update'])
-              .then(() => {
-                this.spinner.hide();
-                return result_1.user;
-              });
+            console.log("result_1 verified", result_1);
+            this.ngZone.run(() => {
+              this.setUserData(result_1.user)
+                .then(() => {
+                  this.router.navigate(['user/profile/update'])
+                    .then(() => {
+                      this.spinner.hide();
+                      return result_1.user;
+                    });
+                });
+            });
           } else {
+            console.log("result_1 not verified", result_1);
             this.SendVerificationMail()
           }
         });
-      });
     } catch (error1) {
       console.log('error1', error1);
       if (error1.email && error1.credential && error1.code === 'auth/account-exists-with-different-credential') {
@@ -172,6 +167,7 @@ export class AuthService {
 
         // Test: Could this happen with email link then trying social provider?
         if (!firstPopupProviderMethod) {
+          this.spinner.hide();
           throw new window.alert(`El proveedor no es soportado`);
         }
         try {
@@ -227,7 +223,6 @@ export class AuthService {
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   setUserData(user) {
-    console.log("userinfo", user);
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const userData: UserInterface = {
       id: user.uid,
@@ -236,13 +231,13 @@ export class AuthService {
       photoURL: user.photoURL,
       emailVerified: user.emailVerified
     };
+    this.userData = userData;
     return userRef.set(userData, {
       merge: true
     });
   }
 
   updateUserData(user) {
-    console.log("userinfo", user);
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     let currentUser = this.afAuth.auth.currentUser;
     var id = currentUser.uid;

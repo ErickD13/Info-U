@@ -157,7 +157,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   onAddUser() {
-    let user = this.authService.register(this.registerForm.controls['email'].value, this.registerForm.controls['password'].value)
+    let user = this.authService.signUp(this.registerForm.controls['email'].value, this.registerForm.controls['password'].value)
       .then(() => {
         if (user) {
           const ref = this.storage.ref(this.filePath);

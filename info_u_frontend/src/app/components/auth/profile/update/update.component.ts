@@ -42,7 +42,7 @@ export class UpdateComponent implements OnInit {
   }
 
   onDelete() {
-    if(confirm(this.confirmationMessage)) {
+    if (confirm(this.confirmationMessage)) {
       this.authService.deleteUser();
     }
   }
